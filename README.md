@@ -32,18 +32,45 @@ A través de una **aplicación interactiva en Python (Tkinter + Matplotlib)**, s
 - **Matplotlib**
 - **Tkinter** (incluido por defecto en la instalación estándar de Python en Windows)
 
-### Instalación de dependencias (si no las tienes):
-```bash
-pip install numpy matplotlib
-```
+Las dependencias están listadas en [requirements.txt](requirements.txt) y se instalan dentro de un entorno virtual (`venv`).
+
 ---
 
-## Cómo Ejecutar la Aplicación
+## Cómo Ejecutar la Aplicación (con venv)
 
-Abre una terminal (PowerShell o CMD) en la carpeta del proyecto y ejecuta:
+1. **Abre una terminal** (PowerShell) en la carpeta del proyecto.
 
-```bash
-python main.py
+2. **Crea el entorno virtual** (solo la primera vez):
+   ```powershell
+   python -m venv venv
+   ```
+
+3. **Actívalo:**
+   ```powershell
+   .\venv\Scripts\Activate.ps1
+   ```
+   > Si PowerShell bloquea el script, ejecuta una vez:
+   > `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
+   > En CMD usa `venv\Scripts\activate.bat`. En Linux/macOS: `source venv/bin/activate`.
+
+4. **Instala las dependencias** (solo la primera vez):
+   ```powershell
+   pip install -r requirements.txt
+   ```
+
+5. **Ejecuta la aplicación:**
+   ```powershell
+   python main.py
+   ```
+
+6. **Al terminar**, desactiva el entorno con `deactivate`.
+
+Las siguientes veces solo necesitas los pasos 1, 3 y 5.
+
+**Opcional:** para regenerar el PDF y la presentación, con el entorno activo:
+```powershell
+python generate_pdf.py
+python create_presentation.py
 ```
 
 ---
