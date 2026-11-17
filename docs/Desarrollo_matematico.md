@@ -218,10 +218,19 @@ Esta es la pregunta conceptual clave que la profesora suele hacer en la sustenta
    Aparecen funciones armónicas periódicas ($\sin$ y $\cos$).  
    Al derivar, la velocidad $x'(t)$ contiene el factor $\sin(\beta t)$, el cual **se anula periódicamente** cada vez que $\beta t = k\pi$ ($t = \frac{\pi}{\beta}, \frac{2\pi}{\beta}, \dots$). En esos instantes la velocidad cambia de signo; la masa se pasa de la meta, frena, la fuerza elástica la hace devolverse y **rebota sucesivamente** bajo la envolvente disipativa $e^{-\alpha t}$.
 
+   **Velocidad explícita (partiendo del reposo, $u(0)=-1$, $u'(0)=0$):** al derivar $u(t) = e^{-\alpha t}[C_1\cos\beta t + C_2\sin\beta t]$ y usar $C_1 = -1$, $C_2 = -\alpha/\beta$, los términos en coseno se cancelan y queda
+   $$x'(t) = \frac{\omega^2}{\beta}\, e^{-\alpha t}\,\sin(\beta t)$$
+   Como $e^{-\alpha t} > 0$, el signo de $x'$ lo decide solo $\sin(\beta t)$: positivo en $0 < t < \pi/\beta$, negativo en $\pi/\beta < t < 2\pi/\beta$, y así sucesivamente. En $t_p = \pi/\beta$ la posición es máxima y vale
+   $$x(t_p) = 1 + e^{-\alpha\pi/\beta} \implies M_p = 100\, e^{-\pi\zeta/\sqrt{1-\zeta^2}}\ \%$$
+   (para $\zeta = 0.3$: $M_p = 37.23\%$, que coincide con la simulación).
+
 2. **En los casos Crítico y Sobreamortiguado ($\zeta \ge 1$):**
-   Las raíces son **estrictamente reales** ($\text{Im}(r) = 0$).  
-   La solución está formada exclusivamente por funciones exponenciales monótonas decrecientes $e^{-\lambda t}$.  
-   Para un sistema que parte del reposo ($x(0)=0, x'(0)=0$), se demuestra analíticamente que la velocidad $x'(t) > 0$ para todo $t > 0$. Como la velocidad nunca cambia de signo, el objeto avanza siempre hacia adelante acercándose a la meta sin sobrepasarla jamás ($x(t) \le x_f$). **Por ende, es físicamente imposible que rebote.**
+   Las raíces son **estrictamente reales** ($\text{Im}(r) = 0$), así que no aparecen $\sin$ ni $\cos$: la solución es una combinación de exponenciales reales.
+   Partiendo del reposo, la velocidad se puede escribir explícitamente y su signo se ve a simple vista:
+   - **Crítico** ($r_1 = r_2 = -\omega$): $x'(t) = \omega^2\, t\, e^{-\omega t}$. Para $\omega = 8$: $x'(t) = 64\,t\,e^{-8t} > 0$ para todo $t > 0$.
+   - **Sobreamortiguado** ($r_1 > r_2$, ambas negativas): $x'(t) = \dfrac{\omega^2}{r_1 - r_2}\left(e^{r_1 t} - e^{r_2 t}\right)$. Como $r_1 > r_2$, se cumple $e^{r_1 t} > e^{r_2 t}$ para todo $t > 0$, y por tanto $x'(t) > 0$. Para $\zeta = 2,\ \omega = 8$: $x'(t) = \dfrac{64}{16\sqrt3}\left(e^{-2.1436t} - e^{-29.8564t}\right) > 0$.
+
+   Como la velocidad nunca cambia de signo, $x(t)$ crece siempre hacia $x_f$ sin alcanzarlo en tiempo finito, es decir $x(t) < x_f$ para todo $t$. **No existe ningún instante en que el objeto se pase de la meta: no hay rebote.**
 
 ---
 
@@ -237,6 +246,10 @@ $$x_{k+1} = x_k + (x_f - x_k) \cdot 0.1$$
 - **El Resorte es una EDO de Segundo Orden ($x''$):**  
   Posee **masa y acelera**. Almacena energía cinética ($E_k = \frac{1}{2}m v^2$) que se intercambia con la energía elástica ($E_p = \frac{1}{2}k \Delta x^2$). Esto le permite llegar a la meta con velocidad real, generando rebotes elásticos o frenadas con peso físico orgánico.
 
+### Dos diferencias que se pueden comprobar con números
+1. **Arranque.** El lerp tiene solución $x_k = x_f\,(1 - 0.9^k)$: en el primer cuadro ya avanza $0.1\,(x_f - x_0)$, es decir, **arranca con velocidad máxima** (6 m/s para $x_f = 1$ a 60 cuadros/s). El resorte parte con $x'(0) = 0$ y $x''(0) = \omega^2 (x_f - x_0)$: **acelera desde el reposo** (arranque suave).
+2. **Dependencia del dispositivo.** El lerp usa el factor $0.1$ *por cuadro*: se asienta al 2 % en $k = \ln 0.02/\ln 0.9 \approx 37$ cuadros ($\approx 0.62$ s a 60 fps, pero $\approx 0.26$ s a 144 fps). El resorte está definido en segundos ($\omega$ en rad/s), por lo que se comporta igual en cualquier pantalla si se integra con paso fijo.
+
 ---
 
 ## 7. Criterios de Selección de Parámetros en Videojuegos e Interfaces (Game Feel)
@@ -246,6 +259,18 @@ $$x_{k+1} = x_k + (x_f - x_k) \cdot 0.1$$
 | **Cámara de Videojuego** | $\zeta = 1.0$ (Crítico) | Debe perseguir al personaje con la máxima velocidad posible sin sobrepasarlo. Si $\zeta < 1$, la cámara oscilaría adelante y atrás provocando mareo visual (*motion sickness*). |
 | **Menús y Botones UI** | $\zeta \approx 0.5$ (Subamortiguado) | Un sobreimpulso elástico moderado ($\sim 16\%$) genera una respuesta táctil viva y reactiva (*juiciness*), simulando plasticidad física tal como hace Apple en iOS y Google en Material Design. |
 | **Barra de Vida RPG** | $\zeta \approx 2.0$ (Sobreamortiguado) | El descenso de salud debe sentirse definitivo, pesado y visceral. Si fuera subamortiguada, la barra caería de más y rebotaría hacia arriba, simulando falsamente que el jugador recuperó vida tras recibir un impacto. |
+
+### Parámetros usados en la aplicación (ver pestaña «Aplicaciones»)
+
+El sobreimpulso depende solo de $\zeta$; el tiempo de asentamiento escala como $1/\omega$ (se elige $\omega$ según qué tan rápido debe sentirse el elemento).
+
+| Elemento | $\zeta$ | $\omega$ (rad/s) | Sobreimpulso $M_p$ | Primer pico $t_p$ | Asentamiento $t_s$ (2 %) |
+|---|:---:|:---:|:---:|:---:|:---:|
+| Cámara | 1.0 | 6 | 0 % | — | $5.83/\omega \approx 0.97$ s |
+| Menú | 0.5 | 10 | 16.3 % (≈ 36 px de 220 px) | $\pi/\beta \approx 0.36$ s | $\ln 50/\alpha \approx 0.78$ s |
+| Barra de vida | 2.0 | 8 | 0 % | — | $\approx 1.86$ s (modo lento $r_1 = -2.1436$) |
+
+**Nota sobre la cámara.** La solución exacta deducida arriba vale para un destino $x_f$ **constante** (un salto). Cuando el personaje se mueve de forma continua, $x_f$ cambia con el tiempo y la ecuación pasa a ser no homogénea con $g(t) = \omega^2 x_f(t)$; por eso la comparación con la exacta se hace en el laboratorio con saltos del destino, y en la cámara se observa el mismo comportamiento (retraso y rebote) en cada cambio de dirección.
 
 ---
 
@@ -259,6 +284,12 @@ Implementamos el algoritmo Runge-Kutta de orden 4 (RK4) con 4 evaluaciones de pe
 ### Verificación de Precisión Absoluta:
 Evaluando la solución numérica frente a la analítica exacta deducida a mano en el mismo vector de tiempos:
 $$|x_{\text{num}}(t) - x_{\text{exacta}}(t)| < 1.93 \times 10^{-10}\text{ m}$$
+
+(máximo sobre $0 \le t \le 3$ s para $\zeta = 0.3,\ 1,\ 2$; la pestaña «Verificación» lo calcula en vivo).
+
+### ¿Por qué no son idénticas?
+La solución exacta es una fórmula; la numérica avanza por pasos y comete un error local $O(h^5)$ que se acumula en un error global $O(h^4)$. En la pestaña «Verificación» se midió la pendiente log-log del error máximo contra $h$ y resultó $\approx 4$: al dividir $h$ entre 2, el error baja unas 16 veces. Con $h$ muy pequeño aparece un piso de redondeo de punto flotante ($\sim 10^{-15}$ m).
+La animación en vivo usa $h = 1/240$ s fijo (error $\approx 10^{-8}$ m, invisible a simple vista), y **no** el `deltaTime` del navegador, que varía y arruinaría la comparación.
 
 Esto cumple a cabalidad con la regla dorada de la asignatura:
 > *"Primero la matemática, después el programa. El programa no reemplaza la solución analítica: la verifica."*
