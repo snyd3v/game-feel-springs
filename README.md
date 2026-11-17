@@ -1,119 +1,76 @@
-# Game Feel Springs
+# Resortes para animar: el «game feel»
 
-## Descripción del Proyecto
-Este proyecto implementa y analiza el modelo físico-matemático de un **oscilador armónico amortiguado de segundo orden** aplicado a la animación de interfaces gráficas modernas y motores de videojuegos (*Game Feel*):
+Proyecto 4 · Ecuaciones Diferenciales, Unidad 3 · Institución Universitaria Colegio Mayor del Cauca
 
-$$x''(t) + 2\zeta\omega x'(t) + \omega^2 (x(t) - x_f) = 0$$
+**Grupo 4:** Edwin Esneider Burbano Luna · Cristian Alexis Chantre Hurtado · Luis Eduardo Hurtado Hormiga · Andrés Felipe Suaza Cerón
 
-A través de una **aplicación interactiva en Python (Tkinter + Matplotlib)**, se demuestra la superioridad del modelo físico de segundo orden frente a la interpolación lineal clásica de primer orden (`x += (destino - x) * 0.1`), se verifica la exactitud del integrador numérico Runge-Kutta de orden 4 (RK4) frente a la solución analítica deducida a mano, y se ilustran en tiempo real las tres aplicaciones prácticas exigidas por la guía:
-1. **Cámara Cinematográfica ($\zeta = 1.0$ Crítico):** Seguimiento suave sin oscilaciones ni mareo visual (*motion sickness*).
-2. **Menú / Modal Desplegable UI ($\zeta = 0.5$ Subamortiguado):** Rebote elástico del $\sim 16\%$ para lograr una interfaz viva y responsiva (*juiciness*).
-3. **Barra de Vida RPG ($\zeta = 2.0$ Sobreamortiguado):** Descenso con peso y contundencia, sin rebote falso que simule curación.
+## El modelo
 
-### El modelo en pocas palabras
-- **ω** controla la *rapidez* del movimiento.
-- **ζ** controla su *carácter*:
-  - **ζ < 1** (subamortiguado): rebota.
-  - **ζ = 1** (crítico): llega a la meta lo más rápido posible sin rebotar.
-  - **ζ > 1** (sobreamortiguado): llega lento y pesado.
+Si `x(t)` es la posición del elemento animado y `x_f` su destino:
 
-### Qué incluye
-- Solución analítica a mano para $\zeta = 0.3,\ 1\ \text{y}\ 2$, con $\omega = 8$.
-- Simulación numérica (RK4) superpuesta a la solución exacta.
-- Animación interactiva con deslizadores para $\omega$ y $\zeta$.
-- Comparación contra la interpolación lineal clásica (`x += (destino - x) * 0.1`).
-- Tres aplicaciones: cámara, menú y barra de vida.
-
----
-
-## Requisitos del Sistema
-- **Python 3.10 o superior**
-- **NumPy**
-- **Matplotlib**
-- **Tkinter** (incluido por defecto en la instalación estándar de Python en Windows)
-
-Las dependencias están listadas en [requirements.txt](requirements.txt) y se instalan dentro de un entorno virtual (`venv`).
-
----
-
-## Cómo Ejecutar la Aplicación (con venv)
-
-1. **Abre una terminal** (PowerShell) en la carpeta del proyecto.
-
-2. **Crea el entorno virtual** (solo la primera vez):
-   ```powershell
-   python -m venv venv
-   ```
-
-3. **Actívalo:**
-   ```powershell
-   .\venv\Scripts\Activate.ps1
-   ```
-   > Si PowerShell bloquea el script, ejecuta una vez:
-   > `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
-   > En CMD usa `venv\Scripts\activate.bat`. En Linux/macOS: `source venv/bin/activate`.
-
-4. **Instala las dependencias** (solo la primera vez):
-   ```powershell
-   pip install -r requirements.txt
-   ```
-
-5. **Ejecuta la aplicación:**
-   ```powershell
-   python main.py
-   ```
-
-6. **Al terminar**, desactiva el entorno con `deactivate`.
-
-Las siguientes veces solo necesitas los pasos 1, 3 y 5.
-
-**Opcional:** para regenerar el PDF y la presentación, con el entorno activo:
-```powershell
-python generate_pdf.py
-python create_presentation.py
+```
+x'' + 2ζω x' + ω² (x − x_f) = 0
 ```
 
----
+- `x''` inercia · `2ζω x'` amortiguador viscoso · `ω² (x − x_f)` resorte (ley de Hooke) hacia el destino.
+- `ω` controla la **rapidez**, `ζ` el **carácter**: ζ < 1 rebota, ζ = 1 llega lo más rápido sin rebotar, ζ > 1 llega lento y pesado.
+- Con `u = x − x_f` la ecuación queda homogénea: `u'' + 2ζω u' + ω² u = 0`.
 
-## Estructura y Navegación de la Aplicación
+La deducción a mano (ecuación característica, solución general, condiciones iniciales, ζ = 0.3, 1 y 2 con ω = 8) está en
+[docs/Desarrollo_matematico.pdf](docs/Desarrollo_matematico.pdf) / [.md](docs/Desarrollo_matematico.md).
+**El programa verifica esa solución, no la reemplaza.**
 
-La aplicación cuenta con una interfaz gráfica oscura, moderna y dividida en 3 pestañas:
+## Cómo ejecutarlo
 
-### 1. Laboratorio Game Feel (Pantalla Partida & Verificación)
-- **Pista Superior (Resorte de 2º Orden):** Muelle helicoidal visible dinámico, masa física, vector velocidad instantánea y marcador de sobreimpulso máximo.
-- **Pista Inferior (Interpolación Lineal de 1er Orden):** Ilustra por qué la fórmula clásica `x += (destino - x) * 0.1` carece de inercia, desacelera asintóticamente y nunca rebota.
-- **Interactividad en Vivo:** Haz clic en cualquier punto de la pista para enviar ambos objetos a la meta, o usa los botones rápidos ($0.0\text{ m}, 0.5\text{ m}, 1.0\text{ m}, 1.4\text{ m}$).
-- **Deslizadores:** Modifica en tiempo real la rapidez $\omega$ y el amortiguamiento $\zeta$, o pulsa los preajustes de la guía ($\zeta = 0.3, 0.5, 1.0, 2.0$).
-- **Gráfica 1 (Comparativa en Vivo):** Superpone las trayectorias temporales $x(t)$ del resorte vs Lerp.
-- **Gráfica 2 (Verificación de Precisión Numérica):** Superpone la simulación numérica RK4 con la solución analítica exacta deducida a mano, mostrando en pantalla el error residual $\Delta \approx 10^{-11}\text{ m}$.
+Requiere Python 3.10 o superior.
 
-### 2. Tres Casos Reales en Videojuegos e Interfaces
-- **Caso 1 (Cámara):** Escena 2D con un personaje controlable y una cámara elástica. Permite alternar entre $\zeta = 1.0$ (suavidad óptima), $\zeta = 0.25$ (efecto mareo por oscilación) y $\zeta = 2.5$ (rezagada), con su gráfica $x_{\text{jugador}}(t)$ vs $x_{\text{cámara}}(t)$.
-- **Caso 2 (Menú UI):** Pantalla de smartphone con tarjeta modal emergente que rebota elásticamente ($\zeta = 0.5$) al abrirse, junto a su gráfica vertical $y(t)$.
-- **Caso 3 (Barra de Vida RPG):** HUD de combate con botones de daño (-20 HP, -45 HP) y curación. Incluye una demostración de ingeniería de por qué una barra de vida jamás debe ser subamortiguada (evita falsos rebotes de curación).
+```powershell
+python -m venv venv                 # solo la primera vez
+.\venv\Scripts\Activate.ps1         # Linux/macOS: source venv/bin/activate
+pip install -r requirements.txt     # solo la primera vez
+python app.py
+```
 
-### 3. Solución Analítica & Guía de Sustentación
-- Procedimiento paso a paso: transformación a homogénea $u = x - x_f$, ecuación característica, raíces y deducción de constantes para $\zeta = 0.3$, $\zeta = 1.0$ y $\zeta = 2.0$.
-- Demostración rigurosa de por qué $\zeta < 1$ produce rebote (raíces complejas conjugadas y fórmula de Euler) y $\zeta \ge 1$ no.
-- Métricas de ingeniería ($M_p$ sobreimpulso y $t_s$ tiempo de asentamiento).
-- Reparto de roles para la exposición de 15 minutos entre los cuatro integrantes.
+Abre **http://localhost:5000**. Para detener el servidor: `Ctrl + C`. No necesita internet (Chart.js está incluido en `static/vendor/`).
 
----
+Pruebas automáticas de la matemática (solución exacta, RK4, orden de convergencia):
 
-## Declaración sobre el uso de Asistentes de Inteligencia Artificial
-En cumplimiento estricto con la directiva docente indicada en la página 11 de la guía de proyectos (*«Sobre el uso de asistentes de inteligencia artificial: Primera: declárenlo en el README... Segunda: respondan por lo que entregan»*):
+```powershell
+python -m pytest tests
+```
 
-- **Herramienta utilizada:** Asistente de IA (Gemini / Antigravity de Google DeepMind).
-- **Finalidad y alcance:** Se empleó como apoyo para el diseño arquitectónico de la interfaz gráfica interactiva en Tkinter/Matplotlib, optimización del algoritmo RK4 a 60 FPS, redacción estructurada de la deducción matemática en Markdown y organización de las diapositivas de sustentación.
-- **Compromiso del grupo:** Todos los integrantes del Grupo 4 revisaron, verificaron numéricamente y comprenden a cabalidad cada línea de código y cada paso de la deducción analítica, estando completamente preparados para defender el trabajo en la sesión de exposición.
+## Qué hay en la aplicación
 
----
+| Sección | Qué muestra | Requisito de la guía |
+|---|---|---|
+| **1 · Laboratorio** | Pantalla partida resorte vs. `x += (destino − x)·0.1`. Clic para mover el destino (los objetos viajan desde donde están), deslizadores de ω y ζ en vivo, gráfica x(t) con la curva exacta superpuesta, régimen, raíces, sobreimpulso y tiempo de asentamiento. | Animación interactiva, deslizadores, comparación con lerp |
+| **2 · Verificación** | Para ζ = 0.3, 1 y 2 (ω = 8, x(0) = 0, x′(0) = 0, x_f = 1): RK4 y solución exacta superpuestas, gráfica del error, tabla de errores máximos y estudio de convergencia en h. | Gráfica numérica vs. exacta y comentario de la diferencia |
+| **3 · Aplicaciones** | Cámara (ζ = 1), menú (ζ = 0.5) y barra de vida (ζ = 2), cada una con su animación, su x(t) al lado y la justificación calculada. | Tres aplicaciones con ζ distinto |
+| **4 · Conclusión** | Tabla de parámetros elegidos con sobreimpulso y tiempo de asentamiento, recomendación y enlace a la deducción a mano. | Conclusión de ingeniería |
 
-## Contenido del Repositorio
-- `main.py`: Código fuente completo de la aplicación interactiva con interfaz gráfica, simulación RK4 y visualización de Game Feel.
-- `Desarrollo_matematico.md`: Documento formal con la deducción analítica paso a paso, ecuaciones características, cálculo de constantes y justificaciones de diseño.
-- `Desarrollo_matematico.pdf`: Versión en documento PDF del desarrollo matemático.
-- `Presentacion_Proyecto_4.pptx`: Presentación con las diapositivas para la exposición de 15 minutos.
-- `generate_pdf.py`: Script que genera `Desarrollo_matematico.pdf` (requiere `reportlab`). Ejecutar con `python generate_pdf.py`.
-- `create_presentation.py`: Script que genera `Presentacion_Proyecto_4.pptx` (requiere `python-pptx`). Ejecutar con `python create_presentation.py`.
-- `README.md`: Este archivo con las instrucciones de instalación, uso y defensa.
+### Decisiones de implementación
+
+- **Sistema de primer orden:** `x' = v`, `v' = −2ζω v − ω²(x − x_f)`, integrado con **Runge-Kutta 4**.
+- **Paso fijo.** La animación usa `h = 1/240 s` con un acumulador de tiempo, no el `deltaTime` del navegador; así la curva numérica es comparable con la exacta.
+- **Verificación en el mismo vector de tiempos.** El servidor (`/api/verify`) evalúa RK4 y la solución exacta en los mismos instantes. Con `h = 0.001 s` el error máximo es ≈ 4·10⁻¹¹ m (ζ = 0.3 y 1) y 1.9·10⁻¹⁰ m (ζ = 2); con `h = 1/240 s`, del orden de 10⁻⁸ m. Es el error global de RK4 (∝ h⁴), medido en la sección 2.
+- **Overlay exacto en vivo.** En el laboratorio, cada clic o cambio de ω/ζ re-ancla la solución exacta con la posición y velocidad de ese instante, de modo que la verificación sigue vigente aunque se interactúe.
+
+## Estructura del repositorio
+
+```
+app.py              servidor Flask: página + API de verificación (numpy)
+physics.py          motor: aceleración, RK4, solución exacta, métricas
+tests/              pytest de physics.py
+static/             interfaz (HTML, CSS, JS); js/physics.js es el mismo modelo en el navegador
+docs/               deducción a mano (PDF y Markdown)
+legacy/             versión anterior en Tkinter y generadores de PDF/PPTX (ya no se usan)
+```
+
+API: `GET /api/verify?zeta=&omega=&h=&T=` · `GET /api/convergence?zeta=&omega=` · `GET /api/metrics?zeta=&omega=`.
+
+## Declaración sobre el uso de asistentes de inteligencia artificial
+
+- **Gemini / Antigravity (Google DeepMind):** versión inicial en Tkinter/Matplotlib, estructura de la deducción en Markdown y de las diapositivas (hoy en `legacy/`).
+- **Claude Code (Anthropic):** migración a la aplicación web (Flask + JavaScript), reorganización del repositorio, API de verificación, pruebas con pytest y esta documentación.
+
+La parte analítica se hizo a mano; el grupo revisó y puede explicar el código y cada paso de la deducción.

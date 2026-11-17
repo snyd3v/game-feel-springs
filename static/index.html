@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resortes para animar · Game feel</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Resortes para animar</h1>
+      <p>Ecuaciones diferenciales de segundo orden · Proyecto 4</p>
+    </div>
+    <nav class="tabs" id="main-tabs" role="tablist">
+      <button class="tab active" data-view="lab" role="tab">Laboratorio</button>
+      <button class="tab" data-view="verify" role="tab">Verificación</button>
+      <button class="tab" data-view="cases" role="tab">Aplicaciones</button>
+      <button class="tab" data-view="conclusion" role="tab">Conclusión</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ LABORATORIO ============ -->
+    <section class="view active" id="view-lab">
+      <div class="card model">
+        <div class="equation">x″ + 2ζω·x′ + ω²·(x − x<sub>f</sub>) = 0</div>
+        <dl class="terms">
+          <div><dt>x″</dt><dd>inercia</dd></div>
+          <div><dt>2ζω·x′</dt><dd>amortiguador</dd></div>
+          <div><dt>ω²·(x − x<sub>f</sub>)</dt><dd>resorte hacia el destino</dd></div>
+          <div><dt>ω · ζ</dt><dd>rapidez · carácter</dd></div>
+        </dl>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h2>Resorte vs. interpolación lineal</h2>
+          <p class="hint">Haz clic en la pista para mover el destino.</p>
+          <canvas id="lab-canvas" class="stage" height="320"></canvas>
+          <div class="controls">
+            <label class="slider">
+              <span>Rapidez ω <small>rad/s</small></span>
+              <input type="range" id="lab-omega" min="2" max="20" step="0.5" value="8">
+              <output id="lab-omega-val">8.0</output>
+            </label>
+            <label class="slider">
+              <span>Amortiguamiento ζ</span>
+              <input type="range" id="lab-zeta" min="0.05" max="2.5" step="0.05" value="0.3">
+              <output id="lab-zeta-val">0.30</output>
+            </label>
+            <div class="chips">
+              <span class="chips-label">Casos de la guía</span>
+              <button class="chip" data-zeta="0.3">ζ = 0.3</button>
+              <button class="chip" data-zeta="1">ζ = 1</button>
+              <button class="chip" data-zeta="2">ζ = 2</button>
+              <span class="spacer"></span>
+              <button class="chip" id="lab-reset">Reiniciar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Posición x(t)</h2>
+          <div class="chart-box tall"><canvas id="lab-chart"></canvas></div>
+          <div class="stats" id="lab-stats"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VERIFICACIÓN ============ -->
+    <section class="view" id="view-verify">
+      <div class="card">
+        <div class="row">
+          <div>
+            <h2>Numérica (RK4) vs. exacta</h2>
+            <p class="hint">ω = 8 rad/s · x(0) = 0 · x′(0) = 0 · x<sub>f</sub> = 1 m</p>
+          </div>
+          <label class="inline">Paso h
+            <select id="verify-h">
+              <option value="0.01">0.01 s</option>
+              <option value="0.005">0.005 s</option>
+              <option value="0.001" selected>0.001 s</option>
+              <option value="0.0001">0.0001 s</option>
+            </select>
+          </label>
+        </div>
+        <div class="grid two flat">
+          <div class="chart-box tall"><canvas id="verify-chart"></canvas></div>
+          <div class="chart-box tall"><canvas id="verify-error"></canvas></div>
+        </div>
+        <div id="verify-table-wrap"></div>
+      </div>
+
+      <div class="card">
+        <h2>¿Por qué no coinciden exactamente?</h2>
+        <div class="grid two flat">
+          <div class="chart-box"><canvas id="conv-chart"></canvas></div>
+          <ul class="bullets" id="verify-comment"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ APLICACIONES ============ -->
+    <section class="view" id="view-cases">
+      <nav class="subtabs" id="case-tabs">
+        <button class="subtab active" data-case="camera">Cámara</button>
+        <button class="subtab" data-case="menu">Menú</button>
+        <button class="subtab" data-case="health">Barra de vida</button>
+      </nav>
+
+      <!-- Cámara -->
+      <div class="case active" id="case-camera">
+        <div class="grid two">
+          <div class="card">
+            <h2>Cámara que sigue al personaje</h2>
+            <p class="hint">Haz clic en el mundo o usa ← → para mover al personaje.</p>
+            <canvas id="camera-canvas" class="stage" height="280"></canvas>
+            <div class="controls">
+              <div class="chips">
+                <button class="chip" id="camera-left">◀ Izquierda</button>
+                <button class="chip" id="camera-right">Derecha ▶</button>
+                <button class="chip" id="camera-jump">Salto +300 px</button>
+              </div>
+              <label class="slider"><span>Amortiguamiento ζ</span>
+                <input type="range" id="camera-zeta" min="0.1" max="3" step="0.05"><output id="camera-zeta-val"></output></label>
+              <label class="slider"><span>Rapidez ω <small>rad/s</small></span>
+                <input type="range" id="camera-omega" min="2" max="20" step="0.5"><output id="camera-omega-val"></output></label>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Posición x(t)</h2>
+            <div class="chart-box tall"><canvas id="camera-chart"></canvas></div>
+            <div class="stats" id="camera-stats"></div>
+            <p class="note" id="camera-note"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menú -->
+      <div class="case" id="case-menu">
+        <div class="grid two">
+          <div class="card">
+            <h2>Menú que entra desde el borde</h2>
+            <p class="hint">Haz clic en la pantalla o usa el botón para abrir y cerrar.</p>
+            <canvas id="menu-canvas" class="stage" height="280"></canvas>
+            <div class="controls">
+              <div class="chips"><button class="chip primary" id="menu-toggle">Abrir menú</button></div>
+              <label class="slider"><span>Amortiguamiento ζ</span>
+                <input type="range" id="menu-zeta" min="0.1" max="3" step="0.05"><output id="menu-zeta-val"></output></label>
+              <label class="slider"><span>Rapidez ω <small>rad/s</small></span>
+                <input type="range" id="menu-omega" min="2" max="20" step="0.5"><output id="menu-omega-val"></output></label>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Posición x(t)</h2>
+            <div class="chart-box tall"><canvas id="menu-chart"></canvas></div>
+            <div class="stats" id="menu-stats"></div>
+            <p class="note" id="menu-note"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de vida -->
+      <div class="case" id="case-health">
+        <div class="grid two">
+          <div class="card">
+            <h2>Barra de vida que baja</h2>
+            <p class="hint">Aplica daño o cura y observa cómo se mueve la barra.</p>
+            <canvas id="health-canvas" class="stage" height="280"></canvas>
+            <div class="controls">
+              <div class="chips">
+                <button class="chip danger" data-hp="-20">Golpe −20</button>
+                <button class="chip danger" data-hp="-45">Golpe −45</button>
+                <button class="chip ok" data-hp="30">Poción +30</button>
+                <span class="spacer"></span>
+                <button class="chip" id="health-reset">Restaurar</button>
+              </div>
+              <label class="slider"><span>Amortiguamiento ζ</span>
+                <input type="range" id="health-zeta" min="0.1" max="3" step="0.05"><output id="health-zeta-val"></output></label>
+              <label class="slider"><span>Rapidez ω <small>rad/s</small></span>
+                <input type="range" id="health-omega" min="2" max="20" step="0.5"><output id="health-omega-val"></output></label>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Vida mostrada x(t)</h2>
+            <div class="chart-box tall"><canvas id="health-chart"></canvas></div>
+            <div class="stats" id="health-stats"></div>
+            <p class="note" id="health-note"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONCLUSIÓN ============ -->
+    <section class="view" id="view-conclusion">
+      <div class="card">
+        <h2>Qué ζ elegir y por qué</h2>
+        <div id="conclusion-table-wrap"></div>
+        <p class="note" id="conclusion-text"></p>
+      </div>
+      <div class="card">
+        <h2>Deducción a mano</h2>
+        <p class="links">
+          <a href="/docs/Desarrollo_matematico.pdf" target="_blank" rel="noopener">Desarrollo_matematico.pdf</a>
+          <a href="/docs/Desarrollo_matematico.md" target="_blank" rel="noopener">Desarrollo_matematico.md</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/vendor/chart.umd.min.js"></script>
+  <script src="/static/js/config.js"></script>
+  <script src="/static/js/physics.js"></script>
+  <script src="/static/js/charts.js"></script>
+  <script src="/static/js/lab.js"></script>
+  <script src="/static/js/verify.js"></script>
+  <script src="/static/js/cases.js"></script>
+  <script src="/static/js/main.js"></script>
+</body>
+</html>

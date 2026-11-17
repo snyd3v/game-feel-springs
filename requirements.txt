@@ -1,7 +1,3 @@
-# Aplicación principal (main.py)
+flask
 numpy
-matplotlib
-
-# Solo para regenerar el PDF y la presentación
-reportlab
-python-pptx
+pytest
