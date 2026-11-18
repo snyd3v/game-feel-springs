@@ -80,12 +80,5 @@ def api_convergence():
     return jsonify(h=hs, max_error=errors, order=slope)
 
 
-@app.get("/api/metrics")
-def api_metrics():
-    omega = _param("omega", 8.0, 0.5, 50.0)
-    zeta = _param("zeta", 0.5, 0.01, 5.0)
-    return jsonify(system_metrics(omega, zeta))
-
-
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=False)

@@ -29,6 +29,10 @@ const Cases = (() => {
       });
       this.bindControls();
       this.refresh();
+      // La nota habla SOLO del valor elegido (fijo); las tarjetas de arriba siguen a los deslizadores.
+      const d = this.design, m = Physics.metrics(d.omega, d.zeta);
+      $(`${key}-note`).innerHTML =
+        `<b>Valor elegido: ζ = ${fmt(d.zeta, 1)} (${m.regime}), ω = ${d.omega} rad/s.</b> ` + this.justification();
     }
 
     bindControls() {
@@ -55,7 +59,6 @@ const Cases = (() => {
         ['Sobreimpulso', m.overshoot > 0 ? `${fmt(m.overshoot, 1)} %` : 'ninguno'],
         ['Asentamiento (2 %)', `${fmt(m.settling)} s`],
       ]);
-      $(`${k}-note`).innerHTML = this.justification();
     }
 
     frame(dt) {
@@ -109,7 +112,7 @@ const Cases = (() => {
       this.goal = this.s.x + (e.clientX - r.left - r.width / 2);
     }
     preUpdate(dt) {
-      const SPEED = CameraCase.SPEED; // el personaje avanza a velocidad constante; la cámara lo sigue con resorte
+      const SPEED = 280; // px/s: el personaje avanza a velocidad constante; la cámara lo sigue con resorte
       const dir = [...this.keys].reduce((a, b) => a + b, 0);
       if (dir) this.player += dir * SPEED * dt;
       else if (this.goal !== null) {
@@ -150,10 +153,8 @@ const Cases = (() => {
     }
     justification() {
       const d = this.design, m = Physics.metrics(d.omega, d.zeta);
-      const lag = (2 * d.zeta * CameraCase.SPEED) / d.omega; // x_p = vt − 2ζv/ω (coef. indeterminados, x_f = vt)
-      return `<b>ζ = ${fmt(d.zeta, 1)} (crítico):</b> sin sobreimpulso y se asienta en ${fmt(m.settling)} s: persigue sin marear. ` +
-        `Con ζ = 0.5 se pasaría ${fmt(overshootOf(d.omega, 0.5), 1)} % de cada salto y la imagen oscilaría. ` +
-        `Con el personaje a ${CameraCase.SPEED} px/s el retraso estacionario teórico es 2ζv/ω ≈ ${fmt(lag, 0)} px.`;
+      return `Sin sobreimpulso y se asienta en ${fmt(m.settling)} s: persigue sin marear. ` +
+        `Con ζ = 0.5 se pasaría ${fmt(overshootOf(d.omega, 0.5), 1)} % de cada salto y la imagen oscilaría.`;
     }
   }
 
@@ -195,7 +196,7 @@ const Cases = (() => {
     }
     justification() {
       const d = this.design, m = Physics.metrics(d.omega, d.zeta);
-      return `<b>ζ = ${fmt(d.zeta, 1)}:</b> rebota ${fmt(m.overshoot, 1)} % (≈ ${fmt((m.overshoot / 100) * MenuCase.W, 0)} px) y se asienta en ${fmt(m.settling)} s: ` +
+      return `Rebota ${fmt(m.overshoot, 1)} % (≈ ${fmt((m.overshoot / 100) * MenuCase.W, 0)} px) y se asienta en ${fmt(m.settling)} s: ` +
         `se siente vivo sin vibrar. Con ζ ≥ 1 llega sin rebote y se siente rígido.`;
     }
   }
@@ -241,12 +242,11 @@ const Cases = (() => {
     }
     justification() {
       const d = this.design, m = Physics.metrics(d.omega, d.zeta);
-      return `<b>ζ = ${fmt(d.zeta, 1)} (sobreamortiguado):</b> nunca rebota y baja con peso; se asienta en ${fmt(m.settling)} s. ` +
+      return `Nunca rebota y baja con peso; se asienta en ${fmt(m.settling)} s. ` +
         `Con ζ = 0.35 se pasaría ${fmt(overshootOf(d.omega, 0.35), 1)} % del daño y subiría después: parecería una curación.`;
     }
   }
 
-  CameraCase.SPEED = 280; // px/s (se define antes de instanciar: el constructor ya llama a justification())
   const cases = { camera: new CameraCase(), menu: new MenuCase(), health: new HealthCase() };
   let current = 'camera';
 

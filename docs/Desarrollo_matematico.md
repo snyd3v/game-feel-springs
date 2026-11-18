@@ -214,16 +214,6 @@ $$\boxed{x(t) = 1 - 1.07735 e^{-2.1436 t} + 0.07735 e^{-29.8564 t}}$$
 
 ---
 
-### Caso límite: $\zeta = 0$ (movimiento libre no amortiguado, visto en clase)
-
-Con $c = 0$ y $F = 0$ la profesora obtuvo $mx'' + kx = 0$, de ecuación característica $mr^2 + k = 0 \implies r = \pm\omega i$ con $\omega = \sqrt{k/m}$, y $x_h(t) = C_1\cos\omega t + C_2\sin\omega t$ (su ejemplo: $m = 1$ kg, $k = 16$ N/m $\Rightarrow \omega = 4$, $x(0) = 1$, $x'(0) = 0$ da $x(t) = \cos 4t$).
-
-En nuestro modelo es $\zeta = 0$ ($a = 0$, $b = \omega$). Con $\omega = 8$, $x_f = 1$, $u(0) = -1$, $u'(0) = 0$: $C_1 = -1$, $C_2 = 0$, es decir
-$$x(t) = 1 - \cos(8t)$$
-Movimiento armónico simple alrededor de $x_f$: periodo $T = 2\pi/\omega \approx 0.785$ s, amplitud constante $1$, **nunca se asienta** ($\text{Re}(r) = 0$ no hay decaimiento). Por eso el amortiguador ($\zeta > 0$) es indispensable en un resorte de animación.
-
----
-
 ## 5. Explicación Rigurosa: ¿Por qué $\zeta < 1$ rebota y $\zeta \ge 1$ no?
 
 Esta es la pregunta conceptual clave que la profesora suele hacer en la sustentación oral:
@@ -303,30 +293,7 @@ Como $x_h \to 0$, la cámara termina siguiendo al personaje con un **retraso est
 
 ---
 
-## 8. Tarea de clase: comparar los tres regímenes ($m = 1$, $x(0) = 1$, $x'(0) = 0$)
-
-La tarea del 10/11/26 pide comparar tres ecuaciones con $m = 1$ y $k, c$ variables. Con $x_f = 0$ (equilibrio en el origen) son el mismo modelo del proyecto con $\omega = \sqrt{k}$ y $\zeta = c/(2\omega)$:
-
-| Ecuación | $c^2 - 4mk$ | $\omega$ | $\zeta$ | Régimen | Raíces |
-|---|:---:|:---:|:---:|---|---|
-| a) $x'' + 4x' + 3x = 0$ | $16 - 12 = 4 > 0$ | $\sqrt3$ | $2/\sqrt3 \approx 1.155$ | Sobreamortiguado | $r = -1,\ -3$ |
-| b) $x'' + 4x' + 4x = 0$ | $16 - 16 = 0$ | $2$ | $1$ | Críticamente amortiguado | $r = -2$ (doble) |
-| c) $x'' + 2x' + 5x = 0$ | $4 - 20 = -16 < 0$ | $\sqrt5$ | $1/\sqrt5 \approx 0.447$ | Subamortiguado | $r = -1 \pm 2i$ |
-
-Aplicando $x(0) = 1$, $x'(0) = 0$:
-
-- **a)** $x = C_1e^{-t} + C_2e^{-3t}$: $C_1 + C_2 = 1$, $-C_1 - 3C_2 = 0 \implies C_2 = -\tfrac12,\ C_1 = \tfrac32$. 
-  $$x(t) = \tfrac32 e^{-t} - \tfrac12 e^{-3t}$$
-- **b)** $x = (C_1 + C_2t)e^{-2t}$: $C_1 = 1$, $C_2 - 2C_1 = 0 \implies C_2 = 2$. 
-  $$x(t) = (1 + 2t)e^{-2t}$$
-- **c)** $x = e^{-t}(C_1\cos 2t + C_2\sin 2t)$: $C_1 = 1$, $-C_1 + 2C_2 = 0 \implies C_2 = \tfrac12$. 
-  $$x(t) = e^{-t}\left(\cos 2t + \tfrac12\sin 2t\right)$$
-
-Comparación con la gráfica del tablero: la curva roja (c) cruza el eje, rebasa el equilibrio (en $t = \pi/2$, $x \approx -0.21$) y vuelve; las otras dos (a, b) bajan sin cruzarlo, y (b) crítica es la más rápida de las dos. Estas tres soluciones están verificadas contra RK4 en `tests/test_physics.py` (`test_class_task_three_regimes`).
-
----
-
-## 9. Verificación Numérica mediante Runge-Kutta de Orden 4 (RK4)
+## 8. Verificación Numérica mediante Runge-Kutta de Orden 4 (RK4)
 
 Para simular computacionalmente la ecuación de segundo orden, la convertimos en un sistema de dos ecuaciones diferenciales de primer orden en variables de estado $Y = [x, v]^T$:
 $$\begin{cases} x' = v \\ v' = -2\zeta\omega v - \omega^2(x - x_f) \end{cases}$$

@@ -7,7 +7,7 @@ import pytest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from physics import acceleration, exact_position, rk4_solve, rk4_step, system_metrics  # noqa: E402
+from physics import acceleration, exact_position, rk4_solve, system_metrics  # noqa: E402
 
 OMEGA = 8.0
 
@@ -75,35 +75,3 @@ def test_settling_time_is_envelope_bound(omega, zeta):
     bound = system_metrics(omega, zeta)["settling_time"]
     assert real <= bound + 1e-3
     assert bound - real < 0.3 * bound
-
-
-def test_class_task_three_regimes():
-    # Tarea de clase (m = 1, x(0) = 1, x'(0) = 0, x_f = 0) en la forma x'' + 2ζω x' + ω² x = 0.
-    t = np.linspace(0.0, 4.0, 401)
-    cases = [
-        (math.sqrt(3), 2 / math.sqrt(3), "sobreamortiguado", 1.5 * np.exp(-t) - 0.5 * np.exp(-3 * t)),
-        (2.0, 1.0, "crítico", (1 + 2 * t) * np.exp(-2 * t)),
-        (math.sqrt(5), 1 / math.sqrt(5), "subamortiguado", np.exp(-t) * (np.cos(2 * t) + 0.5 * np.sin(2 * t))),
-    ]
-    for omega, zeta, regime, closed in cases:
-        assert system_metrics(omega, zeta)["regime"] == regime
-        assert exact_position(t, omega, zeta, x0=1.0, v0=0.0, target=0.0) == pytest.approx(closed, abs=1e-12)
-        tn, xn, _ = rk4_solve(omega, zeta, x0=1.0, v0=0.0, target=0.0, t_end=4.0, h=1e-3)
-        assert np.max(np.abs(xn - exact_position(tn, omega, zeta, x0=1.0, v0=0.0, target=0.0))) < 1e-9
-
-
-def test_undamped_limit_is_simple_harmonic():
-    # ζ = 0: movimiento armónico simple. Ejemplo del tablero (m = 1, k = 16 -> ω = 4): x = cos 4t.
-    t = np.linspace(0.0, 2.0, 50)
-    assert exact_position(t, 4.0, 0.0, x0=1.0, v0=0.0, target=0.0) == pytest.approx(np.cos(4 * t))
-    assert exact_position(t, 8.0, 0.0) == pytest.approx(1 - np.cos(8 * t))
-
-
-@pytest.mark.parametrize("omega, zeta", [(6.0, 1.0), (6.0, 0.5), (8.0, 2.0)])
-def test_ramp_target_steady_state_lag(omega, zeta):
-    # x_f(t) = v t  ->  x_p = v t - 2ζv/ω (coeficientes indeterminados): retraso estacionario 2ζv/ω.
-    v, h = 280.0, 1e-3
-    x, vel = 0.0, 0.0
-    for i in range(int(8.0 / h)):
-        x, vel = rk4_step(x, vel, v * (i * h + h / 2), omega, zeta, h)  # destino en el punto medio del paso
-    assert v * 8.0 - x == pytest.approx(2 * zeta * v / omega, rel=1e-3)

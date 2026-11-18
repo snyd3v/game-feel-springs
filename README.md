@@ -16,7 +16,7 @@ x'' + 2ζω x' + ω² (x − x_f) = 0
 - `ω` controla la **rapidez**, `ζ` el **carácter**: ζ < 1 rebota, ζ = 1 llega lo más rápido sin rebotar, ζ > 1 llega lento y pesado.
 - Con `u = x − x_f` la ecuación queda homogénea: `u'' + 2ζω u' + ω² u = 0`.
 
-La deducción a mano (ecuación característica, solución general, condiciones iniciales, ζ = 0.3, 1 y 2 con ω = 8, caso ζ = 0, cámara con destino móvil y la tarea de clase) está en
+La deducción a mano (ecuación característica, solución general, condiciones iniciales, ζ = 0.3, 1 y 2 con ω = 8) está en
 [docs/Desarrollo_matematico.pdf](docs/Desarrollo_matematico.pdf) / [.md](docs/Desarrollo_matematico.md).
 **El programa verifica esa solución, no la reemplaza.**
 
@@ -33,17 +33,10 @@ python app.py
 
 Abre **http://localhost:5000**. Para detener el servidor: `Ctrl + C`. No necesita internet (Chart.js está incluido en `static/vendor/`).
 
-Pruebas automáticas de la matemática (solución exacta, RK4, orden de convergencia, tiempo de asentamiento, tarea de clase, retraso estacionario de la cámara):
+Pruebas automáticas de la matemática (solución exacta, RK4, orden de convergencia, tiempo de asentamiento):
 
 ```powershell
 python -m pytest tests
-```
-
-Regenerar el PDF de la deducción a mano desde `docs/Desarrollo_matematico.md` (el `.md` es la fuente; la aplicación no necesita el PDF para funcionar):
-
-```powershell
-pip install reportlab matplotlib    # solo para generar el PDF
-python scripts/build_pdf.py
 ```
 
 ## Qué hay en la aplicación
@@ -62,23 +55,25 @@ python scripts/build_pdf.py
 - **Verificación en el mismo vector de tiempos.** El servidor (`/api/verify`) evalúa RK4 y la solución exacta en los mismos instantes. Con `h = 0.001 s` el error máximo es ≈ 4·10⁻¹¹ m (ζ = 0.3 y 1) y 1.9·10⁻¹⁰ m (ζ = 2); con `h = 1/240 s`, del orden de 10⁻⁸ m. Es el error global de RK4 (∝ h⁴), medido en la sección 2.
 - **Overlay exacto en vivo.** En el laboratorio, cada clic o cambio de ω/ζ re-ancla la solución exacta con la posición y velocidad de ese instante, de modo que la verificación sigue vigente aunque se interactúe.
 
-## Estructura del repositorio
+## Estructura del repositorio y qué defender
 
 ```
-app.py              servidor Flask: página + API de verificación (numpy)
-physics.py          motor: aceleración, RK4, solución exacta, métricas
+physics.py          NÚCLEO: aceleración, RK4, solución exacta (3 casos), métricas
+static/js/physics.js NÚCLEO: la misma matemática en el navegador (anima la simulación)
+app.py              servidor Flask: sirve la página y /api/verify, /api/convergence (RK4 vs exacta con numpy)
 tests/              pytest de physics.py
-scripts/            build_pdf.py: genera docs/Desarrollo_matematico.pdf desde el .md
-static/             interfaz (HTML, CSS, JS); js/physics.js es el mismo modelo en el navegador
-docs/               deducción a mano (PDF y Markdown)
-legacy/             versión anterior en Tkinter y generadores de PDF/PPTX (ya no se usan)
+static/             interfaz: index.html, css/ y js/{lab,verify,cases,charts,main}.js (solo dibujo y controles)
+docs/               deducción a mano (PDF exportado del .md, y Markdown)
 ```
 
-API: `GET /api/verify?zeta=&omega=&h=&T=` · `GET /api/convergence?zeta=&omega=` · `GET /api/metrics?zeta=&omega=`.
+- **Matemática y lógica (lo que se explica línea por línea):** `physics.py` y `static/js/physics.js`. Cada bloque indica en su cabecera la sección de `docs/Desarrollo_matematico.md` donde está deducido. Python verifica con numpy (como el esqueleto de la guía); JavaScript anima.
+- **Interfaz:** `lab.js`, `cases.js`, `verify.js`, `charts.js` y el CSS solo dibujan, leen los deslizadores y llaman a `physics.js`; no contienen matemática propia.
+
+API: `GET /api/verify?zeta=&omega=&h=&T=` · `GET /api/convergence?zeta=&omega=`.
 
 ## Declaración sobre el uso de asistentes de inteligencia artificial
 
-- **Gemini / Antigravity (Google DeepMind):** versión inicial en Tkinter/Matplotlib, estructura de la deducción en Markdown y de las diapositivas (hoy en `legacy/`).
-- **Claude Code (Anthropic):** migración a la aplicación web (Flask + JavaScript), reorganización del repositorio, API de verificación, pruebas con pytest y esta documentación.
+- **Gemini / Antigravity (Google DeepMind):** versión inicial en Tkinter/Matplotlib, estructura de la deducción en Markdown y de las diapositivas (esa versión ya no está en el repositorio).
+- **Claude Code (Anthropic):** migración a la aplicación web (Flask + JavaScript), reorganización del repositorio, API de verificación, pruebas con pytest, revisión de la matemática contra los apuntes de clase (correcciones del tiempo de asentamiento, notación y citas) y esta documentación.
 
 La parte analítica se hizo a mano; el grupo revisó y puede explicar el código y cada paso de la deducción.

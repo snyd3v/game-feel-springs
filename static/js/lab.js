@@ -12,7 +12,7 @@ const Lab = (() => {
     t: 0,                               // tiempo global [s] (solo para el rastro)
     tc: 0,                              // tiempo desde el último clic/cambio [s] (eje x de la gráfica)
     x0: 0, v0: 0,                       // condiciones iniciales de la solución exacta vigente
-    maxErr: 0, curErr: 0, peakDev: 0,
+    maxErr: 0, curErr: 0,
     trailAcc: 0, trail: [], frame: 0,
   };
   const stepper = new Physics.FixedStepper();
@@ -35,7 +35,7 @@ const Lab = (() => {
 
   /** Nueva curva: la exacta y la gráfica parten del estado actual del resorte. */
   function restartCurve() {
-    st.tc = 0; st.x0 = st.spring.x; st.v0 = st.spring.v; st.maxErr = 0; st.peakDev = 0;
+    st.tc = 0; st.x0 = st.spring.x; st.v0 = st.spring.v; st.maxErr = 0;
     for (const ds of chart.data.datasets) ds.data.length = 0;
     sample();
   }
@@ -83,11 +83,6 @@ const Lab = (() => {
     stepper.run(dt, (h) => {
       Physics.rk4Step(st.spring, st.target, st.omega, st.zeta, h);
       st.t += h; st.tc += h;
-      const span = Math.abs(st.target - st.x0);
-      if (span > 1e-9) {
-        const dir = Math.sign(st.target - st.x0);
-        st.peakDev = Math.max(st.peakDev, ((st.spring.x - st.target) * dir) / span * 100);
-      }
     });
     lerpStepper.run(dt, () => { st.lerp += (st.target - st.lerp) * 0.1; });
     sample();

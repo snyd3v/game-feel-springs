@@ -48,6 +48,8 @@ main { max-width: 1320px; margin: 0 auto; padding: 20px 28px 48px; }
 .hint { margin: 0 0 10px; font-size: .86rem; color: var(--muted); }
 .note { font-size: .9rem; color: var(--text); line-height: 1.5; margin: 12px 0 0; padding: 10px 12px; background: var(--bg); border-radius: 8px; }
 .note b { color: var(--ink); }
+.stats-title { margin: 12px 0 0; }
+.stats-title + .stats { margin-top: 6px; }
 .bullets { margin: 0; padding-left: 18px; line-height: 1.6; color: var(--text); align-self: center; }
 .bullets li { margin-bottom: 6px; }
 

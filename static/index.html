@@ -58,6 +58,11 @@
               <button class="chip" id="lab-reset">Reiniciar</button>
             </div>
           </div>
+          <p class="note">
+            <b>Diferencia:</b> el lerp (<code>x += (destino − x)·0.1</code>) es de 1.er orden: no tiene inercia, arranca
+            con la máxima velocidad (6 m/s en un salto de 1 m a 60 cuadros/s), nunca rebota y su ritmo depende de los cuadros por segundo.
+            El resorte es de 2.º orden: acelera desde el reposo, lleva velocidad al llegar y rebota solo si ζ &lt; 1.
+          </p>
         </div>
 
         <div class="card">
@@ -131,6 +136,7 @@
           <div class="card">
             <h2>Posición x(t)</h2>
             <div class="chart-box tall"><canvas id="camera-chart"></canvas></div>
+            <p class="hint stats-title">Con los deslizadores actuales:</p>
             <div class="stats" id="camera-stats"></div>
             <p class="note" id="camera-note"></p>
           </div>
@@ -155,6 +161,7 @@
           <div class="card">
             <h2>Posición x(t)</h2>
             <div class="chart-box tall"><canvas id="menu-chart"></canvas></div>
+            <p class="hint stats-title">Con los deslizadores actuales:</p>
             <div class="stats" id="menu-stats"></div>
             <p class="note" id="menu-note"></p>
           </div>
@@ -185,6 +192,7 @@
           <div class="card">
             <h2>Vida mostrada x(t)</h2>
             <div class="chart-box tall"><canvas id="health-chart"></canvas></div>
+            <p class="hint stats-title">Con los deslizadores actuales:</p>
             <div class="stats" id="health-stats"></div>
             <p class="note" id="health-note"></p>
           </div>

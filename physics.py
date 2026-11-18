@@ -7,6 +7,11 @@ Sistema 1er orden:  x' = v,   v' = -2*zeta*omega*v - omega^2*(x - x_f)
 
 Aquí viven la solución numérica (RK4, paso fijo) y la solución analítica exacta
 deducida a mano (docs/Desarrollo_matematico.md). El programa verifica, no reemplaza.
+
+Mapa (sección del .md donde está deducido cada bloque):
+    acceleration, rk4_step, rk4_solve  -> §8  sistema de 1.er orden y RK4
+    exact_position                      -> §3-§4 ecuación característica y los 3 casos de raíces
+    system_metrics                      -> §4-§5 raíces, sobreimpulso, tiempo de pico y asentamiento
 """
 import math
 
