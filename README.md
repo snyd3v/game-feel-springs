@@ -16,7 +16,7 @@ x'' + 2ζω x' + ω² (x − x_f) = 0
 - `ω` controla la **rapidez**, `ζ` el **carácter**: ζ < 1 rebota, ζ = 1 llega lo más rápido sin rebotar, ζ > 1 llega lento y pesado.
 - Con `u = x − x_f` la ecuación queda homogénea: `u'' + 2ζω u' + ω² u = 0`.
 
-La deducción a mano (ecuación característica, solución general, condiciones iniciales, ζ = 0.3, 1 y 2 con ω = 8) está en
+La deducción a mano (ecuación característica, solución general, condiciones iniciales, ζ = 0.3, 1 y 2 con ω = 8, caso ζ = 0, cámara con destino móvil y la tarea de clase) está en
 [docs/Desarrollo_matematico.pdf](docs/Desarrollo_matematico.pdf) / [.md](docs/Desarrollo_matematico.md).
 **El programa verifica esa solución, no la reemplaza.**
 
@@ -33,10 +33,17 @@ python app.py
 
 Abre **http://localhost:5000**. Para detener el servidor: `Ctrl + C`. No necesita internet (Chart.js está incluido en `static/vendor/`).
 
-Pruebas automáticas de la matemática (solución exacta, RK4, orden de convergencia):
+Pruebas automáticas de la matemática (solución exacta, RK4, orden de convergencia, tiempo de asentamiento, tarea de clase, retraso estacionario de la cámara):
 
 ```powershell
 python -m pytest tests
+```
+
+Regenerar el PDF de la deducción a mano desde `docs/Desarrollo_matematico.md` (el `.md` es la fuente; la aplicación no necesita el PDF para funcionar):
+
+```powershell
+pip install reportlab matplotlib    # solo para generar el PDF
+python scripts/build_pdf.py
 ```
 
 ## Qué hay en la aplicación
@@ -61,6 +68,7 @@ python -m pytest tests
 app.py              servidor Flask: página + API de verificación (numpy)
 physics.py          motor: aceleración, RK4, solución exacta, métricas
 tests/              pytest de physics.py
+scripts/            build_pdf.py: genera docs/Desarrollo_matematico.pdf desde el .md
 static/             interfaz (HTML, CSS, JS); js/physics.js es el mismo modelo en el navegador
 docs/               deducción a mano (PDF y Markdown)
 legacy/             versión anterior en Tkinter y generadores de PDF/PPTX (ya no se usan)

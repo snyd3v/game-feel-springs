@@ -64,7 +64,8 @@ const Physics = (() => {
       const beta = omega * Math.sqrt(1 - zeta * zeta);
       return { regime: 'subamortiguado', roots: [{ re: -alpha, im: beta }, { re: -alpha, im: -beta }], alpha,
                overshoot: 100 * Math.exp((-Math.PI * zeta) / Math.sqrt(1 - zeta * zeta)),
-               peakTime: Math.PI / beta, settling: Math.log(50) / alpha };
+               // cota por envolvente: |u| <= e^{-αt}/√(1−ζ²) <= 0.02 (paso desde reposo)
+               peakTime: Math.PI / beta, settling: Math.log(50 / Math.sqrt(1 - zeta * zeta)) / alpha };
     }
     const root = Math.sqrt(zeta * zeta - 1);
     const r1 = -omega * (zeta - root);

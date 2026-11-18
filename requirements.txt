@@ -1,3 +1,6 @@
 flask
 numpy
 pytest
+# Solo para regenerar docs/Desarrollo_matematico.pdf (python scripts/build_pdf.py):
+# reportlab
+# matplotlib

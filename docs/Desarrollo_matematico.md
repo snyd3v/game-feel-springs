@@ -118,11 +118,16 @@ Aplicando la fórmula cuadrática general que la profesora anotó en el tablero 
 $$r = \frac{-2\zeta\omega \pm \sqrt{(2\zeta\omega)^2 - 4(1)(\omega^2)}}{2} = -\zeta\omega \pm \omega\sqrt{\zeta^2 - 1}$$
 
 ### El Discriminante y los Tres Regímenes de la Profesora:
-En el tablero del 10/11/26, la docente escribió textualmente:
-> *"El discriminante nos define todo:"*
-> 1. *$\Delta > 0$ ($c^2 - 4mk > 0 \iff \zeta > 1$): **Sobreamortiguado**. Dos raíces reales negativas distintas, la masa vuelve al equilibrio sin oscilar.*
-> 2. *$\Delta = 0$ ($c^2 - 4mk = 0 \iff \zeta = 1$): **Críticamente amortiguado**. Una raíz real negativa, es el regreso más rápido sin posible oscilación.*
-> 3. *$\Delta < 0$ ($c^2 - 4mk < 0 \iff \zeta < 1$): **Subamortiguado**. Raíz en los complejos con parte real negativa, la masa oscila con amplitud decreciente y decae.*
+En clase la ecuación característica es $mr^2 + cr + k = 0$, cuyo discriminante es $c^2 - 4mk$. Con $c = 2m\omega\zeta$ y $k = m\omega^2$:
+$$c^2 - 4mk = 4m^2\omega^2\zeta^2 - 4m^2\omega^2 = 4m^2\omega^2(\zeta^2 - 1)$$
+por lo que el signo del discriminante de la profesora es exactamente el signo de $\zeta^2 - 1$ (con $\zeta > 0$, el de $\zeta - 1$).
+
+En el tablero del 10/11/26, la docente anotó (resumido): *"tiene discriminante $c^2 - 4mk$ y el signo nos define todo"*:
+1. *$c^2 - 4mk > 0$ ($\iff \zeta > 1$): **Sobreamortiguado**. Dos raíces reales negativas distintas, la masa vuelve al equilibrio sin oscilar.*
+2. *$c^2 - 4mk = 0$ ($\iff \zeta = 1$): **Críticamente amortiguado**. Una raíz real negativa, es el regreso más rápido sin posible oscilación.*
+3. *$c^2 - 4mk < 0$ ($\iff \zeta < 1$): **Subamortiguado**. Raíz en los complejos con parte real negativa, la masa oscila con amplitud y decae.*
+
+(Con $\Delta$ nos referimos de aquí en adelante a ese discriminante $c^2 - 4mk$.)
 
 ---
 
@@ -130,12 +135,12 @@ En el tablero del 10/11/26, la docente escribió textualmente:
 
 ### Caso 1: $\zeta = 0.3$ (Subamortiguado — Oscilaciones y Rebote)
 - Parámetros: $\omega = 8$, $\zeta = 0.3$.
-- Atenuación: $\alpha = \zeta\omega = 0.3 \times 8 = 2.4\text{ s}^{-1}$.
+- Atenuación: $\alpha = \zeta\omega = 0.3 \times 8 = 2.4\text{ s}^{-1}$ (tasa de decaimiento, positiva).
 - Frecuencia amortiguada: $\beta = \omega\sqrt{1 - \zeta^2} = 8\sqrt{1 - 0.09} = 8\sqrt{0.91} \approx 7.6315\text{ rad/s}$.
 - Raíces complejas: $r = -2.4 \pm 7.6315 i$.
 
-Como anotó la profesora en el tablero para raíces complejas $r = \alpha \pm \beta i$:
-$$u(t) = e^{-\alpha t} \left[ C_1 \cos(\beta t) + C_2 \sin(\beta t) \right]$$
+Como anotó la profesora en el tablero (Caso 3), para raíces complejas $r = a \pm bi$ la solución es $y = e^{ax}\left(C_1\cos(bx) + C_2\sin(bx)\right)$. Aquí $a = -2.4 = -\alpha$ (parte real, negativa, igual que en su ejemplo $a = -2,\ b = 3$) y $b = \beta \approx 7.6315$:
+$$u(t) = e^{a t} \left[ C_1 \cos(b t) + C_2 \sin(b t) \right] = e^{-\alpha t} \left[ C_1 \cos(\beta t) + C_2 \sin(\beta t) \right]$$
 $$u(t) = e^{-2.4 t} \left[ C_1 \cos(7.6315 t) + C_2 \sin(7.6315 t) \right]$$
 
 **Paso 1: Aplicar $u(0) = -1$:**
@@ -155,7 +160,9 @@ $$\boxed{x(t) = 1 - e^{-2.4 t} \left[ \cos(7.6315 t) + 0.3145 \sin(7.6315 t) \ri
 
 - **Primer pico de sobreimpulso ($t_p$):** La velocidad $x'(t) = 0$ cuando $\sin(7.6315 t) = 0 \implies t_p = \frac{\pi}{7.6315} \approx \mathbf{0.4117\text{ s}}$.
 - **Sobreimpulso porcentual ($M_p$):** $M_p = 100 \cdot e^{-\frac{\pi \zeta}{\sqrt{1 - \zeta^2}}} \approx \mathbf{37.23\%}$ (alcanza $x = 1.3723\text{ m}$).
-- **Tiempo de asentamiento al 2% ($t_s$):** $e^{-2.4 t_s} \le 0.02 \implies t_s \approx \mathbf{1.63\text{ s}}$.
+- **Tiempo de asentamiento al 2% ($t_s$):** la amplitud de $C_1\cos\beta t + C_2\sin\beta t$ es $\sqrt{C_1^2 + C_2^2} = \sqrt{1 + (\alpha/\beta)^2} = 1/\sqrt{1-\zeta^2}$, así que $|u(t)| \le \dfrac{e^{-\alpha t}}{\sqrt{1-\zeta^2}}$. Exigiendo que esa envolvente sea $\le 0.02$:
+  $$t_s \le \frac{\ln\!\big(50/\sqrt{1-\zeta^2}\big)}{\alpha} = \frac{\ln(52.41)}{2.4} \approx \mathbf{1.65\text{ s}}$$
+  Es una **cota** por envolvente: en la simulación la curva sale por última vez de la banda del 2 % en $t \approx 1.40$ s (la oscilación no está en un pico justo en ese instante).
 
 ---
 
@@ -204,6 +211,16 @@ $$\boxed{x(t) = 1 - 1.07735 e^{-2.1436 t} + 0.07735 e^{-29.8564 t}}$$
 - **Comportamiento físico:** El término rápido $e^{-29.8564 t}$ muere en menos de $0.1\text{ s}$. El polo lento $r_1 = -2.1436$ domina toda la dinámica.
 - **Sobreimpulso:** $M_p = \mathbf{0\%}$.
 - **Tiempo de asentamiento al 2% ($t_s$):** $1.07735 e^{-2.1436 t_s} \approx 0.02 \implies t_s \approx \mathbf{1.86\text{ s}}$ (Tarda más del doble que el caso crítico, dando sensación de pesadez).
+
+---
+
+### Caso límite: $\zeta = 0$ (movimiento libre no amortiguado, visto en clase)
+
+Con $c = 0$ y $F = 0$ la profesora obtuvo $mx'' + kx = 0$, de ecuación característica $mr^2 + k = 0 \implies r = \pm\omega i$ con $\omega = \sqrt{k/m}$, y $x_h(t) = C_1\cos\omega t + C_2\sin\omega t$ (su ejemplo: $m = 1$ kg, $k = 16$ N/m $\Rightarrow \omega = 4$, $x(0) = 1$, $x'(0) = 0$ da $x(t) = \cos 4t$).
+
+En nuestro modelo es $\zeta = 0$ ($a = 0$, $b = \omega$). Con $\omega = 8$, $x_f = 1$, $u(0) = -1$, $u'(0) = 0$: $C_1 = -1$, $C_2 = 0$, es decir
+$$x(t) = 1 - \cos(8t)$$
+Movimiento armónico simple alrededor de $x_f$: periodo $T = 2\pi/\omega \approx 0.785$ s, amplitud constante $1$, **nunca se asienta** ($\text{Re}(r) = 0$ no hay decaimiento). Por eso el amortiguador ($\zeta > 0$) es indispensable en un resorte de animación.
 
 ---
 
@@ -267,14 +284,49 @@ El sobreimpulso depende solo de $\zeta$; el tiempo de asentamiento escala como $
 | Elemento | $\zeta$ | $\omega$ (rad/s) | Sobreimpulso $M_p$ | Primer pico $t_p$ | Asentamiento $t_s$ (2 %) |
 |---|:---:|:---:|:---:|:---:|:---:|
 | Cámara | 1.0 | 6 | 0 % | — | $5.83/\omega \approx 0.97$ s |
-| Menú | 0.5 | 10 | 16.3 % (≈ 36 px de 220 px) | $\pi/\beta \approx 0.36$ s | $\ln 50/\alpha \approx 0.78$ s |
+| Menú | 0.5 | 10 | 16.3 % (≈ 36 px de 220 px) | $\pi/\beta \approx 0.36$ s | $\ln(50/\sqrt{1-\zeta^2})/\alpha \approx 0.81$ s (cota por envolvente) |
 | Barra de vida | 2.0 | 8 | 0 % | — | $\approx 1.86$ s (modo lento $r_1 = -2.1436$) |
 
-**Nota sobre la cámara.** La solución exacta deducida arriba vale para un destino $x_f$ **constante** (un salto). Cuando el personaje se mueve de forma continua, $x_f$ cambia con el tiempo y la ecuación pasa a ser no homogénea con $g(t) = \omega^2 x_f(t)$; por eso la comparación con la exacta se hace en el laboratorio con saltos del destino, y en la cámara se observa el mismo comportamiento (retraso y rebote) en cada cambio de dirección.
+**Nota sobre la cámara (destino que se mueve).** La solución exacta deducida arriba vale para un destino $x_f$ **constante** (un salto). Cuando el personaje avanza a velocidad constante $v$, el destino es $x_f(t) = vt$ y la ecuación queda no homogénea con $g(t) = \omega^2 v t$: un **polinomio de grado 1**, caso de la tabla de coeficientes indeterminados de clase. Resolvemos así:
+
+$$x'' + 2\zeta\omega x' + \omega^2 x = \omega^2 v t$$
+
+- Homogénea: la misma de antes, $x_h = e^{at}(C_1\cos bt + C_2\sin bt)$ o $(C_1 + C_2 t)e^{-\omega t}$ o dos exponenciales reales, todas con $x_h \to 0$.
+- Ensayo: $x_p = At + B$ (grado 1). No hay resonancia: ni $t$ ni constantes aparecen en $x_h$ (ya que $x_h \to 0$), así que no se multiplica por $t$.
+- Derivadas: $x_p' = A$, $x_p'' = 0$. Sustituyendo: $2\zeta\omega A + \omega^2(At + B) = \omega^2 v t$.
+  - Coeficiente de $t$: $\omega^2 A = \omega^2 v \implies A = v$.
+  - Término independiente: $2\zeta\omega v + \omega^2 B = 0 \implies B = -\dfrac{2\zeta v}{\omega}$.
+
+$$x_p(t) = vt - \frac{2\zeta v}{\omega} \quad\Longrightarrow\quad x(t) = x_h(t) + vt - \frac{2\zeta v}{\omega}$$
+
+Como $x_h \to 0$, la cámara termina siguiendo al personaje con un **retraso estacionario constante** $x_f - x = \dfrac{2\zeta v}{\omega}$. Para la cámara de la aplicación ($v = 280$ px/s, $\zeta = 1$, $\omega = 6$): $\dfrac{2 \cdot 1 \cdot 280}{6} \approx 93.3$ px (la simulación da ≈ 93.9 px; los 0.6 px de más vienen de que el destino se actualiza una vez por cuadro, un retraso extra de $v\,h/2$). Con $\zeta = 0.5$ el retraso baja a $\approx 46.7$ px pero a costa de rebote en cada cambio de dirección: ese es el compromiso $\zeta$ vs. retraso de una cámara.
 
 ---
 
-## 8. Verificación Numérica mediante Runge-Kutta de Orden 4 (RK4)
+## 8. Tarea de clase: comparar los tres regímenes ($m = 1$, $x(0) = 1$, $x'(0) = 0$)
+
+La tarea del 10/11/26 pide comparar tres ecuaciones con $m = 1$ y $k, c$ variables. Con $x_f = 0$ (equilibrio en el origen) son el mismo modelo del proyecto con $\omega = \sqrt{k}$ y $\zeta = c/(2\omega)$:
+
+| Ecuación | $c^2 - 4mk$ | $\omega$ | $\zeta$ | Régimen | Raíces |
+|---|:---:|:---:|:---:|---|---|
+| a) $x'' + 4x' + 3x = 0$ | $16 - 12 = 4 > 0$ | $\sqrt3$ | $2/\sqrt3 \approx 1.155$ | Sobreamortiguado | $r = -1,\ -3$ |
+| b) $x'' + 4x' + 4x = 0$ | $16 - 16 = 0$ | $2$ | $1$ | Críticamente amortiguado | $r = -2$ (doble) |
+| c) $x'' + 2x' + 5x = 0$ | $4 - 20 = -16 < 0$ | $\sqrt5$ | $1/\sqrt5 \approx 0.447$ | Subamortiguado | $r = -1 \pm 2i$ |
+
+Aplicando $x(0) = 1$, $x'(0) = 0$:
+
+- **a)** $x = C_1e^{-t} + C_2e^{-3t}$: $C_1 + C_2 = 1$, $-C_1 - 3C_2 = 0 \implies C_2 = -\tfrac12,\ C_1 = \tfrac32$. 
+  $$x(t) = \tfrac32 e^{-t} - \tfrac12 e^{-3t}$$
+- **b)** $x = (C_1 + C_2t)e^{-2t}$: $C_1 = 1$, $C_2 - 2C_1 = 0 \implies C_2 = 2$. 
+  $$x(t) = (1 + 2t)e^{-2t}$$
+- **c)** $x = e^{-t}(C_1\cos 2t + C_2\sin 2t)$: $C_1 = 1$, $-C_1 + 2C_2 = 0 \implies C_2 = \tfrac12$. 
+  $$x(t) = e^{-t}\left(\cos 2t + \tfrac12\sin 2t\right)$$
+
+Comparación con la gráfica del tablero: la curva roja (c) cruza el eje, rebasa el equilibrio (en $t = \pi/2$, $x \approx -0.21$) y vuelve; las otras dos (a, b) bajan sin cruzarlo, y (b) crítica es la más rápida de las dos. Estas tres soluciones están verificadas contra RK4 en `tests/test_physics.py` (`test_class_task_three_regimes`).
+
+---
+
+## 9. Verificación Numérica mediante Runge-Kutta de Orden 4 (RK4)
 
 Para simular computacionalmente la ecuación de segundo orden, la convertimos en un sistema de dos ecuaciones diferenciales de primer orden en variables de estado $Y = [x, v]^T$:
 $$\begin{cases} x' = v \\ v' = -2\zeta\omega v - \omega^2(x - x_f) \end{cases}$$
@@ -283,7 +335,7 @@ Implementamos el algoritmo Runge-Kutta de orden 4 (RK4) con 4 evaluaciones de pe
 
 ### Verificación de Precisión Absoluta:
 Evaluando la solución numérica frente a la analítica exacta deducida a mano en el mismo vector de tiempos:
-$$|x_{\text{num}}(t) - x_{\text{exacta}}(t)| < 1.93 \times 10^{-10}\text{ m}$$
+$$|x_{\text{num}}(t) - x_{\text{exacta}}(t)| \lesssim 1.9 \times 10^{-10}\text{ m}$$
 
 (máximo sobre $0 \le t \le 3$ s para $\zeta = 0.3,\ 1,\ 2$; la pestaña «Verificación» lo calcula en vivo).
 

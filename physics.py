@@ -93,7 +93,9 @@ def system_metrics(omega, zeta):
         roots = [complex(-alpha, beta), complex(-alpha, -beta)]
         mp = 100.0 * math.exp(-math.pi * zeta / math.sqrt(1.0 - zeta**2))
         tp = math.pi / beta
-        ts = math.log(50.0) / alpha  # envolvente e^{-alpha t} <= 0.02
+        # Cota por envolvente: |u| <= e^{-alpha t} / sqrt(1 - zeta^2) <= 0.02 (paso desde reposo).
+        # Es una cota, no el instante exacto de la última salida de la banda del 2 %.
+        ts = math.log(50.0 / math.sqrt(1.0 - zeta**2)) / alpha
     else:
         regime = "sobreamortiguado"
         root = math.sqrt(zeta**2 - 1.0)

@@ -109,7 +109,7 @@ const Cases = (() => {
       this.goal = this.s.x + (e.clientX - r.left - r.width / 2);
     }
     preUpdate(dt) {
-      const SPEED = 280; // px/s: el personaje avanza a velocidad constante; la cámara lo sigue con resorte
+      const SPEED = CameraCase.SPEED; // el personaje avanza a velocidad constante; la cámara lo sigue con resorte
       const dir = [...this.keys].reduce((a, b) => a + b, 0);
       if (dir) this.player += dir * SPEED * dt;
       else if (this.goal !== null) {
@@ -150,8 +150,10 @@ const Cases = (() => {
     }
     justification() {
       const d = this.design, m = Physics.metrics(d.omega, d.zeta);
+      const lag = (2 * d.zeta * CameraCase.SPEED) / d.omega; // x_p = vt − 2ζv/ω (coef. indeterminados, x_f = vt)
       return `<b>ζ = ${fmt(d.zeta, 1)} (crítico):</b> sin sobreimpulso y se asienta en ${fmt(m.settling)} s: persigue sin marear. ` +
-        `Con ζ = 0.5 se pasaría ${fmt(overshootOf(d.omega, 0.5), 1)} % de cada salto y la imagen oscilaría.`;
+        `Con ζ = 0.5 se pasaría ${fmt(overshootOf(d.omega, 0.5), 1)} % de cada salto y la imagen oscilaría. ` +
+        `Con el personaje a ${CameraCase.SPEED} px/s el retraso estacionario teórico es 2ζv/ω ≈ ${fmt(lag, 0)} px.`;
     }
   }
 
@@ -244,6 +246,7 @@ const Cases = (() => {
     }
   }
 
+  CameraCase.SPEED = 280; // px/s (se define antes de instanciar: el constructor ya llama a justification())
   const cases = { camera: new CameraCase(), menu: new MenuCase(), health: new HealthCase() };
   let current = 'camera';
 
