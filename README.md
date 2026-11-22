@@ -16,7 +16,7 @@ x'' + 2ζω x' + ω² (x − x_f) = 0
 - `ω` controla la **rapidez**, `ζ` el **carácter**: ζ < 1 rebota, ζ = 1 llega lo más rápido sin rebotar, ζ > 1 llega lento y pesado.
 - Con `u = x − x_f` la ecuación queda homogénea: `u'' + 2ζω u' + ω² u = 0`.
 
-La deducción a mano (ecuación característica, solución general, condiciones iniciales, ζ = 0.3, 1 y 2 con ω = 8) está en
+La deducción (ecuación característica, solución general, condiciones iniciales, ζ = 0.3, 1 y 2 con ω = 8) está en
 [docs/Desarrollo_matematico.pdf](docs/Desarrollo_matematico.pdf) / [.md](docs/Desarrollo_matematico.md).
 **El programa verifica esa solución, no la reemplaza.**
 
@@ -63,7 +63,7 @@ static/js/physics.js NÚCLEO: la misma matemática en el navegador (anima la sim
 app.py              servidor Flask: sirve la página y /api/verify, /api/convergence (RK4 vs exacta con numpy)
 tests/              pytest de physics.py
 static/             interfaz: index.html, css/ y js/{lab,verify,cases,charts,main}.js (solo dibujo y controles)
-docs/               deducción a mano (PDF exportado del .md, y Markdown)
+docs/               deducción (Markdown y su PDF exportado) y Guia_exposicion.md (organización interna)
 ```
 
 - **Matemática y lógica (lo que se explica línea por línea):** `physics.py` y `static/js/physics.js`. Cada bloque indica en su cabecera la sección de `docs/Desarrollo_matematico.md` donde está deducido. Python verifica con numpy (como el esqueleto de la guía); JavaScript anima.
@@ -74,6 +74,6 @@ API: `GET /api/verify?zeta=&omega=&h=&T=` · `GET /api/convergence?zeta=&omega=`
 ## Declaración sobre el uso de asistentes de inteligencia artificial
 
 - **Gemini / Antigravity (Google DeepMind):** versión inicial en Tkinter/Matplotlib, estructura de la deducción en Markdown y de las diapositivas (esa versión ya no está en el repositorio).
-- **Claude Code (Anthropic):** migración a la aplicación web (Flask + JavaScript), reorganización del repositorio, API de verificación, pruebas con pytest, revisión de la matemática contra los apuntes de clase (correcciones del tiempo de asentamiento, notación y citas) y esta documentación.
+- **Claude Code (Anthropic):** migración a la aplicación web (Flask + JavaScript), reorganización del repositorio, API de verificación, pruebas con pytest, revisión de la matemática contra los apuntes de clase (correcciones del tiempo de asentamiento, notación y citas), redacción del paso a paso de `docs/Desarrollo_matematico.md` siguiendo el procedimiento visto en clase, guía interna de exposición y esta documentación.
 
-La parte analítica se hizo a mano; el grupo revisó y puede explicar el código y cada paso de la deducción.
+El desarrollo de `docs/` es la versión mecanografiada, hecha con la asistencia declarada arriba; el manuscrito del grupo se entrega aparte. El grupo revisó y puede explicar el código y cada paso de la deducción.
