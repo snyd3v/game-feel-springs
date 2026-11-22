@@ -8,10 +8,11 @@ Guía interna del grupo. Son **15 minutos + 5 de preguntas**. La idea que debe q
 
 | Tiempo | Quién | Diapositivas | Tema | Secciones | Rúbrica |
 |:---:|---|:---:|---|:---:|---|
-| 0:00 a 3:30 | **Edwin** | 1 a 5 | Modelo, no homogénea, ecuación característica | 1, 2, 3 | Solución analítica |
-| 3:30 a 7:30 | **Cristian** | 6 a 8 | Los tres ejercicios con condiciones iniciales | 4 | Solución analítica |
+| 0:00 a 3:30 | **Cristian** | 1 a 5 | Modelo, no homogénea, ecuación característica | 1, 2, 3 | Solución analítica |
+| 3:30 a 7:30 | **Edwin** | 6 a 8 | Los tres ejercicios con condiciones iniciales | 4 | Solución analítica |
 | 7:30 a 11:30 | **Luis** | 9 a 11 | Demo con el público, por qué rebota, lerp | 5, 6 | Animación |
-| 11:30 a 15:00 | **Andrés** | 12 a 15 | Programa, verificación, aplicaciones, conclusión | 7, 8 | Modelo, verificación, conclusión |
+| 11:30 a 14:15 | **Andrés** | 12 a 14 | Programa, verificación, aplicaciones | 7, 8 | Modelo, verificación |
+| 14:15 a 15:00 | **Edwin** | 15 y 16 | Conclusión de ingeniería y cierre | 7 | Conclusión |
 | 15:00 a 20:00 | **Los cuatro** | 16 | Preguntas | Todas | Defensa |
 
 Las secciones son las de [Desarrollo_matematico.md](Desarrollo_matematico.md), para estudiar cada bloque.
@@ -34,11 +35,11 @@ Las secciones son las de [Desarrollo_matematico.md](Desarrollo_matematico.md), p
 
 ---
 
-## 2. Edwin: el modelo (diapositivas 1 a 5, 3:30)
+## 2. Cristian: el modelo (diapositivas 1 a 5, 3:30)
 
 ### Diapositiva 1. Portada (0:00 a 0:15)
 
-Buen día. Somos Edwin Burbano, Cristian Chantre, Luis Hurtado y Andrés Suaza, y nuestro proyecto es Resortes para animar: el game feel, o cómo se siente un movimiento.
+Buen día. Somos Cristian Chantre, Edwin Burbano, Luis Hurtado y Andrés Suaza, y nuestro proyecto es Resortes para animar: el game feel, o cómo se siente un movimiento.
 
 ### Diapositiva 2. Contenido (0:15 a 0:30)
 
@@ -86,17 +87,17 @@ En la homogénea ensayamos e a la erre te. Como esa exponencial nunca es cero, q
 
 Todo depende de zeta al cuadrado menos uno. Si es negativo, las raíces son complejas y el sistema oscila. Si es cero, la raíz es doble: es el caso crítico. Si es positivo, son dos raíces reales y llega más lento.
 
-Con esto, Cristian resuelve los tres casos.
+Con esto, Edwin resuelve los tres casos.
 
 ---
 
-## 3. Cristian: los tres ejercicios (diapositivas 6 a 8, 4:00)
+## 3. Edwin: los tres ejercicios (diapositivas 6 a 8, 4:00)
 
 **Antes de empezar:** tener el manuscrito a la mano, por si piden un paso intermedio.
 
 ### Diapositiva 6. Ejercicio b, completo (3:30 a 5:20)
 
-Gracias, Edwin. Los tres ejercicios tienen omega igual a 8, posición inicial cero, velocidad inicial cero y destino en un metro. Empiezo por el b, con zeta igual a uno, y lo explico completo.
+Gracias, Cristian. Los tres ejercicios tienen omega igual a 8, posición inicial cero, velocidad inicial cero y destino en un metro. Empiezo por el b, con zeta igual a uno, y lo explico completo.
 
 *[Señala la columna izquierda, renglón por renglón.]*
 
@@ -148,7 +149,7 @@ La guía de la profe pide este orden: **primero el público mueve los deslizador
 
 ### Diapositiva 9. Demostración con el público (7:30 a 9:15)
 
-Gracias, Cristian. Esta es la aplicación funcionando. Arriba está el resorte y abajo la interpolación lineal, o lerp. Al lado se dibuja la posición contra el tiempo.
+Gracias, Edwin. Esta es la aplicación funcionando. Arriba está el resorte y abajo la interpolación lineal, o lerp. Al lado se dibuja la posición contra el tiempo.
 
 *[Pulsa **ζ = 0.3**.]*
 
@@ -212,7 +213,7 @@ Andrés nos muestra que el programa coincide con la solución exacta.
 
 ---
 
-## 5. Andrés: programa y conclusión (diapositivas 12 a 15, 3:30)
+## 5. Andrés: programa y aplicaciones (diapositivas 12 a 14, 2:45)
 
 ### Diapositiva 12. La ecuación en el programa (11:30 a 12:20)
 
@@ -252,11 +253,24 @@ La barra de vida usa zeta 2: baja con peso, en 1.86 segundos, y sin rebotar.
 
 *[Sale de la demo con `AvPág`.]*
 
+Edwin cierra con nuestra recomendación.
+
+**Cuidados:**
+
+- En la 13, la gráfica de error según h queda más abajo: se llega con la rueda del mouse, solo si la preguntan.
+- En la barra de vida hagan **un solo golpe, con la barra quieta**. Si la golpean mientras sube por una poción, sigue subiendo un momento por la velocidad que traía.
+
+---
+
+## 6. Edwin: conclusión y cierre (diapositivas 15 y 16, 0:45)
+
+Edwin vuelve a pasar adelante después de las aplicaciones.
+
 ### Diapositiva 15. Conclusión (14:15 a 15:00)
 
 *[Señala una fila a la vez.]*
 
-Nuestra recomendación es esta. Zeta uno para la cámara, porque con 0.5 se pasaría 16.3 por ciento y con 2 tardaría 2.48 segundos.
+Gracias, Andrés. Nuestra recomendación es esta. Zeta uno para la cámara, porque con 0.5 se pasaría 16.3 por ciento y con 2 tardaría 2.48 segundos.
 
 Zeta 0.5 para el menú, porque responde en 0.24 segundos y solo se pasa 36 píxeles.
 
@@ -268,14 +282,9 @@ En resumen, zeta da el carácter y omega la rapidez.
 
 Primero la matemática, después el programa: las raíces de la ecuación característica deciden cómo se siente una animación. Muchas gracias. ¿Tienen preguntas?
 
-**Cuidados:**
-
-- En la 13, la gráfica de error según h queda más abajo: se llega con la rueda del mouse, solo si la preguntan.
-- En la barra de vida hagan **un solo golpe, con la barra quieta**. Si la golpean mientras sube por una poción, sigue subiendo un momento por la velocidad que traía.
-
 ---
 
-## 6. Quién responde por cada parte del código
+## 7. Quién responde por cada parte del código
 
 La guía dice que una línea que nadie pueda explicar no cuenta.
 
@@ -295,31 +304,31 @@ Además, **los cuatro** deben poder explicar sin ayuda esta cadena: ecuación �
 
 ---
 
-## 7. Preguntas probables
+## 8. Preguntas probables
 
 Responde la persona indicada y, si le sirve, salta a la diapositiva que aparece al lado. Si no lo sabe, otro complementa. Si nadie lo sabe, se reconoce: la rúbrica lo valora.
 
 ### Matemática
 
-**¿Por qué se volvió homogénea? (Edwin, diapositiva 4)**\
+**¿Por qué se volvió homogénea? (Cristian, diapositiva 4)**\
 Porque el destino es constante: las derivadas de u y de x son iguales y el término sin la incógnita queda absorbido en u.
 
-**¿Dónde están los coeficientes indeterminados? (Edwin, diapositiva 4)**\
+**¿Dónde están los coeficientes indeterminados? (Cristian, diapositiva 4)**\
 En la ecuación original. Como g es constante se ensaya A y da el destino. Es equivalente al cambio de variable.
 
-**¿Por qué no hay resonancia? (Edwin, diapositiva 4)**\
+**¿Por qué no hay resonancia? (Cristian, diapositiva 4)**\
 Una constante corresponde a r = 0, y cero no es raíz porque ω² no es cero.
 
-**¿El amortiguador es −cx o −cx′? (Edwin, diapositiva 3)**\
+**¿El amortiguador es −cx o −cx′? (Cristian, diapositiva 3)**\
 −cx′, porque frena según la velocidad. Con −cx sería otro resorte y no habría primera derivada.
 
-**¿Por qué aparece te⁻⁸ᵗ? (Cristian, diapositiva 6)**\
+**¿Por qué aparece te⁻⁸ᵗ? (Edwin, diapositiva 6)**\
 La raíz tiene multiplicidad 2 y hacen falta dos soluciones linealmente independientes.
 
-**¿Por qué seno y coseno si las raíces son complejas? (Cristian, diapositiva 5)**\
+**¿Por qué seno y coseno si las raíces son complejas? (Edwin, diapositiva 5)**\
 Por la fórmula de Euler: la parte imaginaria se convierte en oscilación y la real queda en la exponencial.
 
-**¿Es lo mismo ω que 7.63? (Cristian, diapositiva 7)**\
+**¿Es lo mismo ω que 7.63? (Edwin, diapositiva 7)**\
 No. ω = 8 es la frecuencia natural, sin amortiguar. 7.63 es la frecuencia con la que oscila ya amortiguado.
 
 **¿Con ζ ≥ 1 nunca se pasa? (Luis, diapositiva 10)**\
@@ -362,7 +371,7 @@ Sí, y está declarado en el README con herramienta y uso. Digan exactamente eso
 
 ---
 
-## 8. Preparación
+## 9. Preparación
 
 ### El manuscrito
 
@@ -388,13 +397,13 @@ Sí, y está declarado en el README con herramienta y uso. Digan exactamente eso
 
 ### Si van atrasados
 
-1. Cristian cambia el guion de la 7 por: «El a y el c siguen el mismo procedimiento: cambian las raíces y, con las condiciones iniciales, quedan estas constantes».
+1. Edwin cambia el guion de la 7 por: «El a y el c siguen el mismo procedimiento: cambian las raíces y, con las condiciones iniciales, quedan estas constantes».
 2. Andrés se salta el párrafo del menú en la 14. Igual queda mencionado en la 15.
 3. **Nunca se recortan:** la 4 (no homogénea), la 6 (ejercicio con condiciones iniciales), la 9 (el público participa), la 10 (por qué rebota), la 13 (superposición) y la 15 (conclusión).
 
 ---
 
-## 9. Números para memorizar
+## 10. Números para memorizar
 
 | | ζ = 0.3 | ζ = 1 | ζ = 2 |
 |---|:---:|:---:|:---:|
