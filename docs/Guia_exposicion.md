@@ -16,6 +16,14 @@ Guía interna del grupo. Son **15 minutos + 5 de preguntas**. La idea que debe q
 
 Las secciones son las de [Desarrollo_matematico.md](Desarrollo_matematico.md), para estudiar cada bloque.
 
+### Cómo usar el guion
+
+- El texto normal **se dice tal cual**. Lo que está en *[cursiva y corchetes]* es lo que se hace: **no se dice**.
+- Las fórmulas están escritas como se pronuncian: «equis prima» es x′, «u dos prima» es u″, «e a la erre te» es eʳᵗ.
+- Los decimales se dicen con «punto»: 0.97 es «cero punto noventa y siete».
+- El guion es para repasar. **El día de la exposición no se lee**: si se olvida una frase, se sigue con la idea.
+- El tiempo de cada diapositiva está junto a su título, para ensayar con cronómetro.
+
 ### Manejo de las diapositivas
 
 - Ejecutar `python app.py`, abrir `http://localhost:5000/presentacion` y pulsar `F11`.
@@ -28,67 +36,237 @@ Las secciones son las de [Desarrollo_matematico.md](Desarrollo_matematico.md), p
 
 ## 2. Edwin: el modelo (diapositivas 1 a 5, 3:30)
 
-| N.º | Reloj | Qué hace | Idea que dice |
-|:---:|:---:|---|---|
-| 1 | 0:00 a 0:15 | Presenta al grupo | «Vamos a mostrar que una animación se puede producir con una ecuación diferencial de segundo orden.» |
-| 2 | 0:15 a 0:30 | Nombra las cuatro partes, sin leer la lista | «Primero la matemática, luego cómo se ve y al final qué valores elegimos.» |
-| 3 | 0:30 a 1:40 | Señala el dibujo y cada término | «El resorte tira hacia el destino, el amortiguador frena según la velocidad y Newton los une.» |
-| 4 | 1:40 a 2:40 | Compara los dos caminos | «No es homogénea por la constante. Con el cambio de variable queda homogénea, y por coeficientes indeterminados la particular da el mismo destino.» |
-| 5 | 2:40 a 3:30 | Señala el discriminante y los tres casos | «El signo de ζ² − 1 decide el tipo de raíces, y las raíces deciden el movimiento.» |
+### Diapositiva 1. Portada (0:00 a 0:15)
 
-**Al pasar la palabra:** «Con esa ecuación, Cristian resuelve los tres casos de la guía.»
+Buen día. Somos Edwin Burbano, Cristian Chantre, Luis Hurtado y Andrés Suaza, y nuestro proyecto es Resortes para animar: el game feel, o cómo se siente un movimiento.
+
+### Diapositiva 2. Contenido (0:15 a 0:30)
+
+*[Señala los cuatro bloques, sin leer la lista.]*
+
+Primero veremos el modelo y su solución. Después, cómo se siente ese movimiento. Al final, la verificación del programa y los valores que recomendamos.
+
+### Diapositiva 3. De dónde sale cada término (0:30 a 1:40)
+
+*[Señala la masa en el dibujo.]*
+
+Imaginemos que lo que queremos animar, por ejemplo un menú, es una masa. Equis es su posición y equis efe es el destino.
+
+*[Señala el resorte y luego el amortiguador.]*
+
+El resorte la tira hacia el destino con una fuerza menos ka por equis menos equis efe. El amortiguador la frena según la velocidad, con menos ce por equis prima.
+
+Por la segunda ley de Newton, masa por aceleración es igual a la suma de esas fuerzas.
+
+*[Señala la ecuación del recuadro, término por término.]*
+
+Al dividir entre la masa quedan tres términos: la inercia, el amortiguador y el resorte. Omega es la raíz de ka sobre eme y controla la rapidez. Zeta es ce sobre dos eme omega y controla el carácter del movimiento.
+
+### Diapositiva 4. Ecuación no homogénea (1:40 a 2:40)
+
+Si pasamos la constante al lado derecho, la ecuación es no homogénea. La podemos trabajar por dos caminos.
+
+*[Señala la columna izquierda.]*
+
+El primero es el cambio de variable: u igual a equis menos equis efe. Como el destino es constante, las derivadas de u son las mismas de equis. Al reemplazar, queda homogénea.
+
+*[Señala la columna derecha.]*
+
+El segundo es coeficientes indeterminados. Como el lado derecho es constante, ensayamos una constante A. Cero no es raíz, entonces no hay resonancia. Al reemplazar, la solución particular es el destino.
+
+Los dos caminos llegan a lo mismo: equis es u más el destino.
+
+### Diapositiva 5. Ecuación característica (2:40 a 3:30)
+
+*[Señala la franja de arriba.]*
+
+En la homogénea ensayamos e a la erre te. Como esa exponencial nunca es cero, queda la ecuación característica, y la resolvemos con la fórmula del estudiante.
+
+*[Señala las tres columnas, una por una.]*
+
+Todo depende de zeta al cuadrado menos uno. Si es negativo, las raíces son complejas y el sistema oscila. Si es cero, la raíz es doble: es el caso crítico. Si es positivo, son dos raíces reales y llega más lento.
+
+Con esto, Cristian resuelve los tres casos.
+
+---
 
 ## 3. Cristian: los tres ejercicios (diapositivas 6 a 8, 4:00)
 
 **Antes de empezar:** tener el manuscrito a la mano, por si piden un paso intermedio.
 
-| N.º | Reloj | Qué hace | Idea que dice |
-|:---:|:---:|---|---|
-| 6 | 3:30 a 5:20 | Explica **b) completo**, paso por paso | «Raíz doble, entonces se multiplica por t. Luego aplico las dos condiciones iniciales.» |
-| 7 | 5:20 a 6:40 | **No la desarrolla:** señala raíces y constantes | «En a) la parte real amortigua y la imaginaria oscila. En c) son dos exponenciales y las constantes salen de un sistema 2×2.» |
-| 8 | 6:40 a 7:30 | Sigue cada curva con el dedo o el cursor | «Misma ecuación y mismas condiciones: solo cambió ζ, y cambió todo el movimiento.» |
+### Diapositiva 6. Ejercicio b, completo (3:30 a 5:20)
 
-**Al pasar la palabra:** «Luis muestra cómo se siente cada una de esas fórmulas.»
+Gracias, Edwin. Los tres ejercicios tienen omega igual a 8, posición inicial cero, velocidad inicial cero y destino en un metro. Empiezo por el b, con zeta igual a uno, y lo explico completo.
+
+*[Señala la columna izquierda, renglón por renglón.]*
+
+Reemplazamos zeta y omega, y queda u dos prima, más 16 u prima, más 64 u, igual a cero.
+
+Ensayamos e a la erre te y obtenemos erre al cuadrado, más 16 erre, más 64, igual a cero. Esto es erre más 8, al cuadrado. Entonces la raíz es menos 8, con multiplicidad dos.
+
+Como la raíz se repite, la segunda solución se multiplica por te. Por eso la solución general es ce uno más ce dos te, todo por e a la menos 8 te.
+
+*[Señala la columna derecha.]*
+
+Ahora aplico las condiciones iniciales. U en cero es cero menos uno, o sea menos uno. Como e a la cero vale uno, ce uno es menos uno.
+
+Para la segunda condición derivo con la regla del producto, antes de evaluar. La derivada en cero queda ce dos más 8, igual a cero. Entonces ce dos es menos 8.
+
+*[Señala el recuadro final.]*
+
+Por último vuelvo a la variable original, sumando el destino. Por lo tanto, equis de te es uno, menos uno más 8 te, por e a la menos 8 te.
+
+### Diapositiva 7. Ejercicios a y c (5:20 a 6:40)
+
+El a y el c siguen el mismo procedimiento, así que señalo lo que cambia.
+
+*[Señala la columna izquierda.]*
+
+En el a, zeta es 0.3 y las raíces son complejas: menos 2.4, más o menos 7.63 i. La parte real va en la exponencial y amortigua. La imaginaria va en el seno y el coseno, y hace oscilar. Con las condiciones iniciales, ce uno es menos uno y ce dos es menos 0.31.
+
+*[Señala la columna derecha.]*
+
+En el c, zeta es 2 y hay dos raíces reales negativas, entonces la solución es la suma de dos exponenciales.
+
+Las condiciones iniciales forman un sistema de dos ecuaciones con dos incógnitas. Al resolverlo, ce uno es menos 1.077 y ce dos es 0.077.
+
+### Diapositiva 8. Las tres soluciones (6:40 a 7:30)
+
+*[Sigue cada curva con el cursor o con la mano.]*
+
+Aquí están las tres soluciones juntas. La naranja, zeta 0.3, se pasa 37.2 por ciento y se asienta a más tardar en 1.65 segundos. Asentarse es quedar a menos del 2 por ciento del destino.
+
+La verde, zeta uno, no se pasa y se asienta en 0.73 segundos. La morada, zeta 2, tampoco se pasa, pero tarda 1.86.
+
+Solo cambió zeta. Luis nos muestra cómo se siente eso.
+
+---
 
 ## 4. Luis: demo y rebote (diapositivas 9 a 11, 4:00)
 
 La guía de la profe pide este orden: **primero el público mueve los deslizadores, luego se explica la fórmula.**
 
-| N.º | Reloj | Qué hace | Idea que dice |
-|:---:|:---:|---|---|
-| 9 | 7:30 a 9:15 | Botones **ζ = 0.3**, **ζ = 1** y **ζ = 2**. Luego alguien del público mueve ζ u ω y se pulsa **Reiniciar** | «Antes de soltarlo: ¿creen que va a rebotar? Fíjense en la flecha y el rastro: muestran la velocidad.» |
-| 10 | 9:15 a 10:35 | Recorre la tabla fila por fila | «Rebotar es que u cruce por cero. Saliendo del reposo, solo la forma con seno y coseno lo cruza.» |
-| 11 | 10:35 a 11:30 | Compara las dos columnas | «El lerp sale de golpe y frena. El resorte acelera, trae velocidad y puede pasarse.» |
+### Diapositiva 9. Demostración con el público (7:30 a 9:15)
 
-**Qué parte de la fórmula produce lo que se vio:**
+Gracias, Cristian. Esta es la aplicación funcionando. Arriba está el resorte y abajo la interpolación lineal, o lerp. Al lado se dibuja la posición contra el tiempo.
 
-| Lo que ve el público | Lo que lo produce |
-|---|---|
-| El vaivén | El seno y el coseno, que salen de la parte imaginaria |
-| Cada rebote es menor | La exponencial $e^{-\zeta\omega t}$ |
-| Sube ω y todo es más rápido, con igual porcentaje de rebote | En la solución ω multiplica a t. El porcentaje depende solo de ζ |
-| Con ζ grande se siente pesado | La raíz cercana a cero, que decae lento |
-| Lo que la gráfica sola no comunica | El rastro y la flecha: se ve la velocidad y el momento en que se devuelve |
+*[Pulsa **ζ = 0.3**.]*
+
+Con zeta 0.3 se pasa del destino y vuelve.
+
+*[Pulsa **ζ = 1**.]*
+
+Con zeta uno llega sin pasarse.
+
+*[Pulsa **ζ = 2**.]*
+
+Y con zeta 2 llega más lento, se siente pesado.
+
+Fíjense en algo que la gráfica sola no muestra igual: la flecha es la velocidad y el rastro también la muestra. Puntos separados es que va rápido, puntos juntos es que va frenando.
+
+Ahora necesito a alguien del público. Mueve zeta u omega hasta el valor que quieras.
+
+*[Espera a que lo mueva y mira el valor de ζ.]*
+
+Antes de soltarlo, ¿ustedes creen que va a rebotar?
+
+*[Espera la respuesta y pulsa **Reiniciar**. Luego dice solo la frase que corresponda.]*
+
+- **Si ζ quedó menor que 1:** Como zeta es menor que uno, se pasa del destino. Entre más cerca de uno, menos se nota.
+- **Si ζ quedó en 1 o más:** Como zeta no es menor que uno y salió del reposo, llega sin pasarse.
+
+Gracias. Veamos qué parte de la fórmula produce eso.
+
+*[Sale de la demo con `AvPág`.]*
+
+### Diapositiva 10. Por qué rebota (9:15 a 10:35)
+
+Rebotar es pasarse del destino. Como u es la distancia al destino, rebota si u cruza por cero después de arrancar.
+
+*[Señala la primera fila.]*
+
+Con zeta menor que uno hay seno y coseno. Al igualar a cero queda una tangente, que tiene infinitas soluciones: por eso rebota.
+
+*[Señala la segunda y la tercera fila.]*
+
+Con zeta igual o mayor que uno, saliendo del reposo, el único cruce da un tiempo negativo, antes de empezar. Por eso no rebota.
+
+*[Señala los cuatro recuadros de abajo.]*
+
+Entonces, lo que vimos sale de aquí: el vaivén, del seno y el coseno. Que cada rebote sea menor, de la exponencial. La rapidez, de omega, que multiplica al tiempo sin cambiar el porcentaje de rebote. Y lo pesado, de la raíz cercana a cero, que decae lento.
+
+### Diapositiva 11. Resorte frente a lerp (10:35 a 11:30)
+
+*[Señala la columna derecha y luego la izquierda.]*
+
+El lerp es de primer orden. En cada cuadro avanza el 10 por ciento de lo que falta: arranca de golpe, solo frena y nunca rebota. Además depende del monitor: tarda 0.63 segundos a 60 hercios y 0.26 a 144.
+
+El resorte es de segundo orden: guarda posición y velocidad. Por eso acelera, tiene inercia y puede pasarse. Con paso fijo, no depende del monitor.
+
+Andrés nos muestra que el programa coincide con la solución exacta.
 
 **Cuidados con la demo:**
 
 - Después de mover un deslizador, **siempre Reiniciar**. Si el objeto estaba quieto en el destino, sin eso no pasa nada.
 - Si hacen clic mientras se mueve, con ζ ≥ 1 **puede pasarse una vez**, aunque la tarjeta diga «ninguno». No es un error: las tarjetas suponen salida desde el reposo y ahí ya traía velocidad.
 
-**Al pasar la palabra:** «Andrés demuestra que el programa coincide con lo que resolvimos.»
+---
 
 ## 5. Andrés: programa y conclusión (diapositivas 12 a 15, 3:30)
 
-| N.º | Reloj | Qué hace | Idea que dice |
-|:---:|:---:|---|---|
-| 12 | 11:30 a 12:20 | Señala el sistema y la línea de código | «Es la misma ecuación con la aceleración despejada. RK4 la avanza por pasos, por eso tiene un error muy pequeño.» |
-| 13 | 12:20 a 13:10 | Señala la superposición y la columna de error | «Se superponen. La diferencia máxima es del orden de 10⁻¹⁰ m.» |
-| 14 | 13:10 a 14:15 | **Cámara**: botón **Salto +300 px** | «ζ = 1: se asienta en 0.97 s sin pasarse. No marea.» |
-| | | **Menú**: botón **Abrir menú** | «ζ = 0.5: toca el destino en 0.24 s y se pasa 36 px. Se siente responsivo.» |
-| | | **Barra de vida**: botón **Golpe −45** | «ζ = 2: baja con peso en 1.86 s. Si rebotara parecería una curación.» |
-| 15 | 14:15 a 15:00 | Señala la franja y una cifra por fila | «Recomendamos 1 para acompañar, 0.5 para responder y 2 para comunicar una pérdida. ζ se elige por carácter y ω por rapidez.» |
+### Diapositiva 12. La ecuación en el programa (11:30 a 12:20)
 
-**Cierre, al pasar a la 16:** «Primero la matemática, después el programa: las raíces deciden cómo se siente una animación.»
+Gracias, Luis. Para programar la ecuación la convertimos en un sistema de primer orden: equis prima es la velocidad, y uve prima es la aceleración despejada.
+
+*[Señala la línea de código.]*
+
+Esta línea es esa misma ecuación, y omega y zeta vienen de los deslizadores.
+
+La resolvemos con Runge-Kutta 4 y paso fijo. La exacta es una fórmula. La numérica avanza por pasos y acumula un error proporcional a hache a la cuatro.
+
+### Diapositiva 13. Verificación (12:20 a 13:10)
+
+*[Señala la gráfica izquierda.]*
+
+Aquí está la verificación. La línea de color es la numérica y la negra discontinua es la exacta, calculadas en los mismos tiempos. Como ven, se superponen.
+
+*[Señala la gráfica derecha y la columna de error máximo.]*
+
+Esta es la diferencia. Con un paso de 0.001 segundos, la mayor es 1.9 por diez a la menos diez metros, menos de un nanómetro. No es cero por el error que acumula cada paso.
+
+### Diapositiva 14. Tres aplicaciones (13:10 a 14:15)
+
+La misma ecuación sirve para tres cosas, cada una con su gráfica al lado.
+
+*[Pulsa **Salto +300 px**.]*
+
+La cámara usa zeta uno: alcanza al personaje sin pasarse y se asienta en 0.97 segundos. Así no marea.
+
+*[Pulsa la pestaña **Menú** y luego **Abrir menú**.]*
+
+El menú usa zeta 0.5: toca el destino en 0.24 segundos y se pasa 36 píxeles. Ese rebote pequeño lo hace sentir vivo.
+
+*[Pulsa la pestaña **Barra de vida** y luego **Golpe −45**.]*
+
+La barra de vida usa zeta 2: baja con peso, en 1.86 segundos, y sin rebotar.
+
+*[Sale de la demo con `AvPág`.]*
+
+### Diapositiva 15. Conclusión (14:15 a 15:00)
+
+*[Señala una fila a la vez.]*
+
+Nuestra recomendación es esta. Zeta uno para la cámara, porque con 0.5 se pasaría 16.3 por ciento y con 2 tardaría 2.48 segundos.
+
+Zeta 0.5 para el menú, porque responde en 0.24 segundos y solo se pasa 36 píxeles.
+
+Y zeta 2 para la vida, porque con 0.35 se pasaría 30.9 por ciento y parecería una curación.
+
+En resumen, zeta da el carácter y omega la rapidez.
+
+### Diapositiva 16. Cierre y preguntas (desde 15:00)
+
+Primero la matemática, después el programa: las raíces de la ecuación característica deciden cómo se siente una animación. Muchas gracias. ¿Tienen preguntas?
 
 **Cuidados:**
 
@@ -198,7 +376,7 @@ Sí, y está declarado en el README con herramienta y uso. Digan exactamente eso
 ### Ensayo
 
 - [ ] Dos ensayos completos con las diapositivas y cronómetro. En el segundo, cada quien responde dos preguntas de otro bloque.
-- [ ] Nadie lee las diapositivas ni esta guía: cada bloque se dice con palabras propias. Las frases entre comillas son solo la idea.
+- [ ] Cada quien repasa su guion en voz alta hasta decirlo sin mirarlo. Al exponer, nadie lee las diapositivas ni esta guía.
 - [ ] Quien no expone saca 0, así que cada uno debe hablar, y además conocer el bloque vecino por si un compañero se traba.
 
 ### El día
@@ -210,8 +388,8 @@ Sí, y está declarado en el README con herramienta y uso. Digan exactamente eso
 
 ### Si van atrasados
 
-1. Cristian pasa la 7 señalando solo las constantes.
-2. Andrés omite el menú en la 14 y lo menciona en la 15.
+1. Cristian cambia el guion de la 7 por: «El a y el c siguen el mismo procedimiento: cambian las raíces y, con las condiciones iniciales, quedan estas constantes».
+2. Andrés se salta el párrafo del menú en la 14. Igual queda mencionado en la 15.
 3. **Nunca se recortan:** la 4 (no homogénea), la 6 (ejercicio con condiciones iniciales), la 9 (el público participa), la 10 (por qué rebota), la 13 (superposición) y la 15 (conclusión).
 
 ---
