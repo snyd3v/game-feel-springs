@@ -33,7 +33,6 @@
     current = n;
     const demo = slides[n].querySelector('.demo');
     if (demo) openDemo(demo);
-    $('who').textContent = slides[n].dataset.who;
     $('count').textContent = `${n + 1} / ${slides.length}`;
     history.replaceState(null, '', `#${n + 1}`);
   }

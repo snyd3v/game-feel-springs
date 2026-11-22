@@ -10,8 +10,8 @@
 <body>
 <main id="deck">
 
-  <!-- ============ EDWIN: modelo ============ -->
-  <section class="slide cover active" data-who="Edwin Burbano">
+  <!-- ============ portada y contenido ============ -->
+  <section class="slide cover active">
     <img class="logo" src="/static/img/logo-unimayor.png" alt="Institución Universitaria Colegio Mayor del Cauca">
     <div class="cover-band">
       <p class="kicker">Proyecto 4 · Ecuaciones Diferenciales · Unidad 3</p>
@@ -25,7 +25,39 @@
     </div>
   </section>
 
-  <section class="slide" data-who="Edwin Burbano">
+  <section class="slide">
+    <h2>Contenido</h2>
+    <nav class="body contents">
+      <div class="part">
+        <h3>El modelo</h3>
+        <a href="#3"><b>3</b>De dónde sale cada término</a>
+        <a href="#4"><b>4</b>No homogénea y solución particular</a>
+        <a href="#5"><b>5</b>Ecuación característica</a>
+      </div>
+      <div class="part">
+        <h3>Solución analítica</h3>
+        <a href="#6"><b>6</b>Ejercicio b): ζ = 1</a>
+        <a href="#7"><b>7</b>Ejercicios a) y c): ζ = 0.3 y ζ = 2</a>
+        <a href="#8"><b>8</b>Las tres soluciones</a>
+      </div>
+      <div class="part">
+        <h3>El «game feel»</h3>
+        <a href="#9"><b>9</b>Demostración en vivo</a>
+        <a href="#10"><b>10</b>¿Por qué rebota?</a>
+        <a href="#11"><b>11</b>Resorte frente a lerp</a>
+      </div>
+      <div class="part">
+        <h3>Del programa a la decisión</h3>
+        <a href="#12"><b>12</b>La ecuación en el programa</a>
+        <a href="#13"><b>13</b>Verificación contra lo exacto</a>
+        <a href="#14"><b>14</b>Tres aplicaciones</a>
+        <a href="#15"><b>15</b>Conclusión de ingeniería</a>
+      </div>
+    </nav>
+  </section>
+
+  <!-- ============ modelo ============ -->
+  <section class="slide">
     <h2>Una animación como masa, resorte y amortiguador</h2>
     <div class="body cols">
       <svg class="diagram" viewBox="0 0 560 360" role="img" aria-label="Masa unida a una pared por un resorte y un amortiguador">
@@ -45,18 +77,19 @@
         <div class="step"><span>El resorte tira hacia el destino</span><p class="eq">F<sub>r</sub> = −k(x − x<sub>f</sub>)</p></div>
         <div class="step"><span>El amortiguador frena según la velocidad</span><p class="eq">F<sub>a</sub> = −c x′</p></div>
         <div class="step"><span>Segunda ley de Newton</span><p class="eq">m x″ = −k(x − x<sub>f</sub>) − c x′</p></div>
-        <div class="step"><span class="math">Con ω = √<span class="root">k/m</span>&nbsp; y &nbsp;ζ = c / (2mω)</span>
-          <p class="eq result">x″ + 2ζω x′ + ω²(x − x<sub>f</sub>) = 0</p></div>
+        <div class="step"><span class="math">Divido entre m, con ω = √<span class="root">k/m</span>&nbsp; y &nbsp;ζ = c / (2mω)</span>
+          <p class="eq result terms"><span>x″<small>inercia</small></span> + <span>2ζω x′<small>amortiguador</small></span> + <span><span>ω²(x − x<sub>f</sub>)</span><small>resorte</small></span> = 0</p></div>
       </div>
     </div>
     <p class="key">ω controla la <b>rapidez</b> · ζ controla el <b>carácter</b></p>
   </section>
 
-  <section class="slide" data-who="Edwin Burbano">
-    <h2>Cambio de variable y ecuación característica</h2>
-    <div class="body cols">
+  <section class="slide">
+    <h2>Ecuación no homogénea: dos caminos</h2>
+    <p class="data">x″ + 2ζω x′ + ω²x = ω²x<sub>f</sub> &nbsp;·&nbsp; el lado derecho es una constante distinta de cero</p>
+    <div class="body cols with-data with-key">
       <div class="panel">
-        <h3>1. La hacemos homogénea</h3>
+        <h3>Cambio de variable</h3>
         <p class="eq">u = x − x<sub>f</sub></p>
         <p class="why">Como x<sub>f</sub> es constante:</p>
         <p class="eq">u′ = x′ , &nbsp; u″ = x″</p>
@@ -64,24 +97,27 @@
         <p class="eq result">u″ + 2ζω u′ + ω²u = 0</p>
       </div>
       <div class="panel">
-        <h3>2. Ensayamos u = e<sup>rt</sup></h3>
-        <p class="eq">e<sup>rt</sup>(r² + 2ζωr + ω²) = 0</p>
-        <p class="why">e<sup>rt</sup> ≠ 0 , por lo tanto:</p>
-        <p class="eq">r² + 2ζωr + ω² = 0</p>
-        <p class="why">Fórmula del estudiante:</p>
-        <p class="eq result">r = −ζω ± ω√<span class="root">ζ² − 1</span></p>
+        <h3>Coeficientes indeterminados</h3>
+        <p class="eq">Ensayo x<sub>p</sub> = A</p>
+        <p class="why">r = 0 no es raíz: no hay resonancia</p>
+        <p class="eq">x<sub>p</sub>′ = 0 , &nbsp; x<sub>p</sub>″ = 0</p>
+        <p class="why">Reemplazo: &nbsp;ω²A = ω²x<sub>f</sub></p>
+        <p class="eq result">x<sub>p</sub> = x<sub>f</sub></p>
       </div>
     </div>
-    <p class="key">El signo de <b>ζ² − 1</b> decide cómo se mueve</p>
+    <p class="key">Los dos llegan a lo mismo: <b>x = x<sub>h</sub> + x<sub>p</sub> = u + x<sub>f</sub></b></p>
   </section>
 
-  <!-- ============ CRISTIAN: solución analítica ============ -->
-  <section class="slide" data-who="Cristian Chantre">
-    <h2>Tres casos de raíces, tres regímenes</h2>
+  <section class="slide">
+    <h2>Ecuación característica: tres regímenes</h2>
+    <div class="derivation eq small">
+      <p>Ensayo u = e<sup>rt</sup> &nbsp;⟹&nbsp; e<sup>rt</sup>(r² + 2ζωr + ω²) = 0 , &nbsp;con e<sup>rt</sup> ≠ 0</p>
+      <p>r² + 2ζωr + ω² = 0 &nbsp;⟹&nbsp; <b>r = −ζω ± ω√<span class="root">ζ² − 1</span></b></p>
+    </div>
     <div class="body thirds">
       <div class="panel z03">
         <h3>ζ &lt; 1 · Subamortiguado</h3>
-        <p class="why">Raíces complejas</p>
+        <p class="why">ζ² − 1 &lt; 0: complejas</p>
         <p class="eq">r = a ± bi</p>
         <p class="why math">a = −ζω<br>b = ω√<span class="root">1 − ζ²</span></p>
         <p class="eq small">u = e<sup>at</sup>(C<sub>1</sub> cos bt + C<sub>2</sub> sen bt)</p>
@@ -89,7 +125,7 @@
       </div>
       <div class="panel z1">
         <h3>ζ = 1 · Crítico</h3>
-        <p class="why">Raíz de multiplicidad 2</p>
+        <p class="why">ζ² − 1 = 0: multiplicidad 2</p>
         <p class="eq">r = −ω</p>
         <p class="why">La segunda solución<br>se multiplica por t</p>
         <p class="eq small">u = (C<sub>1</sub> + C<sub>2</sub>t) e<sup>−ωt</sup></p>
@@ -97,7 +133,7 @@
       </div>
       <div class="panel z2">
         <h3>ζ &gt; 1 · Sobreamortiguado</h3>
-        <p class="why">Reales distintas</p>
+        <p class="why">ζ² − 1 &gt; 0: reales distintas</p>
         <p class="eq">r<sub>1</sub> ≠ r<sub>2</sub></p>
         <p class="why">Las dos negativas,<br>una cercana a cero</p>
         <p class="eq small">u = C<sub>1</sub>e<sup>r<sub>1</sub>t</sup> + C<sub>2</sub>e<sup>r<sub>2</sub>t</sup></p>
@@ -106,7 +142,7 @@
     </div>
   </section>
 
-  <section class="slide" data-who="Cristian Chantre">
+  <section class="slide">
     <h2>Ejercicio b): ζ = 1 con condiciones iniciales</h2>
     <p class="data">ω = 8 rad/s &nbsp;·&nbsp; x(0) = 0 &nbsp;·&nbsp; x′(0) = 0 &nbsp;·&nbsp; x<sub>f</sub> = 1 m</p>
     <div class="body cols with-data">
@@ -129,7 +165,34 @@
     </div>
   </section>
 
-  <section class="slide" data-who="Cristian Chantre">
+  <section class="slide">
+    <h2>Ejercicios a) y c): el mismo procedimiento</h2>
+    <p class="data">ω = 8 rad/s &nbsp;·&nbsp; u(0) = −1 &nbsp;·&nbsp; u′(0) = 0</p>
+    <div class="body cols with-data">
+      <div class="panel z03 compact">
+        <h3>a) ζ = 0.3</h3>
+        <p class="eq">r² + 4.8r + 64 = 0</p>
+        <p class="eq">r = <span class="fraction"><span>−4.8 ± √<span class="root">4.8² − 4(64)</span></span><span>2</span></span> ≈ −2.4 ± 7.6315i</p>
+        <p class="eq">u = e<sup>−2.4t</sup>(C<sub>1</sub> cos 7.6315t + C<sub>2</sub> sen 7.6315t)</p>
+        <p class="why">Aplico las condiciones iniciales:</p>
+        <p class="eq">u(0) = C<sub>1</sub> = −1</p>
+        <p class="eq">u′(0) = −2.4C<sub>1</sub> + 7.6315C<sub>2</sub> = 0</p>
+        <p class="eq result">C<sub>1</sub> = −1 , &nbsp;C<sub>2</sub> ≈ −0.3145</p>
+      </div>
+      <div class="panel z2 compact">
+        <h3>c) ζ = 2</h3>
+        <p class="eq">r² + 32r + 64 = 0</p>
+        <p class="eq">r = <span class="fraction"><span>−32 ± √<span class="root">32² − 4(64)</span></span><span>2</span></span> = −16 ± 8√<span class="root">3</span></p>
+        <p class="eq">u ≈ C<sub>1</sub>e<sup>−2.1436t</sup> + C<sub>2</sub>e<sup>−29.8564t</sup></p>
+        <p class="why">Aplico las condiciones iniciales:</p>
+        <p class="eq">(1) &nbsp;C<sub>1</sub> + C<sub>2</sub> = −1</p>
+        <p class="eq">(2) &nbsp;−2.1436C<sub>1</sub> − 29.8564C<sub>2</sub> = 0</p>
+        <p class="eq result">C<sub>1</sub> ≈ −1.07735 , &nbsp;C<sub>2</sub> ≈ 0.07735</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
     <h2>Las tres soluciones particulares</h2>
     <p class="data">Misma ecuación y mismas condiciones iniciales: solo cambia ζ</p>
     <div class="body solutions with-data">
@@ -154,34 +217,35 @@
     </div>
   </section>
 
-  <!-- ============ LUIS: demo, rebote y lerp ============ -->
-  <section class="slide" data-who="Luis Hurtado">
+  <!-- ============ demo, rebote y lerp ============ -->
+  <section class="slide">
     <h2>Demostración: ¿va a rebotar?</h2>
-    <p class="data">Muevan ζ u ω y luego pulsen <b>Reiniciar</b></p>
+    <p class="data">Muevan ζ u ω y pulsen <b>Reiniciar</b> &nbsp;·&nbsp; la flecha y el rastro muestran la velocidad</p>
     <div class="body demo with-data" data-view="lab"><p>Demostración en vivo: Laboratorio</p></div>
   </section>
 
-  <section class="slide" data-who="Luis Hurtado">
+  <section class="slide">
     <h2>¿Por qué rebota?</h2>
     <p class="data">Rebotar es pasarse del destino: que <b>u(t) cruce por cero</b> en t &gt; 0</p>
     <div class="body with-data">
-      <table>
-        <thead><tr><th>Desde el reposo</th><th>Al igualar u(t) = 0</th><th>Conclusión</th></tr></thead>
+      <table class="bounce">
+        <thead><tr><th>Desde el reposo</th><th>Forma de la solución</th><th>Si u(t) = 0</th><th>Conclusión</th></tr></thead>
         <tbody>
-          <tr><td class="z03">ζ &lt; 1</td><td class="eq">tan bt = b / a , &nbsp;con a = −ζω</td><td>Infinitos cruces: <b>rebota</b></td></tr>
-          <tr><td class="z1">ζ = 1</td><td class="eq">t = −1/ω &lt; 0</td><td>No cruza: <b>no rebota</b></td></tr>
-          <tr><td class="z2">ζ &gt; 1</td><td class="eq">t = <span class="fraction"><span>ln(r<sub>2</sub>/r<sub>1</sub>)</span><span>r<sub>2</sub> − r<sub>1</sub></span></span> &lt; 0</td><td>No cruza: <b>no rebota</b></td></tr>
+          <tr><td class="z03">ζ &lt; 1</td><td class="eq small">e<sup>at</sup>(C<sub>1</sub> cos bt + C<sub>2</sub> sen bt)</td><td class="eq small">tan bt = b / a</td><td><b>Rebota</b>: infinitos cruces</td></tr>
+          <tr><td class="z1">ζ = 1</td><td class="eq small">(C<sub>1</sub> + C<sub>2</sub>t) e<sup>−ωt</sup></td><td class="eq small">t = −1/ω &lt; 0</td><td><b>No rebota</b>: no cruza</td></tr>
+          <tr><td class="z2">ζ &gt; 1</td><td class="eq small">C<sub>1</sub>e<sup>r<sub>1</sub>t</sup> + C<sub>2</sub>e<sup>r<sub>2</sub>t</sup></td><td class="eq small">t = <span class="fraction"><span>ln(r<sub>2</sub>/r<sub>1</sub>)</span><span>r<sub>2</sub> − r<sub>1</sub></span></span> &lt; 0</td><td><b>No rebota</b>: no cruza</td></tr>
         </tbody>
       </table>
       <div class="causes">
         <p><b>El vaivén</b>sale del seno y el coseno</p>
         <p><b>Cada rebote menor</b>sale de e<sup>−ζωt</sup></p>
-        <p><b>La rapidez</b>sale de ω, que multiplica a t</p>
+        <p><b>La rapidez</b>sale de ω, que multiplica&nbsp;a&nbsp;t</p>
+        <p><b>Lo pesado</b>sale de la raíz cercana a cero</p>
       </div>
     </div>
   </section>
 
-  <section class="slide" data-who="Luis Hurtado">
+  <section class="slide">
     <h2>Resorte frente a interpolación lineal (lerp)</h2>
     <div class="body cols">
       <div class="panel spring-panel">
@@ -208,42 +272,68 @@
     <p class="key">El lerp solo conoce la posición. El resorte también <b>conoce la velocidad</b></p>
   </section>
 
-  <!-- ============ ANDRÉS: verificación, aplicaciones y conclusión ============ -->
-  <section class="slide" data-who="Andrés Suaza">
+  <!-- ============ programa, verificación, aplicaciones y conclusión ============ -->
+  <section class="slide">
+    <h2>La ecuación en el programa</h2>
+    <div class="body cols">
+      <div class="panel">
+        <h3>De segundo orden a sistema</h3>
+        <p class="eq">x′ = v</p>
+        <p class="eq">v′ = −2ζωv − ω²(x − x<sub>f</sub>)</p>
+        <p class="why">La misma línea en el código:</p>
+        <pre>return -2 * zeta * omega * v
+       - omega * omega * (x - target);</pre>
+        <p class="why">ω y ζ son los deslizadores.<br>Se integra con RK4 y paso h fijo.</p>
+      </div>
+      <div class="panel">
+        <h3>¿En qué se diferencia de la exacta y por qué?</h3>
+        <ul>
+          <li>La exacta es una fórmula</li>
+          <li>RK4 avanza por pasos y acumula error</li>
+          <li>Ese error es proporcional a h⁴</li>
+          <li>Con h a la mitad, baja unas 16 veces</li>
+        </ul>
+        <p class="eq result">error ≤ 1.9 × 10<sup>−10</sup> m</p>
+        <p class="why">con h = 0.001 s</p>
+      </div>
+    </div>
+    <p class="key"><b>Primero la matemática, después el programa:</b> el programa la verifica</p>
+  </section>
+
+  <section class="slide">
     <h2>Verificación: numérica frente a exacta</h2>
-    <p class="data">RK4 con paso fijo sobre &nbsp;x′ = v , &nbsp;v′ = −2ζωv − ω²(x − x<sub>f</sub>)</p>
+    <p class="data">Las curvas se superponen: la diferencia es el <b>error acumulado de RK4</b>, proporcional a h⁴</p>
     <div class="body demo with-data" data-view="verify"><p>Demostración en vivo: Verificación</p></div>
   </section>
 
-  <section class="slide" data-who="Andrés Suaza">
+  <section class="slide">
     <h2>Tres aplicaciones, tres valores de ζ</h2>
     <p class="data">Cámara ζ = 1 &nbsp;·&nbsp; Menú ζ = 0.5 &nbsp;·&nbsp; Barra de vida ζ = 2</p>
     <div class="body demo with-data" data-view="cases"><p>Demostración en vivo: Aplicaciones</p></div>
   </section>
 
-  <section class="slide" data-who="Andrés Suaza">
+  <section class="slide">
     <h2>Conclusión de ingeniería</h2>
     <div class="body">
       <table class="conclusion">
-        <thead><tr><th>Elemento</th><th>ζ</th><th>ω (rad/s)</th><th>Se pasa</th><th>Asentamiento</th><th>Por qué</th></tr></thead>
+        <thead><tr><th>Elemento</th><th>ζ</th><th>ω (rad/s)</th><th>Se pasa</th><th>Asentamiento</th><th>Por qué ese valor</th></tr></thead>
         <tbody>
-          <tr><td>Cámara</td><td>1</td><td>6</td><td>No</td><td>0.97 s</td><td>Acompaña sin marear</td></tr>
-          <tr><td>Menú</td><td>0.5</td><td>10</td><td>16.3 %</td><td>0.81 s</td><td>Responde y se siente vivo</td></tr>
-          <tr><td>Barra de vida</td><td>2</td><td>8</td><td>No</td><td>1.86 s</td><td>Baja con peso, sin parecer curación</td></tr>
+          <tr><td>Cámara</td><td>1</td><td>6</td><td>No</td><td>0.97 s</td><td>No marea: con 0.5 se pasaría 16.3 %<br>y con 2 tardaría 2.48 s</td></tr>
+          <tr><td>Menú</td><td>0.5</td><td>10</td><td>16.3 %</td><td>0.81 s</td><td>Responde: toca el destino en 0.24 s<br>y solo se pasa 36 px</td></tr>
+          <tr><td>Barra de vida</td><td>2</td><td>8</td><td>No</td><td>1.86 s</td><td>Baja con peso: con 0.35 se pasaría<br>30.9 % y parecería curación</td></tr>
         </tbody>
       </table>
-      <p class="note">Valores al salir del reposo. Asentamiento: banda del 2 % (en el menú, cota por la envolvente).</p>
+      <p class="note">ζ se elige por carácter y ω por rapidez. Valores desde el reposo, banda del 2 % (menú: cota por la envolvente).</p>
     </div>
-    <p class="key"><b>ζ</b> se elige por carácter · <b>ω</b> por rapidez</p>
+    <p class="key">Recomendamos <b>ζ = 1</b> para acompañar, <b>0.5</b> para responder y <b>2</b> para mostrar una pérdida</p>
   </section>
 
-  <section class="slide closing" data-who="Los cuatro">
+  <section class="slide closing">
     <p class="closing-text">Las raíces de la ecuación característica<br>deciden cómo se siente una animación</p>
     <p class="questions">¿Preguntas?</p>
   </section>
 
   <footer>
-    <span id="who"></span>
     <span class="nav">
       <button id="prev" aria-label="Diapositiva anterior">‹</button>
       <span id="count"></span>
