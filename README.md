@@ -33,6 +33,8 @@ python app.py
 
 Abre **http://localhost:5000**. Para detener el servidor: `Ctrl + C`. No necesita internet (Chart.js está incluido en `static/vendor/`).
 
+Diapositivas de la sustentación: **http://localhost:5000/presentacion**. Se avanza con las flechas o AvPág; dentro de una demostración, con AvPág o los botones del pie. `F11` es pantalla completa.
+
 Pruebas automáticas de la matemática (solución exacta, RK4, orden de convergencia, tiempo de asentamiento):
 
 ```powershell
@@ -63,6 +65,7 @@ static/js/physics.js NÚCLEO: la misma matemática en el navegador (anima la sim
 app.py              servidor Flask: sirve la página y /api/verify, /api/convergence (RK4 vs exacta con numpy)
 tests/              pytest de physics.py
 static/             interfaz: index.html, css/ y js/{lab,verify,cases,charts,main}.js (solo dibujo y controles)
+static/presentacion.html  diapositivas de /presentacion (con css/ y js/presentacion.*)
 docs/               deducción (Markdown y su PDF exportado) y Guia_exposicion.md (organización interna)
 ```
 
@@ -74,6 +77,6 @@ API: `GET /api/verify?zeta=&omega=&h=&T=` · `GET /api/convergence?zeta=&omega=`
 ## Declaración sobre el uso de asistentes de inteligencia artificial
 
 - **Gemini / Antigravity (Google DeepMind):** versión inicial en Tkinter/Matplotlib, estructura de la deducción en Markdown y de las diapositivas (esa versión ya no está en el repositorio).
-- **Claude Code (Anthropic):** migración a la aplicación web (Flask + JavaScript), reorganización del repositorio, API de verificación, pruebas con pytest, revisión de la matemática contra los apuntes de clase (correcciones del tiempo de asentamiento, notación y citas), redacción del paso a paso de `docs/Desarrollo_matematico.md` siguiendo el procedimiento visto en clase, guía interna de exposición y esta documentación.
+- **Claude Code (Anthropic):** migración a la aplicación web (Flask + JavaScript), reorganización del repositorio, API de verificación, pruebas con pytest, revisión de la matemática contra los apuntes de clase (correcciones del tiempo de asentamiento, notación y citas), redacción del paso a paso de `docs/Desarrollo_matematico.md` siguiendo el procedimiento visto en clase, guía interna de exposición, diapositivas de `/presentacion` y esta documentación.
 
 El desarrollo de `docs/` es la versión mecanografiada, hecha con la asistencia declarada arriba; el manuscrito del grupo se entrega aparte. El grupo revisó y puede explicar el código y cada paso de la deducción.

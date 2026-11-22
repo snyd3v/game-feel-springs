@@ -2,6 +2,7 @@
 Servidor local del Proyecto 4: Resortes para animar (game feel).
 
     python app.py   ->   http://localhost:5000
+                         http://localhost:5000/presentacion  (diapositivas)
 
 Sirve la interfaz (static/) y una pequeña API que usa numpy para verificar la
 simulación numérica (RK4) contra la solución analítica exacta.
@@ -42,6 +43,11 @@ def _verify(omega, zeta, h, t_end, x0=0.0, v0=0.0, target=1.0):
 @app.get("/")
 def index():
     return send_from_directory(app.static_folder, "index.html")
+
+
+@app.get("/presentacion")
+def presentacion():
+    return send_from_directory(app.static_folder, "presentacion.html")
 
 
 @app.get("/docs/<path:filename>")

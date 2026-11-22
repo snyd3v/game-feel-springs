@@ -1,0 +1,115 @@
+/* Diapositivas de /presentacion. Lienzo de 1280x720 que se escala a la pantalla. */
+:root {
+  --azul: #0a457e;      /* colores del logo institucional */
+  --amarillo: #fdc811;
+  --suave: #f2f6fa;
+  --texto: #1f2937;
+  --z03: #d97706;       /* los mismos de las gráficas de la app */
+  --z1: #16a34a;
+  --z2: #7c3aed;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--azul); color: var(--texto); font-family: 'Segoe UI', system-ui, sans-serif; }
+h1, h2, h3, p { margin: 0; }
+#deck { position: fixed; left: 50%; top: 50%; width: 1280px; height: 720px; transform: translate(-50%, -50%) scale(var(--scale, 1)); }
+
+/* ---------- estructura ---------- */
+.slide { position: absolute; inset: 0; overflow: hidden; background: #fff; visibility: hidden; }
+.slide.active { visibility: visible; }
+.slide > h2 { height: 92px; padding: 0 44px; display: flex; align-items: center; background: var(--azul); color: #fff;
+  border-bottom: 8px solid var(--amarillo); font-size: 36px; font-weight: 650; }
+.body { position: absolute; left: 44px; right: 44px; top: 120px; bottom: 124px; }
+.data { position: absolute; left: 44px; right: 44px; top: 106px; font-size: 22px; color: var(--azul); }
+.with-data { top: 154px; bottom: 60px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+.thirds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; bottom: 72px; }
+.key { position: absolute; left: 0; right: 0; bottom: 44px; height: 64px; display: flex; align-items: center; justify-content: center;
+  gap: .3em; background: var(--amarillo); color: var(--azul); font-size: 26px; }
+
+/* ---------- contenido ---------- */
+.eq { font-family: 'Cambria Math', Cambria, 'Times New Roman', serif; font-size: 29px; line-height: 1.5; }
+.eq.small { font-size: 23px; }
+.why.math, .step > .math { font-family: 'Cambria Math', Cambria, 'Times New Roman', serif; font-size: 23px; }
+sub, sup { font-size: .65em; line-height: 0; }
+.root { display: inline-block; line-height: 1.12; border-top: 1.5px solid currentColor; }
+.fraction { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; line-height: 1.3; }
+.fraction > span + span { border-top: 1.5px solid currentColor; }
+.result { display: inline-block; margin-top: 8px; padding: 4px 16px; border: 3px solid var(--azul); background: #fff8d9; }
+.aside { font: 20px 'Segoe UI', sans-serif; color: #4b5563; }
+.why, .step > span { font-size: 21px; line-height: 1.5; color: #4b5563; }
+.step { margin-bottom: 14px; }
+.panel { align-self: stretch; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; text-align: center;
+  padding: 14px 16px; background: var(--suave); border-top: 6px solid var(--azul); }
+.panel h3 { color: var(--azul); font-size: 25px; }
+.panel ul { margin: 0; padding-left: 24px; text-align: left; font-size: 24px; line-height: 1.9; }
+.feel { align-self: stretch; padding: 8px; background: #fff; font-size: 22px; font-weight: 600; }
+.panel.z03, .solution.z03 { border-color: var(--z03); }
+.panel.z1, .solution.z1 { border-color: var(--z1); }
+.panel.z2, .solution.z2 { border-color: var(--z2); }
+.spring-panel { border-color: #2563eb; }
+.lerp-panel { border-color: #ea580c; }
+.solutions { display: grid; grid-template-columns: 540px 1fr; gap: 24px; }
+.chart { position: relative; min-height: 0; }
+.solution { margin-bottom: 14px; padding: 12px 16px; background: var(--suave); border-left: 8px solid; }
+.solution h3 { font-size: 24px; color: var(--azul); }
+.solution small { margin-left: 12px; font-size: 19px; font-weight: 400; color: #4b5563; }
+
+table { width: 100%; border-collapse: collapse; font-size: 24px; }
+th { padding: 12px 14px; background: var(--azul); color: #fff; text-align: left; font-weight: 600; }
+td { height: 86px; padding: 6px 14px; border-bottom: 1px solid #d5dee8; }
+td.z03 { color: var(--z03); font-weight: 700; }
+td.z1 { color: var(--z1); font-weight: 700; }
+td.z2 { color: var(--z2); font-weight: 700; }
+.conclusion td { height: 102px; }
+.conclusion td:first-child { color: var(--azul); font-weight: 700; }
+.note { margin-top: 18px; font-size: 19px; color: #4b5563; }
+.causes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; }
+.causes p { padding: 14px; background: #fff8d9; border-left: 6px solid var(--amarillo); font-size: 21px; }
+.causes b { display: block; color: var(--azul); }
+
+/* ---------- diagrama ---------- */
+.diagram { width: 100%; }
+.diagram path { fill: none; stroke: var(--texto); stroke-width: 4; }
+.diagram path.spring { stroke: #2563eb; }
+.diagram path.damper { stroke: #dc2626; }
+.diagram path.target { stroke-dasharray: 8 7; }
+.diagram text { fill: var(--texto); font-size: 23px; text-anchor: middle; }
+.diagram text.spring { fill: #2563eb; }
+.diagram text.damper { fill: #dc2626; }
+.diagram .index { font-size: 16px; }
+.diagram .mass { fill: var(--amarillo); stroke: var(--azul); stroke-width: 4; }
+.diagram .mass-text { fill: var(--azul); font-size: 38px; font-weight: 700; }
+
+/* ---------- demostraciones: la propia app ---------- */
+.demo { left: 0; right: 0; bottom: 44px; overflow: hidden; background: #f4f5f7; }
+.demo p { padding-top: 200px; text-align: center; font-size: 24px; color: var(--azul); }
+.demo iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; background: #f4f5f7; }
+
+/* ---------- portada y cierre ---------- */
+.logo { display: block; width: 408px; margin: 44px auto 34px; }
+.cover-band { padding: 46px 60px; background: var(--azul); color: #fff; text-align: center; border-bottom: 12px solid var(--amarillo); }
+.kicker { color: var(--amarillo); font-size: 22px; }
+.cover-band h1 { margin: 8px 0; font-size: 68px; }
+.subtitle { font-size: 28px; }
+.cover-info { display: grid; grid-template-columns: repeat(3, auto); justify-content: center; gap: 52px; margin-top: 34px; font-size: 21px; line-height: 1.6; }
+.teacher { color: var(--azul); }
+.closing.active { display: flex; }
+.closing { flex-direction: column; justify-content: center; align-items: center; background: var(--azul); text-align: center; }
+.closing-text { color: #fff; font-size: 42px; line-height: 1.45; }
+.questions { margin-top: 48px; padding: 12px 44px; background: var(--amarillo); color: var(--azul); font-size: 48px; font-weight: 700; }
+
+/* ---------- pie ---------- */
+footer { position: absolute; left: 0; right: 0; bottom: 0; height: 44px; padding: 0 24px; display: flex; align-items: center;
+  justify-content: space-between; background: var(--azul); color: #fff; font-size: 18px; }
+.nav { display: flex; align-items: center; gap: 12px; }
+.nav button { width: 44px; height: 34px; border: 0; background: var(--amarillo); color: var(--azul); font-size: 26px; line-height: 1; cursor: pointer; }
+
+/* ---------- Ctrl+P: una diapositiva por página, como respaldo ---------- */
+@page { size: 1280px 720px; margin: 0; }
+@media print {
+  html, body { height: auto; overflow: visible; background: #fff; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  #deck { position: static; height: auto; transform: none; }
+  .slide { position: relative; inset: auto; height: 720px; visibility: visible; break-inside: avoid; }
+  .closing { display: flex; }
+  footer, .demo iframe { display: none; }
+}
