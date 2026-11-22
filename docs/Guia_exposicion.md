@@ -6,103 +6,61 @@ Guía interna del grupo. Son **15 minutos + 5 de preguntas**. La idea que debe q
 
 ## 1. Reparto
 
-El orden es una propuesta. Pueden intercambiar nombres, pero cada bloque va completo con su parte de código.
+| Tiempo | Quién | Diapositivas | Tema | Secciones | Rúbrica |
+|:---:|---|:---:|---|:---:|---|
+| 0:00 a 3:30 | **Edwin** | 1 a 5 | Modelo, no homogénea, ecuación característica | 1, 2, 3 | Solución analítica |
+| 3:30 a 7:30 | **Cristian** | 6 a 8 | Los tres ejercicios con condiciones iniciales | 4 | Solución analítica |
+| 7:30 a 11:30 | **Luis** | 9 a 11 | Demo con el público, por qué rebota, lerp | 5, 6 | Animación |
+| 11:30 a 15:00 | **Andrés** | 12 a 15 | Programa, verificación, aplicaciones, conclusión | 7, 8 | Modelo, verificación, conclusión |
+| 15:00 a 20:00 | **Los cuatro** | 16 | Preguntas | Todas | Defensa |
 
-| Tiempo | Quién | Tema | Secciones | Rúbrica |
-|:---:|---|---|:---:|---|
-| 0:00 a 3:30 | **1. Edwin** | Modelo, cambio de variable, ecuación característica | 1, 2, 3 | Solución analítica |
-| 3:30 a 7:30 | **2. Cristian** | Los tres ejercicios con condiciones iniciales | 4 | Solución analítica |
-| 7:30 a 11:30 | **3. Luis** | Demo con el público, por qué rebota, lerp | 5, 6 | Animación |
-| 11:30 a 15:00 | **4. Andrés** | Verificación, tres aplicaciones, conclusión | 7, 8 | Modelo, verificación, conclusión |
-| 15:00 a 20:00 | **Los cuatro** | Preguntas | Todas | Defensa |
+Las secciones son las de [Desarrollo_matematico.md](Desarrollo_matematico.md), para estudiar cada bloque.
 
-Las secciones son las de [Desarrollo_matematico.md](Desarrollo_matematico.md).
+### Manejo de las diapositivas
+
+- Ejecutar `python app.py`, abrir `http://localhost:5000/presentacion` y pulsar `F11`.
+- Se avanza con las flechas o con `AvPág`.
+- Las diapositivas **9, 13 y 14** traen la app funcionando. Después de hacer clic adentro, se sale con `AvPág` o con los botones del pie: ahí las flechas no cambian de diapositiva.
+- Al volver a una demo, empieza otra vez con sus valores iniciales.
+- Los números del índice (diapositiva 2) tienen enlace: sirven para saltar a un tema durante las preguntas.
 
 ---
 
-## 2. Persona 1: el modelo (3:30)
+## 2. Edwin: el modelo (diapositivas 1 a 5, 3:30)
 
-**Pantalla:** Laboratorio, con ζ = 0.3.
-
-| Tiempo | Qué hace | Idea que dice |
-|:---:|---|---|
-| 0:30 | Pulsa **Reiniciar** | «Este movimiento no está dibujado a mano: lo produce una ecuación diferencial de segundo orden.» |
-| 1:00 | Dibuja masa, resorte y amortiguador | «El resorte tira hacia el destino, el amortiguador frena según la velocidad y Newton los une.» |
-| 1:00 | Hace el cambio de variable | «La original no es homogénea por la constante. Si medimos desde el destino, queda homogénea.» |
-| 1:00 | Saca la ecuación característica | «El signo del discriminante nos define todo: tres regímenes.» |
-
-**En el tablero:**
-
-```math
-\begin{aligned}
-mx''&=-k(x-x_f)-cx'\\
-x''+2\zeta\omega x'+\omega^2(x-x_f)&=0\\
-u=x-x_f\ \Longrightarrow\ u''+2\zeta\omega u'+\omega^2u&=0\\
-r^2+2\zeta\omega r+\omega^2&=0\\
-r&=-\zeta\omega\pm\omega\sqrt{\zeta^2-1}
-\end{aligned}
-```
+| N.º | Reloj | Qué hace | Idea que dice |
+|:---:|:---:|---|---|
+| 1 | 0:00 a 0:15 | Presenta al grupo | «Vamos a mostrar que una animación se puede producir con una ecuación diferencial de segundo orden.» |
+| 2 | 0:15 a 0:30 | Nombra las cuatro partes, sin leer la lista | «Primero la matemática, luego cómo se ve y al final qué valores elegimos.» |
+| 3 | 0:30 a 1:40 | Señala el dibujo y cada término | «El resorte tira hacia el destino, el amortiguador frena según la velocidad y Newton los une.» |
+| 4 | 1:40 a 2:40 | Compara los dos caminos | «No es homogénea por la constante. Con el cambio de variable queda homogénea, y por coeficientes indeterminados la particular da el mismo destino.» |
+| 5 | 2:40 a 3:30 | Señala el discriminante y los tres casos | «El signo de ζ² − 1 decide el tipo de raíces, y las raíces deciden el movimiento.» |
 
 **Al pasar la palabra:** «Con esa ecuación, Cristian resuelve los tres casos de la guía.»
 
-## 3. Persona 2: los tres ejercicios (4:00)
+## 3. Cristian: los tres ejercicios (diapositivas 6 a 8, 4:00)
 
-**Antes de empezar:** tener el manuscrito a la mano y la tabla de abajo ya escrita en una esquina, sin la última columna.
+**Antes de empezar:** tener el manuscrito a la mano, por si piden un paso intermedio.
 
-| Tiempo | Qué hace | Idea que dice |
-|:---:|---|---|
-| 0:30 | Señala las raíces | «Cambiando solo ζ caemos en los tres casos de raíces que vimos en clase.» |
-| 2:00 | Resuelve **b) completo** (es el más corto) | «Raíz doble, entonces se multiplica por t. Luego aplico las dos condiciones iniciales.» |
-| 0:45 | Explica a) sin desarrollarlo | «La parte real es −2.4 y amortigua. La imaginaria es 7.63 y oscila.» |
-| 0:45 | Explica c) sin desarrollarlo | «Son dos exponenciales. Las constantes salen de un sistema 2×2.» |
+| N.º | Reloj | Qué hace | Idea que dice |
+|:---:|:---:|---|---|
+| 6 | 3:30 a 5:20 | Explica **b) completo**, paso por paso | «Raíz doble, entonces se multiplica por t. Luego aplico las dos condiciones iniciales.» |
+| 7 | 5:20 a 6:40 | **No la desarrolla:** señala raíces y constantes | «En a) la parte real amortigua y la imaginaria oscila. En c) son dos exponenciales y las constantes salen de un sistema 2×2.» |
+| 8 | 6:40 a 7:30 | Sigue cada curva con el dedo o el cursor | «Misma ecuación y mismas condiciones: solo cambió ζ, y cambió todo el movimiento.» |
 
-**En el tablero, el ejercicio b):**
+**Al pasar la palabra:** «Luis muestra cómo se siente cada una de esas fórmulas.»
 
-```math
-\begin{aligned}
-u''+16u'+64u&=0\\
-e^{rt}(r^2+16r+64)&=0\\
-(r+8)^2=0&\ \Longrightarrow\ r=-8\ \text{(multiplicidad 2)}\\
-u&=(C_1+C_2t)e^{-8t}\\
-u(0)=-1&\ \Longrightarrow\ C_1=-1\\
-u'&=C_2e^{-8t}-8(C_1+C_2t)e^{-8t}\\
-u'(0)=0&\ \Longrightarrow\ C_2=-8\\
-x=u+1&=1-(1+8t)e^{-8t}
-\end{aligned}
-```
+## 4. Luis: demo y rebote (diapositivas 9 a 11, 4:00)
 
-**La tabla:**
+La guía de la profe pide este orden: **primero el público mueve los deslizadores, luego se explica la fórmula.**
 
-| ζ | Raíces | Solución |
-|:---:|---|---|
-| 0.3 | $-2.4\pm 7.6315i$ | $1-e^{-2.4t}[\cos 7.6315t+0.3145\ \mathrm{sen}\ 7.6315t]$ |
-| 1 | $-8$ (doble) | $1-(1+8t)e^{-8t}$ |
-| 2 | $-2.1436$ y $-29.8564$ | $1-1.07735e^{-2.1436t}+0.07735e^{-29.8564t}$ |
+| N.º | Reloj | Qué hace | Idea que dice |
+|:---:|:---:|---|---|
+| 9 | 7:30 a 9:15 | Botones **ζ = 0.3**, **ζ = 1** y **ζ = 2**. Luego alguien del público mueve ζ u ω y se pulsa **Reiniciar** | «Antes de soltarlo: ¿creen que va a rebotar? Fíjense en la flecha y el rastro: muestran la velocidad.» |
+| 10 | 9:15 a 10:35 | Recorre la tabla fila por fila | «Rebotar es que u cruce por cero. Saliendo del reposo, solo la forma con seno y coseno lo cruza.» |
+| 11 | 10:35 a 11:30 | Compara las dos columnas | «El lerp sale de golpe y frena. El resorte acelera, trae velocidad y puede pasarse.» |
 
-**Al pasar la palabra:** «Luis muestra cómo se ve cada una de esas fórmulas.»
-
-## 4. Persona 3: demo y rebote (4:00)
-
-La guía pide este orden: **primero el público mueve los deslizadores, luego se explica la fórmula.**
-
-| Tiempo | Qué hace | Idea que dice |
-|:---:|---|---|
-| 0:30 | Botones **ζ = 0.3**, **ζ = 1**, **ζ = 2** | «Misma ecuación y mismo destino. Solo cambia ζ.» |
-| 1:15 | Alguien del público mueve ζ o ω. Después pulsa **Reiniciar** | «Antes de soltarlo: ¿creen que va a rebotar?» |
-| 1:15 | Explica en el tablero | «Rebotar es que u cruce por cero.» |
-| 1:00 | Señala el carril del lerp y los puntos del rastro | «El lerp sale de golpe y frena. El resorte acelera, trae velocidad y puede pasarse.» |
-
-**En el tablero:**
-
-```math
-\begin{aligned}
-\zeta<1:&\quad \tan\beta t=-\beta/\alpha &&\Longrightarrow\ \text{infinitos cruces: rebota}\\
-\zeta=1:&\quad t=-1/\omega<0 &&\Longrightarrow\ \text{no cruza}\\
-\zeta>1:&\quad t=\frac{\ln(r_2/r_1)}{r_2-r_1}<0 &&\Longrightarrow\ \text{no cruza}
-\end{aligned}
-```
-
-**Qué parte de la fórmula produce lo que se ve:**
+**Qué parte de la fórmula produce lo que se vio:**
 
 | Lo que ve el público | Lo que lo produce |
 |---|---|
@@ -117,21 +75,25 @@ La guía pide este orden: **primero el público mueve los deslizadores, luego se
 - Después de mover un deslizador, **siempre Reiniciar**. Si el objeto estaba quieto en el destino, sin eso no pasa nada.
 - Si hacen clic mientras se mueve, con ζ ≥ 1 **puede pasarse una vez**, aunque la tarjeta diga «ninguno». No es un error: las tarjetas suponen salida desde el reposo y ahí ya traía velocidad.
 
-**Al pasar la palabra:** «Andrés demuestra que la simulación coincide con lo que resolvimos.»
+**Al pasar la palabra:** «Andrés demuestra que el programa coincide con lo que resolvimos.»
 
-## 5. Persona 4: verificación y conclusión (3:30)
+## 5. Andrés: programa y conclusión (diapositivas 12 a 15, 3:30)
 
-| Tiempo | Qué hace | Idea que dice |
-|:---:|---|---|
-| 1:00 | Pestaña **Verificación** | «Se superponen. La diferencia máxima es del orden de 10⁻¹⁰ m, porque RK4 avanza por pasos.» |
-| 0:30 | **Cámara**: botón **Salto +300 px** | «ζ = 1: se asienta en 0.97 s sin pasarse. No marea.» |
-| 0:30 | **Menú**: botón **Abrir menú** | «ζ = 0.5: toca el destino en 0.24 s y rebota 36 px. Se siente responsivo.» |
-| 0:30 | **Barra de vida**: botón **Golpe −45** | «ζ = 2: baja con peso en 1.86 s. Si rebotara parecería una curación.» |
-| 1:00 | Pestaña **Conclusión** | «Recomendamos 1 para acompañar, 0.5 para responder y 2 para comunicar una pérdida. ζ se elige por carácter y ω por rapidez.» |
+| N.º | Reloj | Qué hace | Idea que dice |
+|:---:|:---:|---|---|
+| 12 | 11:30 a 12:20 | Señala el sistema y la línea de código | «Es la misma ecuación con la aceleración despejada. RK4 la avanza por pasos, por eso tiene un error muy pequeño.» |
+| 13 | 12:20 a 13:10 | Señala la superposición y la columna de error | «Se superponen. La diferencia máxima es del orden de 10⁻¹⁰ m.» |
+| 14 | 13:10 a 14:15 | **Cámara**: botón **Salto +300 px** | «ζ = 1: se asienta en 0.97 s sin pasarse. No marea.» |
+| | | **Menú**: botón **Abrir menú** | «ζ = 0.5: toca el destino en 0.24 s y se pasa 36 px. Se siente responsivo.» |
+| | | **Barra de vida**: botón **Golpe −45** | «ζ = 2: baja con peso en 1.86 s. Si rebotara parecería una curación.» |
+| 15 | 14:15 a 15:00 | Señala la franja y una cifra por fila | «Recomendamos 1 para acompañar, 0.5 para responder y 2 para comunicar una pérdida. ζ se elige por carácter y ω por rapidez.» |
 
-**Cierre:** «Primero la matemática, después el programa: el programa verificó lo que resolvimos.»
+**Cierre, al pasar a la 16:** «Primero la matemática, después el programa: las raíces deciden cómo se siente una animación.»
 
-**Cuidado:** en la barra de vida hagan **un solo golpe, con la barra quieta**. Si la golpean mientras sube por una poción, sigue subiendo un momento por la velocidad que traía.
+**Cuidados:**
+
+- En la 13, la gráfica de error según h queda más abajo: se llega con la rueda del mouse, solo si la preguntan.
+- En la barra de vida hagan **un solo golpe, con la barra quieta**. Si la golpean mientras sube por una poción, sigue subiendo un momento por la velocidad que traía.
 
 ---
 
@@ -141,14 +103,15 @@ La guía dice que una línea que nadie pueda explicar no cuenta.
 
 | Archivo o función | Responde | En una frase |
 |---|:---:|---|
-| `acceleration` (Python y JS) | 1 | Es la ecuación con la segunda derivada despejada |
-| `config.js`, `main.js`, `index.html`, `styles.css` | 1 | Parámetros elegidos, navegación y tabla de conclusión, estructura y estilo |
-| `exact_position`, `exactPosition` | 2 | Las tres soluciones de la sección 4, para condiciones iniciales cualesquiera |
-| `app.py`, `tests/` | 2 | El servidor que entrega la comparación y las pruebas de la matemática |
-| `system_metrics`, `metrics`, `formatRoots` | 3 | Raíces y fórmulas de 5.5 y 5.6 |
-| `lab.js`, `charts.js`, `FixedStepper` | 3 | Animación, gráficas y reloj de paso fijo |
-| `rk4_step`, `rk4_solve`, `rk4Step` | 4 | Cuatro pendientes y su promedio ponderado |
-| `verify.js`, `cases.js` | 4 | Gráficas de error y las tres aplicaciones |
+| `config.js`, `main.js`, `index.html`, `styles.css` | Edwin | Parámetros elegidos, navegación y tabla de conclusión, estructura y estilo |
+| `presentacion.html`, `presentacion.css`, `presentacion.js` | Edwin | Las diapositivas: cambian de página, muestran la app y grafican con la solución exacta de `physics.js` |
+| `exact_position`, `exactPosition`, `is_critical`, `isCritical` | Cristian | Las tres soluciones de la sección 4, para condiciones iniciales cualesquiera, y la tolerancia con que se reconoce ζ = 1 |
+| `app.py`, `tests/` | Cristian | El servidor que entrega la app, las diapositivas y la comparación, y las pruebas de la matemática |
+| `system_metrics`, `metrics`, `formatRoots` | Luis | Raíces y fórmulas de 5.5 y 5.6 |
+| `lab.js`, `charts.js`, `FixedStepper` | Luis | Animación, gráficas y reloj de paso fijo |
+| `acceleration` (Python y JS) | Andrés | Es la ecuación con la segunda derivada despejada, la línea de la diapositiva 12 |
+| `rk4_step`, `rk4_solve`, `rk4Step` | Andrés | Cuatro pendientes y su promedio ponderado |
+| `verify.js`, `cases.js` | Andrés | Gráficas de error y las tres aplicaciones |
 
 Además, **los cuatro** deben poder explicar sin ayuda esta cadena: ecuación → cambio de variable → raíces → solución → sistema de primer orden → RK4.
 
@@ -156,64 +119,64 @@ Además, **los cuatro** deben poder explicar sin ayuda esta cadena: ecuación �
 
 ## 7. Preguntas probables
 
-Responde quien tiene el número. Si no lo sabe, otro complementa. Si nadie lo sabe, se reconoce: la rúbrica lo valora.
+Responde la persona indicada y, si le sirve, salta a la diapositiva que aparece al lado. Si no lo sabe, otro complementa. Si nadie lo sabe, se reconoce: la rúbrica lo valora.
 
 ### Matemática
 
-**¿Por qué se volvió homogénea? (1)**\
+**¿Por qué se volvió homogénea? (Edwin, diapositiva 4)**\
 Porque el destino es constante: las derivadas de u y de x son iguales y el término sin la incógnita queda absorbido en u.
 
-**¿Dónde están los coeficientes indeterminados? (1)**\
+**¿Dónde están los coeficientes indeterminados? (Edwin, diapositiva 4)**\
 En la ecuación original. Como g es constante se ensaya A y da el destino. Es equivalente al cambio de variable.
 
-**¿Por qué no hay resonancia? (1)**\
+**¿Por qué no hay resonancia? (Edwin, diapositiva 4)**\
 Una constante corresponde a r = 0, y cero no es raíz porque ω² no es cero.
 
-**¿El amortiguador es −cx o −cx′? (1)**\
+**¿El amortiguador es −cx o −cx′? (Edwin, diapositiva 3)**\
 −cx′, porque frena según la velocidad. Con −cx sería otro resorte y no habría primera derivada.
 
-**¿Por qué aparece te⁻⁸ᵗ? (2)**\
+**¿Por qué aparece te⁻⁸ᵗ? (Cristian, diapositiva 6)**\
 La raíz tiene multiplicidad 2 y hacen falta dos soluciones linealmente independientes.
 
-**¿Por qué seno y coseno si las raíces son complejas? (2)**\
+**¿Por qué seno y coseno si las raíces son complejas? (Cristian, diapositiva 5)**\
 Por la fórmula de Euler: la parte imaginaria se convierte en oscilación y la real queda en la exponencial.
 
-**¿Es lo mismo ω que 7.63? (2)**\
+**¿Es lo mismo ω que 7.63? (Cristian, diapositiva 7)**\
 No. ω = 8 es la frecuencia natural, sin amortiguar. 7.63 es la frecuencia con la que oscila ya amortiguado.
 
-**¿Con ζ ≥ 1 nunca se pasa? (3)**\
+**¿Con ζ ≥ 1 nunca se pasa? (Luis, diapositiva 10)**\
 Saliendo del reposo, nunca. Con velocidad inicial hacia el destino puede pasarse una sola vez, porque la solución tiene a lo sumo un cero.
 
-**¿ζ = 1 es lo más rápido? (3)**\
+**¿ζ = 1 es lo más rápido? (Luis, diapositiva 8)**\
 Es lo más rápido sin oscilar. Si se tolera un rebote pequeño, un ζ algo menor puede asentarse antes.
 
-**¿Por qué 1.65 s si en la gráfica se asienta antes? (3)**\
+**¿Por qué 1.65 s si en la gráfica se asienta antes? (Luis, diapositiva 8)**\
 Es una cota por la envolvente. La curva entra definitivamente a 1.40 s.
 
-**¿De dónde sale el 5.83 del código? (3)**\
+**¿De dónde sale el 5.83 del código? (Luis)**\
 De resolver (1 + s)e⁻ˢ = 0.02 por tanteo, con s = ωt.
 
 ### Programa
 
-**¿Por qué convertir a un sistema? (4)**\
+**¿Por qué convertir a un sistema? (Andrés, diapositiva 12)**\
 RK4 trabaja con primeras derivadas, por eso la velocidad se vuelve otra incógnita.
 
-**¿Por qué RK4 y no Euler? (4)**\
+**¿Por qué RK4 y no Euler? (Andrés, diapositiva 12)**\
 El error de Euler es proporcional a h y el de RK4 a h⁴. Con el mismo paso es muchísimo más preciso.
 
-**¿Por qué paso fijo y no deltaTime? (3)**\
+**¿Por qué paso fijo y no deltaTime? (Luis, diapositiva 12)**\
 deltaTime cambia en cada cuadro y arruina la comparación con la exacta. Usamos 1/240 s.
 
-**Si el lerp depende de los cuadros, ¿por qué en la app no cambia con el monitor? (3)**\
+**Si el lerp depende de los cuadros, ¿por qué en la app no cambia con el monitor? (Luis, diapositiva 11)**\
 Lo fijamos a 60 pasos por segundo para comparar. Escrito directamente en cada cuadro sí cambiaría.
 
-**¿Por qué la misma matemática en Python y en JS? (2)**\
+**¿Por qué la misma matemática en Python y en JS? (Cristian)**\
 JS anima en el navegador. Python verifica con numpy, como propone la guía.
 
-**¿Por qué una tolerancia de 0.0001 para ζ = 1? (2)**\
+**¿Por qué una tolerancia de 0.0001 para ζ = 1? (Cristian)**\
 Los decimales del computador no son exactos, y muy cerca de 1 las otras fórmulas dividen por números casi cero.
 
-**¿Por qué la cámara dice 91 px si la fórmula da 93.3? (4)**\
+**¿Por qué la cámara dice 91 px si la fórmula da 93.3? (Andrés, diapositiva 14)**\
 El destino avanza una vez por cuadro, antes de integrar, y eso lo adelanta medio cuadro: unos 2.3 px.
 
 **¿Usaron inteligencia artificial? (cualquiera)**\
@@ -234,22 +197,22 @@ Sí, y está declarado en el README con herramienta y uso. Digan exactamente eso
 
 ### Ensayo
 
-- [ ] Dos ensayos completos con cronómetro. En el segundo, cada quien responde dos preguntas de otro bloque.
-- [ ] Nadie lee: cada bloque se dice con palabras propias.
+- [ ] Dos ensayos completos con las diapositivas y cronómetro. En el segundo, cada quien responde dos preguntas de otro bloque.
+- [ ] Nadie lee las diapositivas ni esta guía: cada bloque se dice con palabras propias. Las frases entre comillas son solo la idea.
 - [ ] Quien no expone saca 0, así que cada uno debe hablar, y además conocer el bloque vecino por si un compañero se traba.
 
 ### El día
 
-- [ ] Ejecutar `python app.py` y abrir `http://localhost:5000` **antes** de entrar. No necesita internet.
-- [ ] Probar el proyector con el zoom del navegador, el cargador y los marcadores de colores.
-- [ ] Llevar un video corto de la demo y el PDF por si el equipo falla.
-- [ ] Dejar los deslizadores en sus valores iniciales (recargar la página).
+- [ ] Ejecutar `python app.py` y abrir `http://localhost:5000/presentacion` **antes** de entrar. No necesita internet.
+- [ ] Probar el proyector con `F11` y mirar las demos desde el fondo del salón. Llevar el cargador.
+- [ ] Llevar por si el equipo falla: las diapositivas en PDF (`Ctrl+P`), un video corto de las demos (en ese PDF salen en blanco) y el PDF del desarrollo.
+- [ ] Dejar la presentación en la diapositiva 1 (tecla `Inicio`).
 
 ### Si van atrasados
 
-1. La persona 2 solo señala la tabla en a) y c).
-2. La persona 4 omite el menú y lo menciona en la tabla de conclusión.
-3. **Nunca se recortan:** el cambio de variable, un ejercicio con condiciones iniciales, el porqué del rebote, la superposición y la conclusión.
+1. Cristian pasa la 7 señalando solo las constantes.
+2. Andrés omite el menú en la 14 y lo menciona en la 15.
+3. **Nunca se recortan:** la 4 (no homogénea), la 6 (ejercicio con condiciones iniciales), la 9 (el público participa), la 10 (por qué rebota), la 13 (superposición) y la 15 (conclusión).
 
 ---
 
