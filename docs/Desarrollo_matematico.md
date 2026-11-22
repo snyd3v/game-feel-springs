@@ -41,17 +41,27 @@ x''+2\zeta\omega x'+\omega^2(x-x_f)=0
 
 Una masa $m$ está sujeta a un resorte de constante $k$ y a un amortiguador de constante $c$. Su posición de equilibrio es el destino $x_f$.
 
-```text
-  /|            k
-  /|                          +-------+
-  /|-----/\/\/\/\/\/\/\-------|       |
-  /|                          |   m   |
-  /|            c             |       |
-  /|----------[ =|  ]---------|       |
-  /|                          +---+---+
-  /|                              :   ---> x(t)
-                                  :
-                          equilibrio: x = x_f
+```mermaid
+%%{init: {"flowchart": {"curve": "linear"}}}%%
+flowchart LR
+    P["▨<br/>▨<br/>Pared fija<br/>▨<br/>▨"]
+    K["/\/\/\/\/\/\/\/\<br/>Resorte k<br/>F<sub>r</sub> = −k(x − x<sub>f</sub>)"]
+    C["──┤▌├──<br/>Amortiguador c<br/>F<sub>a</sub> = −c x′"]
+    M["<br/>Masa m<br/><br/>"]
+    E(["Equilibrio<br/>x = x<sub>f</sub>"])
+
+    P --- K --- M
+    P --- C --- M
+    M -->|"x(t)"| E
+
+    classDef base fill:#ffffff,stroke:#333333,color:#111111
+    classDef resorte fill:#ffffff,stroke:#1d4ed8,color:#1d4ed8
+    classDef amortiguador fill:#ffffff,stroke:#dc2626,color:#dc2626
+    class P,M,E base
+    class K resorte
+    class C amortiguador
+    linkStyle 0,1 stroke:#1d4ed8,stroke-width:2px
+    linkStyle 2,3 stroke:#dc2626,stroke-width:2px
 ```
 
 **Las fuerzas del modelo son:**
@@ -60,7 +70,7 @@ Una masa $m$ está sujeta a un resorte de constante $k$ y a un amortiguador de c
 \begin{aligned}
 &\text{El resorte tira hacia el destino:} &&\quad F_r=-k(x-x_f)\\[4pt]
 &\text{El amortiguador frena según la velocidad:} &&\quad F_a=-cx'\\[4pt]
-&\text{No hay otra fuerza externa:} &&\quad F(t)=0
+&\text{No hay otra fuerza externa:} &&\quad F_e=0
 \end{aligned}
 ```
 
@@ -68,13 +78,17 @@ Una masa $m$ está sujeta a un resorte de constante $k$ y a un amortiguador de c
 
 ```math
 \begin{aligned}
-mx''&=F_r+F_a+F(t)\\[4pt]
+mx''&=F_r+F_a+F_e\\[4pt]
 mx''&=-k(x-x_f)-cx'\\[4pt]
 mx''+cx'+k(x-x_f)&=0
 \end{aligned}
 ```
 
-Es la forma vista en clase, $mx''+cx'+kx=F(t)$, con el término constante $kx_f$ al lado derecho.
+Si pasamos el término constante al lado derecho, queda la forma vista en clase:
+
+```math
+mx''+cx'+kx=\underbrace{kx_f}_{F(t)}
+```
 
 **Dividimos entre la masa**, pues $m\neq 0$:
 
