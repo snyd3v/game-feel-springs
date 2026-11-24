@@ -1,8 +1,8 @@
 /* Menú lateral, navegación entre secciones, bucle de animación y tabla de conclusión. */
 (() => {
   const $ = (id) => document.getElementById(id);
-  const views = { lab: Lab, verify: Verify, cases: Cases, conclusion: null };
-  let current = 'lab';
+  const views = { inicio: null, lab: Lab, verify: Verify, cases: Cases, conclusion: null };
+  let current = 'inicio';
 
   const items = document.querySelectorAll('#main-nav .nav-item');
   const toggle = $('sidebar-toggle');
@@ -19,10 +19,14 @@
     document.querySelectorAll('.view').forEach((v) => v.classList.toggle('active', v.id === `view-${name}`));
     views[name]?.onShow?.();
   }
-  items.forEach((b) => b.addEventListener('click', () => {
-    show(b.dataset.view);
-    history.replaceState(null, '', `#${b.dataset.view}`);
-  }));
+  function go(name) {
+    show(name);
+    history.replaceState(null, '', `#${name}`);
+    window.scrollTo(0, 0);
+  }
+  items.forEach((b) => b.addEventListener('click', () => go(b.dataset.view)));
+  // Botones de la sección Inicio que llevan a otra sección.
+  document.querySelectorAll('[data-go]').forEach((b) => b.addEventListener('click', () => go(b.dataset.go)));
 
   // Sidebar colapsable: solo iconos (con tooltip) o icono + texto. El estado se recuerda entre visitas.
   function syncToggle() {
@@ -68,7 +72,7 @@
   }
   requestAnimationFrame(loop);
 
-  // Permite abrir directamente una sección (p. ej. /#verify).
+  // Permite abrir directamente una sección (p. ej. /#verify o /#inicio).
   const initial = location.hash.slice(1);
   if (initial in views) show(initial);
 
