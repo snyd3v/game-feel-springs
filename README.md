@@ -143,5 +143,5 @@ API: `GET /api/verify?zeta=&omega=&h=&T=` · `GET /api/convergence?zeta=&omega=`
 
 ## Declaración sobre el uso de asistentes de inteligencia artificial
 
-- **Gemini / Antigravity (Google DeepMind):** versión inicial en Tkinter/Matplotlib, estructura de la deducción en Markdown y de las diapositivas (esa versión ya no está en el repositorio).
+- **Gemini / Antigravity (Google DeepMind):** versión inicial en Tkinter/Matplotlib. (esa versión ya no está en el repositorio).
 - **Claude Code (Anthropic):** migración a la aplicación web (Flask + JavaScript), reorganización del repositorio, API de verificación, pruebas con pytest.
