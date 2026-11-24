@@ -6,10 +6,10 @@
  * La simulación avanza SIEMPRE con paso fijo H (no con deltaTime del navegador):
  * así la curva numérica es comparable con la exacta.
  *
- * Mapa (sección de docs/Desarrollo_matematico.md donde está deducido cada bloque):
- *   acceleration, rk4Step, FixedStepper -> §8  sistema de 1.er orden y RK4 con paso fijo
- *   exactPosition                        -> §3-§4 ecuación característica y los 3 casos de raíces
- *   metrics                              -> §4-§5 raíces, sobreimpulso, tiempo de pico y asentamiento
+ * Mapa:
+ *   acceleration, rk4Step, FixedStepper -> sistema de 1.er orden y RK4 con paso fijo
+ *   exactPosition                        -> ecuación característica y los 3 casos de raíces
+ *   metrics                              -> raíces, sobreimpulso, tiempo de pico y asentamiento
  * (physics.py es la misma matemática en Python; la usa el servidor para verificar.)
  */
 const Physics = (() => {

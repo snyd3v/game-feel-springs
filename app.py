@@ -50,11 +50,6 @@ def presentacion():
     return send_from_directory(app.static_folder, "presentacion.html")
 
 
-@app.get("/docs/<path:filename>")
-def docs(filename):
-    return send_from_directory(BASE / "docs", filename)
-
-
 @app.get("/api/verify")
 def api_verify():
     omega = _param("omega", 8.0, 0.5, 50.0)
