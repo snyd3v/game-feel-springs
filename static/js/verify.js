@@ -2,9 +2,9 @@
 const Verify = (() => {
   const $ = (id) => document.getElementById(id);
   const CASES = [
-    { zeta: 0.3, color: COLORS.z03 },
-    { zeta: 1.0, color: COLORS.z1 },
-    { zeta: 2.0, color: COLORS.z2 },
+    { zeta: 0.3, color: 'z03' },
+    { zeta: 1.0, color: 'z1' },
+    { zeta: 2.0, color: 'z2' },
   ];
   const OMEGA = 8;
   let loaded = false;
@@ -14,12 +14,12 @@ const Verify = (() => {
   // Series 0,2,4 = numéricas (color, con leyenda); 1,3,5 = exactas (negro discontinuo, sin leyenda)
   const solutionChart = Charts.create($('verify-chart'), {
     title: 'Posición x(t)',
-    subtitle: 'línea de color: RK4 · discontinua negra: solución exacta',
+    subtitle: 'línea de color: RK4 · línea discontinua: solución exacta',
     xLabel: 'Tiempo (s)', yLabel: 'Posición (m)', xMin: 0, xMax: 3, xStep: 0.5,
     legendFilter: (item) => item.datasetIndex % 2 === 0,
     series: CASES.flatMap((c) => [
       { label: `ζ = ${c.zeta}`, color: c.color, width: 5 },
-      { label: `exacta ζ = ${c.zeta}`, color: COLORS.exact, dash: [6, 5], width: 1.5, order: -1 },
+      { label: `exacta ζ = ${c.zeta}`, color: 'exact', dash: [6, 5], width: 1.5, order: -1 },
     ]),
   });
   const errorChart = Charts.create($('verify-error'), {
@@ -55,7 +55,7 @@ const Verify = (() => {
     const rows = results.map((r, i) => {
       const m = r.metrics;
       return `<tr>
-        <td><span class="dot" style="background:${CASES[i].color}"></span>ζ = ${CASES[i].zeta}</td>
+        <td><span class="dot" style="background:var(--${CASES[i].color})"></span>ζ = ${CASES[i].zeta}</td>
         <td>${m.regime}</td>
         <td class="num">${Physics.formatRoots({ regime: m.regime, roots: m.roots })}</td>
         <td class="num">${m.overshoot_pct > 0 ? m.overshoot_pct.toFixed(1) + ' %' : 'ninguno'}</td>

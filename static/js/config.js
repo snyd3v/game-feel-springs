@@ -4,22 +4,22 @@ const DESIGN = {
   health: { zeta: 2.0, omega: 8 },
 };
 
-/* Paleta única (tema claro). */
+/* Paleta: la fuente de verdad son las variables CSS de styles.css (tema claro y oscuro).
+ * COLORS guarda sus valores para el código que dibuja en canvas y gráficas; COLORS.load()
+ * los vuelve a leer cuando cambia el tema. */
 const COLORS = {
-  ink: '#111827',
-  text: '#374151',
-  muted: '#6b7280',
-  line: '#e5e7eb',
-  grid: '#eef0f3',
-  stage: '#f8fafc',
-  spring: '#2563eb',
-  lerp: '#ea580c',
-  exact: '#111827',
-  target: '#dc2626',
-  good: '#16a34a',
-  warn: '#d97706',
-  z03: '#d97706',
-  z1: '#16a34a',
-  z2: '#7c3aed',
+  load() {
+    const css = getComputedStyle(document.documentElement);
+    for (const key of Object.keys(this)) {
+      if (typeof this[key] !== 'string') continue;
+      const value = css.getPropertyValue('--' + key.replace(/[A-Z]/g, (c) => '-' + c.toLowerCase())).trim();
+      if (value) this[key] = value;
+    }
+  },
+  ink: '', text: '', muted: '', line: '', grid: '', stage: '',
+  fill: '', spring: '', lerp: '', exact: '', target: '', good: '', warn: '',
+  z03: '', z1: '', z2: '',
+  ground: '', groundLine: '', post: '', wall: '', device: '', screen: '', screenItem: '', track: '',
 };
+COLORS.load();
 const FONT = "'Segoe UI', system-ui, -apple-system, sans-serif";

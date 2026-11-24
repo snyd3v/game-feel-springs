@@ -22,10 +22,10 @@ const Lab = (() => {
     xLabel: 'Tiempo desde el último cambio (s)', yLabel: 'Posición (m)',
     xMin: 0, xMax: T_MAX, xStep: 1, yMin: -0.5, yMax: 2, yStep: 0.5,
     series: [
-      { label: 'Resorte (RK4)', color: COLORS.spring, width: 3 },
-      { label: 'Solución exacta', color: COLORS.exact, dash: [6, 5], width: 1.5, order: -1 },
-      { label: 'Lerp', color: COLORS.lerp, width: 2 },
-      { label: 'Destino', color: COLORS.target, dash: [2, 4], width: 1.5 },
+      { label: 'Resorte (RK4)', color: 'spring', width: 3 },
+      { label: 'Solución exacta', color: 'exact', dash: [6, 5], width: 1.5, order: -1 },
+      { label: 'Lerp', color: 'lerp', width: 2 },
+      { label: 'Destino', color: 'target', dash: [2, 4], width: 1.5 },
     ],
   });
   const [dsSpring, dsExact, dsLerp, dsTarget] = chart.data.datasets;
@@ -140,7 +140,7 @@ const Lab = (() => {
 
       const px = worldToPx(lane.x, w);
       if (lane.key === 's') {
-        ctx.fillStyle = '#9ca3af'; ctx.fillRect(PAD_L - 26, lane.y - 22, 6, 44); // pared
+        ctx.fillStyle = COLORS.wall; ctx.fillRect(PAD_L - 26, lane.y - 22, 6, 44); // pared
         ctx.strokeStyle = lane.color; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
         Charts.drawSpring(ctx, PAD_L - 20, px - 16, lane.y, 9, 13);
         ctx.fillStyle = lane.color; ctx.beginPath(); ctx.arc(px, lane.y, 16, 0, 7); ctx.fill();

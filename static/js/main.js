@@ -37,6 +37,27 @@
   });
   syncToggle();
 
+  // Tema claro / oscuro. Por defecto el del sistema; si la persona elige uno, se recuerda.
+  const mq = matchMedia('(prefers-color-scheme: dark)');
+  const themeBtn = $('theme-toggle');
+  function applyTheme(dark) {
+    if (dark) root.dataset.theme = 'dark'; else delete root.dataset.theme;
+    themeBtn.dataset.tooltip = dark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro';
+    COLORS.load();         // relee la paleta de las variables CSS (canvas)
+    Charts.applyTheme();   // recolorea las gráficas ya creadas
+  }
+  themeBtn.addEventListener('click', () => {
+    const dark = root.dataset.theme !== 'dark';
+    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+    applyTheme(dark);
+  });
+  mq.addEventListener('change', (e) => {   // sigue al sistema solo mientras no haya elección guardada
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (err) {}
+    if (!saved && !root.classList.contains('embedded')) applyTheme(e.matches);
+  });
+  applyTheme(root.dataset.theme === 'dark');
+
   // Solo se anima la sección visible. La pestaña oculta no consume CPU.
   let last = performance.now();
   function loop(now) {

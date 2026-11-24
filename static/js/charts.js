@@ -5,6 +5,8 @@ const Charts = (() => {
   Chart.defaults.font.size = 12;
   Chart.defaults.animation = false;
 
+  const live = []; // gráficas creadas, para recolorearlas al cambiar de tema
+
   const SUP = { '-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
   const sup = (n) => String(n).split('').map((c) => SUP[c]).join('');
 
@@ -32,8 +34,9 @@ const Charts = (() => {
     const datasets = cfg.series.map((s) => ({
       label: s.label,
       data: [],
-      borderColor: s.color,
-      backgroundColor: s.color,
+      _key: s.color,                       // clave de COLORS (o color literal): permite recolorear al cambiar de tema
+      borderColor: COLORS[s.color] ?? s.color,
+      backgroundColor: COLORS[s.color] ?? s.color,
       borderDash: s.dash || [],
       borderWidth: s.width || 2,
       pointRadius: s.points ? 4 : 0,
@@ -55,7 +58,7 @@ const Charts = (() => {
         ...(type === 'logarithmic' ? { callback: logTick } : {}),
       },
     });
-    return new Chart(canvas, {
+    const chart = new Chart(canvas, {
       type: 'scatter',
       data: { datasets },
       options: {
@@ -77,6 +80,27 @@ const Charts = (() => {
         },
       },
     });
+    live.push(chart);
+    return chart;
+  }
+
+  /** Vuelve a aplicar la paleta (COLORS ya releída) a todas las gráficas creadas. */
+  function applyTheme() {
+    Chart.defaults.color = COLORS.muted;
+    for (const chart of live) {
+      chart.data.datasets.forEach((ds) => { ds.borderColor = ds.backgroundColor = COLORS[ds._key] ?? ds._key; });
+      const o = chart.options;
+      for (const axis of [o.scales.x, o.scales.y]) {
+        axis.title.color = COLORS.text;
+        axis.grid.color = COLORS.grid;
+        axis.border.color = COLORS.line;
+        axis.ticks.color = COLORS.muted;
+      }
+      o.plugins.legend.labels.color = COLORS.text;
+      o.plugins.title.color = COLORS.ink;
+      o.plugins.subtitle.color = COLORS.muted;
+      chart.update('none');
+    }
   }
 
   /** Ventana deslizante: muestra los últimos `windowSec` segundos con el eje desplazándose en pasos enteros. */
@@ -129,5 +153,5 @@ const Charts = (() => {
     el.innerHTML = items.map(([k, v]) => `<div class="stat"><span>${k}</span><b>${v}</b></div>`).join('');
   }
 
-  return { create, setWindow, fitCanvas, drawSpring, renderStats, sci };
+  return { create, applyTheme, setWindow, fitCanvas, drawSpring, renderStats, sci };
 })();

@@ -23,8 +23,8 @@ const Cases = (() => {
       this.chart = Charts.create($(`${key}-chart`), {
         xLabel: 'Tiempo (s)', yLabel: opts.yLabel, yMin: opts.yMin, yMax: opts.yMax, yStep: opts.yStep,
         series: [
-          { label: opts.destLabel, color: COLORS.target, dash: [6, 4], width: 2 },
-          { label: opts.posLabel, color: COLORS.spring, width: 3 },
+          { label: opts.destLabel, color: 'target', dash: [6, 4], width: 2 },
+          { label: opts.posLabel, color: 'spring', width: 3 },
         ],
       });
       this.bindControls();
@@ -124,14 +124,14 @@ const Cases = (() => {
     }
     drawScene(ctx, w, h) {
       const cx = w / 2, ground = h * 0.78, cam = this.s.x;
-      ctx.fillStyle = '#e8edf3'; ctx.fillRect(0, ground, w, h - ground);
-      ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 2;
+      ctx.fillStyle = COLORS.ground; ctx.fillRect(0, ground, w, h - ground);
+      ctx.strokeStyle = COLORS.groundLine; ctx.lineWidth = 2;
       ctx.beginPath(); ctx.moveTo(0, ground); ctx.lineTo(w, ground); ctx.stroke();
       ctx.font = `11px ${FONT}`; ctx.textAlign = 'center';
       const first = Math.floor((cam - cx) / 150) * 150;
       for (let wx = first; wx < cam + cx + 150; wx += 150) {   // pilares fijos en el mundo
         const sx = cx + wx - cam;
-        ctx.fillStyle = '#d5dbe4'; ctx.fillRect(sx - 9, ground - 70, 18, 70);
+        ctx.fillStyle = COLORS.post; ctx.fillRect(sx - 9, ground - 70, 18, 70);
         ctx.fillStyle = COLORS.muted; ctx.fillText(`${wx} px`, sx, ground + 16);
       }
       const px = cx + this.player - cam;
@@ -177,16 +177,16 @@ const Cases = (() => {
     onPointer() { this.toggle(); }
     drawScene(ctx, w, h) {
       const PW = 250, PH = h - 24, px = (w - PW) / 2, py = 12;
-      ctx.fillStyle = '#1f2937';
+      ctx.fillStyle = COLORS.device;
       ctx.beginPath(); ctx.roundRect(px - 7, py - 7, PW + 14, PH + 14, 24); ctx.fill();   // carcasa
       ctx.save();
       ctx.beginPath(); ctx.roundRect(px, py, PW, PH, 17); ctx.clip();
-      ctx.fillStyle = '#f1f5f9'; ctx.fillRect(px, py, PW, PH);
-      ctx.fillStyle = '#e2e8f0'; ctx.fillRect(px + 16, py + 44, PW - 32, 70); ctx.fillRect(px + 16, py + 128, PW - 32, 70);
+      ctx.fillStyle = COLORS.screen; ctx.fillRect(px, py, PW, PH);
+      ctx.fillStyle = COLORS.screenItem; ctx.fillRect(px + 16, py + 44, PW - 32, 70); ctx.fillRect(px + 16, py + 128, PW - 32, 70);
       const progress = Math.max(0, Math.min(1, (this.s.x + MenuCase.W) / MenuCase.W));
       ctx.fillStyle = `rgba(15,23,42,${0.45 * progress})`; ctx.fillRect(px, py, PW, PH);   // velo
       const mx = px + this.s.x;                                                           // borde izquierdo
-      ctx.fillStyle = COLORS.spring;
+      ctx.fillStyle = COLORS.fill;
       ctx.fillRect(mx - 80, py, MenuCase.W + 80, PH);  // cuerpo extendido: no deja hueco si rebota
       ctx.fillStyle = '#fff'; ctx.textAlign = 'left';
       ctx.font = `600 15px ${FONT}`; ctx.fillText('Menú', mx + 20, py + 38);
@@ -224,7 +224,7 @@ const Cases = (() => {
       ctx.fillText('Guerrero · Nvl. 25', bx, by - 16);
       ctx.textAlign = 'right'; ctx.fillStyle = COLORS.spring;
       ctx.fillText(`${Math.max(0, this.s.x).toFixed(0)} / 100 HP`, bx + bw, by - 16);
-      ctx.fillStyle = '#e5e7eb'; ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, 8); ctx.fill();
+      ctx.fillStyle = COLORS.track; ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, 8); ctx.fill();
       const f = Math.max(0, Math.min(1, this.s.x / 100));
       ctx.save(); ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, 8); ctx.clip();
       ctx.fillStyle = f > 0.5 ? '#22c55e' : f > 0.25 ? '#f59e0b' : '#ef4444';
