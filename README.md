@@ -16,30 +16,101 @@ x'' + 2ζω x' + ω² (x − x_f) = 0
 - `ω` controla la **rapidez**, `ζ` el **carácter**: ζ < 1 rebota, ζ = 1 llega lo más rápido sin rebotar, ζ > 1 llega lento y pesado.
 - Con `u = x − x_f` la ecuación queda homogénea: `u'' + 2ζω u' + ω² u = 0`.
 
-La deducción (ecuación característica, solución general, condiciones iniciales, ζ = 0.3, 1 y 2 con ω = 8) está en
-[docs/Desarrollo_matematico.pdf](docs/Desarrollo_matematico.pdf) / [.md](docs/Desarrollo_matematico.md).
-**El programa verifica esa solución, no la reemplaza.**
-
 ## Cómo ejecutarlo
 
-Requiere Python 3.10 o superior.
+### Requisitos
+
+- **Python 3.10 o superior** (comprueba con `python --version`; en Windows también sirve `py --version`).
+- Ninguna conexión a internet en tiempo de ejecución: Chart.js ya está incluido en `static/vendor/`. Solo `pip install` necesita red la primera vez.
+
+### 1. Obtener el proyecto
+
+```
+git clone https://github.com/snyd3v/game-feel-springs.git
+cd game-feel-springs
+```
+
+(O descomprime el ZIP y abre la terminal dentro de la carpeta `game-feel-springs`.)
+
+### 2. Crear el entorno virtual e instalar dependencias (solo la primera vez)
+
+Elige el bloque según la terminal que uses.
+
+**PowerShell (Windows)**
 
 ```powershell
-python -m venv venv                 # solo la primera vez
-.\venv\Scripts\Activate.ps1         # Linux/macOS: source venv/bin/activate
-pip install -r requirements.txt     # solo la primera vez
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+> Si PowerShell dice que *la ejecución de scripts está deshabilitada*, ejecuta una vez
+> `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` y vuelve a activar el entorno.
+
+**Símbolo del sistema / CMD (Windows)**
+
+```bat
+python -m venv venv
+venv\Scripts\activate.bat
+pip install -r requirements.txt
+```
+
+**Git Bash (Windows)**
+
+```bash
+python -m venv venv
+source venv/Scripts/activate
+pip install -r requirements.txt
+```
+
+**Linux / macOS (Bash o Zsh)**
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Cuando el entorno está activo, el indicador `(venv)` aparece al inicio de la línea de comandos.
+
+> Si `python` no se reconoce en Windows, usa el lanzador `py` (`py -m venv venv`) o reinstala Python marcando *Add python.exe to PATH*.
+
+### 3. Iniciar la aplicación
+
+Con el entorno activo, en cualquier terminal:
+
+```
 python app.py
 ```
 
-Abre **http://localhost:5000**. Para detener el servidor: `Ctrl + C`. No necesita internet (Chart.js está incluido en `static/vendor/`).
+Abre **http://localhost:5000** en el navegador. Para detener el servidor: `Ctrl + C`.
 
-Diapositivas de la sustentación: **http://localhost:5000/presentacion**. Se avanza con las flechas o AvPág; dentro de una demostración, con AvPág o los botones del pie. `F11` es pantalla completa.
+### Ejecutar sin activar el entorno
 
-Pruebas automáticas de la matemática (solución exacta, RK4, orden de convergencia, tiempo de asentamiento):
+Si prefieres no activar el entorno (o PowerShell lo bloquea), llama directamente al Python del `venv`:
 
-```powershell
+| Terminal | Comando |
+|---|---|
+| PowerShell | `.\venv\Scripts\python.exe app.py` |
+| CMD | `venv\Scripts\python.exe app.py` |
+| Git Bash | `./venv/Scripts/python.exe app.py` |
+| Linux / macOS | `./venv/bin/python app.py` |
+
+### Pruebas automáticas
+
+Verifican la matemática (solución exacta, RK4, orden de convergencia, tiempo de asentamiento). Con el entorno activo:
+
+```
 python -m pytest tests
 ```
+
+### Problemas frecuentes
+
+| Síntoma | Solución |
+|---|---|
+| `Address already in use` / el puerto 5000 está ocupado | Cierra el otro proceso que lo usa, o cambia `port=5000` al final de `app.py`. |
+| `ModuleNotFoundError: No module named 'flask'` | El entorno no está activo o faltó `pip install -r requirements.txt`. |
+| La página abre pero sin gráficas | Recarga con `Ctrl + F5` y confirma que existe `static/vendor/`. |
 
 ## Qué hay en la aplicación
 
@@ -48,7 +119,7 @@ python -m pytest tests
 | **1 · Laboratorio** | Pantalla partida resorte vs. `x += (destino − x)·0.1`. Clic para mover el destino (los objetos viajan desde donde están), deslizadores de ω y ζ en vivo, gráfica x(t) con la curva exacta superpuesta, régimen, raíces, sobreimpulso y tiempo de asentamiento. | Animación interactiva, deslizadores, comparación con lerp |
 | **2 · Verificación** | Para ζ = 0.3, 1 y 2 (ω = 8, x(0) = 0, x′(0) = 0, x_f = 1): RK4 y solución exacta superpuestas, gráfica del error, tabla de errores máximos y estudio de convergencia en h. | Gráfica numérica vs. exacta y comentario de la diferencia |
 | **3 · Aplicaciones** | Cámara (ζ = 1), menú (ζ = 0.5) y barra de vida (ζ = 2), cada una con su animación, su x(t) al lado y la justificación calculada. | Tres aplicaciones con ζ distinto |
-| **4 · Conclusión** | Tabla de parámetros elegidos con sobreimpulso y tiempo de asentamiento, recomendación y enlace a la deducción a mano. | Conclusión de ingeniería |
+| **4 · Conclusión** | Tabla de parámetros elegidos con sobreimpulso y tiempo de asentamiento y recomendación. | Conclusión de ingeniería |
 
 ### Decisiones de implementación
 
@@ -57,26 +128,20 @@ python -m pytest tests
 - **Verificación en el mismo vector de tiempos.** El servidor (`/api/verify`) evalúa RK4 y la solución exacta en los mismos instantes. Con `h = 0.001 s` el error máximo es ≈ 4·10⁻¹¹ m (ζ = 0.3 y 1) y 1.9·10⁻¹⁰ m (ζ = 2); con `h = 1/240 s`, del orden de 10⁻⁸ m. Es el error global de RK4 (∝ h⁴), medido en la sección 2.
 - **Overlay exacto en vivo.** En el laboratorio, cada clic o cambio de ω/ζ re-ancla la solución exacta con la posición y velocidad de ese instante, de modo que la verificación sigue vigente aunque se interactúe.
 
-## Estructura del repositorio y qué defender
+## Estructura del proyecto
 
 ```
-physics.py          NÚCLEO: aceleración, RK4, solución exacta (3 casos), métricas
-static/js/physics.js NÚCLEO: la misma matemática en el navegador (anima la simulación)
-app.py              servidor Flask: sirve la página y /api/verify, /api/convergence (RK4 vs exacta con numpy)
-tests/              pytest de physics.py
-static/             interfaz: index.html, css/ y js/{lab,verify,cases,charts,main}.js (solo dibujo y controles)
-static/presentacion.html  diapositivas de /presentacion (con css/ y js/presentacion.*)
-docs/               deducción (Markdown y su PDF exportado) y Guia_exposicion.md (organización interna)
+physics.py            Núcleo: aceleración, RK4, solución exacta (3 casos), métricas
+app.py                Servidor Flask: sirve la página y la API de verificación
+static/               Interfaz web (index.html, css/, js/, vendor/)
+static/js/physics.js  La misma matemática en el navegador (anima la simulación)
+tests/                Pruebas con pytest de physics.py
+requirements.txt      Dependencias de Python
 ```
 
-- **Matemática y lógica (lo que se explica línea por línea):** `physics.py` y `static/js/physics.js`. Cada bloque indica en su cabecera la sección de `docs/Desarrollo_matematico.md` donde está deducido. Python verifica con numpy (como el esqueleto de la guía); JavaScript anima.
-- **Interfaz:** `lab.js`, `cases.js`, `verify.js`, `charts.js` y el CSS solo dibujan, leen los deslizadores y llaman a `physics.js`; no contienen matemática propia.
-
-API: `GET /api/verify?zeta=&omega=&h=&T=` · `GET /api/convergence?zeta=&omega=`.
+API: `GET /api/verify?zeta=&omega=&h=&T=` · `GET /api/convergence?zeta=&omega=`
 
 ## Declaración sobre el uso de asistentes de inteligencia artificial
 
 - **Gemini / Antigravity (Google DeepMind):** versión inicial en Tkinter/Matplotlib, estructura de la deducción en Markdown y de las diapositivas (esa versión ya no está en el repositorio).
-- **Claude Code (Anthropic):** migración a la aplicación web (Flask + JavaScript), reorganización del repositorio, API de verificación, pruebas con pytest, revisión de la matemática contra los apuntes de clase (correcciones del tiempo de asentamiento, notación y citas), redacción del paso a paso de `docs/Desarrollo_matematico.md` siguiendo el procedimiento visto en clase, guía interna de exposición, diapositivas de `/presentacion` y esta documentación.
-
-El desarrollo de `docs/` es la versión mecanografiada, hecha con la asistencia declarada arriba; el manuscrito del grupo se entrega aparte. El grupo revisó y puede explicar el código y cada paso de la deducción.
+- **Claude Code (Anthropic):** migración a la aplicación web (Flask + JavaScript), reorganización del repositorio, API de verificación, pruebas con pytest.
