@@ -260,7 +260,8 @@
       </div>
       <div class="panel lerp-panel">
         <h3>Lerp · primer orden</h3>
-        <p class="eq">x += (destino − x) · 0.1</p>
+        <p class="why">En el código (lab.js):</p>
+        <pre>st.lerp += (st.target - st.lerp) * 0.1;</pre>
         <ul>
           <li>Arranca con la máxima velocidad</li>
           <li>Solo frena: no tiene inercia</li>
@@ -280,10 +281,12 @@
         <h3>De segundo orden a sistema</h3>
         <p class="eq">x′ = v</p>
         <p class="eq">v′ = −2ζωv − ω²(x − x<sub>f</sub>)</p>
-        <p class="why">La misma línea en el código:</p>
+        <p class="why">La misma línea en el código (physics.js · acceleration):</p>
         <pre>return -2 * zeta * omega * v
        - omega * omega * (x - target);</pre>
-        <p class="why">ω y ζ son los deslizadores.<br>Se integra con RK4 y paso h fijo.</p>
+        <p class="why">RK4 con paso h fijo (rk4Step): pendiente k1 al inicio,<br>k2 y k3 a la mitad y k4 al final del paso</p>
+        <pre>s.x = x + (h / 6) * (k1x + 2 * k2x
+                     + 2 * k3x + k4x);</pre>
       </div>
       <div class="panel">
         <h3>¿En qué se diferencia de la exacta y por qué?</h3>
@@ -302,7 +305,7 @@
 
   <section class="slide">
     <h2>Verificación: numérica frente a exacta</h2>
-    <p class="data">Las curvas se superponen: la diferencia es el <b>error acumulado de RK4</b>, proporcional a h⁴</p>
+    <p class="data"><code>err = np.abs(x_num - x_ex)</code> = |x<sub>RK4</sub> − x<sub>exacta</sub>| en los mismos tiempos t &nbsp;·&nbsp; <b>error acumulado de RK4</b>, ∝ h⁴</p>
     <div class="body demo with-data" data-view="verify"><p>Demostración en vivo: Verificación</p></div>
   </section>
 
@@ -323,7 +326,12 @@
           <tr><td>Barra de vida</td><td>2</td><td>8</td><td>No</td><td>1.86 s</td><td>Baja con peso: con 0.35 se pasaría<br>30.9 % y parecería curación</td></tr>
         </tbody>
       </table>
-      <p class="note">ζ se elige por carácter y ω por rapidez. Valores desde el reposo, banda del 2 % (menú: cota por la envolvente).</p>
+      <div class="decision">
+        <pre>camera: { zeta: 1.0, omega: 6 },
+menu:   { zeta: 0.5, omega: 10 },
+health: { zeta: 2.0, omega: 8 },</pre>
+        <p class="note">Son los valores que usa el programa (config.js).<br>ζ se elige por carácter y ω por rapidez. Valores desde el reposo, banda del 2 % (menú: cota por la envolvente).</p>
+      </div>
     </div>
     <p class="key">Recomendamos <b>ζ = 1</b> para acompañar, <b>0.5</b> para responder y <b>2</b> para mostrar una pérdida</p>
   </section>

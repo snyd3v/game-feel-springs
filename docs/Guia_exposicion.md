@@ -202,6 +202,10 @@ Entonces, lo que vimos sale de aquí: el vaivén, del seno y el coseno. Que cada
 
 El lerp es de primer orden. En cada cuadro avanza el 10 por ciento de lo que falta: arranca de golpe, solo frena y nunca rebota. Además depende del monitor: tarda 0.63 segundos a 60 hercios y 0.26 a 144.
 
+*[Señala la línea de código del lerp.]*
+
+En el programa, el lerp es esta sola línea. Target es el destino: a la posición le suma el 10 por ciento de lo que le falta. No guarda velocidad.
+
 El resorte es de segundo orden: guarda posición y velocidad. Por eso acelera, tiene inercia y puede pasarse. Con paso fijo, no depende del monitor.
 
 Andrés nos muestra que el programa coincide con la solución exacta.
@@ -215,27 +219,35 @@ Andrés nos muestra que el programa coincide con la solución exacta.
 
 ## 5. Andrés: programa y aplicaciones (diapositivas 12 a 14, 2:45)
 
-### Diapositiva 12. La ecuación en el programa (11:30 a 12:20)
+### Diapositiva 12. La ecuación en el programa (11:30 a 12:30)
 
 Gracias, Luis. Para programar la ecuación la convertimos en un sistema de primer orden: equis prima es la velocidad, y uve prima es la aceleración despejada.
 
-*[Señala la línea de código.]*
+*[Señala el primer bloque de código.]*
 
-Esta línea es esa misma ecuación, y omega y zeta vienen de los deslizadores.
+Esta línea es esa misma ecuación: target es el destino, equis efe, omega por omega es omega al cuadrado, y omega y zeta vienen de los deslizadores.
 
-La resolvemos con Runge-Kutta 4 y paso fijo. La exacta es una fórmula. La numérica avanza por pasos y acumula un error proporcional a hache a la cuatro.
+*[Señala el segundo bloque de código.]*
 
-### Diapositiva 13. Verificación (12:20 a 13:10)
+El sistema lo resolvemos con Runge-Kutta 4. La exacta es una fórmula; Runge-Kutta, en cambio, avanza el tiempo en pasos pequeños de tamaño hache. En cada paso calcula la pendiente cuatro veces: al inicio, dos en la mitad y al final. Esta línea las promedia, y las del medio pesan doble. Lo programamos nosotros, sin librerías.
+
+Por avanzar por pasos acumula un error proporcional a hache a la cuatro.
+
+### Diapositiva 13. Verificación (12:30 a 13:15)
+
+*[Señala la línea de código de arriba.]*
+
+Aquí está la verificación. El error es el valor absoluto de la numérica menos la exacta, calculadas en los mismos tiempos.
 
 *[Señala la gráfica izquierda.]*
 
-Aquí está la verificación. La línea de color es la numérica y la negra discontinua es la exacta, calculadas en los mismos tiempos. Como ven, se superponen.
+La línea de color es la numérica y la negra discontinua es la exacta. Como ven, se superponen.
 
 *[Señala la gráfica derecha y la columna de error máximo.]*
 
 Esta es la diferencia. Con un paso de 0.001 segundos, la mayor es 1.9 por diez a la menos diez metros, menos de un nanómetro. No es cero por el error que acumula cada paso.
 
-### Diapositiva 14. Tres aplicaciones (13:10 a 14:15)
+### Diapositiva 14. Tres aplicaciones (13:15 a 14:15)
 
 La misma ecuación sirve para tres cosas, cada una con su gráfica al lado.
 
@@ -276,7 +288,9 @@ Zeta 0.5 para el menú, porque responde en 0.24 segundos y solo se pasa 36 píxe
 
 Y zeta 2 para la vida, porque con 0.35 se pasaría 30.9 por ciento y parecería una curación.
 
-En resumen, zeta da el carácter y omega la rapidez.
+*[Señala el bloque de código.]*
+
+Y estos son exactamente los valores que usa el programa, en config.js. En resumen, zeta da el carácter y omega la rapidez.
 
 ### Diapositiva 16. Cierre y preguntas (desde 15:00)
 
@@ -290,17 +304,33 @@ La guía dice que una línea que nadie pueda explicar no cuenta.
 
 | Archivo o función | Responde | En una frase |
 |---|:---:|---|
-| `config.js`, `main.js`, `index.html`, `styles.css` | Edwin | Parámetros elegidos, navegación y tabla de conclusión, estructura y estilo |
+| `config.js`, `main.js`, `index.html`, `styles.css` | Edwin | Parámetros elegidos (el bloque `DESIGN` de la diapositiva 15), navegación y tabla de conclusión, estructura y estilo |
 | `presentacion.html`, `presentacion.css`, `presentacion.js` | Edwin | Las diapositivas: cambian de página, muestran la app y grafican con la solución exacta de `physics.js` |
 | `exact_position`, `exactPosition`, `is_critical`, `isCritical` | Cristian | Las tres soluciones de la sección 4, para condiciones iniciales cualesquiera, y la tolerancia con que se reconoce ζ = 1 |
-| `app.py`, `tests/` | Cristian | El servidor que entrega la app, las diapositivas y la comparación, y las pruebas de la matemática |
+| `app.py`, `tests/` | Cristian | El servidor que entrega la app, las diapositivas y la comparación (`_verify`: la línea del error de la diapositiva 13, que presenta Andrés), y las pruebas de la matemática |
 | `system_metrics`, `metrics`, `formatRoots` | Luis | Raíces y fórmulas de 5.5 y 5.6 |
-| `lab.js`, `charts.js`, `FixedStepper` | Luis | Animación, gráficas y reloj de paso fijo |
-| `acceleration` (Python y JS) | Andrés | Es la ecuación con la segunda derivada despejada, la línea de la diapositiva 12 |
-| `rk4_step`, `rk4_solve`, `rk4Step` | Andrés | Cuatro pendientes y su promedio ponderado |
+| `lab.js`, `charts.js`, `FixedStepper` | Luis | Animación (con la línea del lerp de la diapositiva 11), gráficas y reloj de paso fijo |
+| `acceleration` (Python y JS) | Andrés | Es la ecuación con la segunda derivada despejada, el primer bloque de la diapositiva 12 |
+| `rk4_step`, `rk4_solve`, `rk4Step` | Andrés | Cuatro pendientes y su promedio ponderado, el segundo bloque de la diapositiva 12 |
 | `verify.js`, `cases.js` | Andrés | Gráficas de error y las tres aplicaciones |
 
 Además, **los cuatro** deben poder explicar sin ayuda esta cadena: ecuación → cambio de variable → raíces → solución → sistema de primer orden → RK4.
+
+### Cómo leer en voz alta el código de las diapositivas
+
+El público es la profesora y compañeros que no conocen el programa: **cada nombre del código se traduce a la matemática que ya vieron**. No se lee el código símbolo por símbolo.
+
+| En el código | En la matemática | Se dice |
+|---|---|---|
+| `target` | x<sub>f</sub> | «el destino» |
+| `x`, `v` | x, x′ | «la posición y la velocidad» |
+| `omega`, `zeta` | ω, ζ | «omega y zeta, los de los deslizadores» |
+| `omega * omega` | ω² | «omega al cuadrado» |
+| `h` | paso de tiempo | «el paso, hache» |
+| `k1x` a `k4x` | pendientes de RK4 | «las cuatro pendientes: inicio, dos a la mitad, final» |
+| `x_num`, `x_ex` | x<sub>RK4</sub>, x<sub>exacta</sub> | «la numérica y la exacta» |
+| `np.abs` | valor absoluto | «el valor absoluto» |
+| `camera`, `menu`, `health` | cámara, menú, barra de vida | (la tabla de arriba ya los traduce) |
 
 ---
 
@@ -351,11 +381,17 @@ RK4 trabaja con primeras derivadas, por eso la velocidad se vuelve otra incógni
 **¿Por qué RK4 y no Euler? (Andrés, diapositiva 12)**\
 El error de Euler es proporcional a h y el de RK4 a h⁴. Con el mismo paso es muchísimo más preciso.
 
+**¿Usaron una librería para RK4? (Andrés, diapositiva 12)**\
+No. Las cuatro pendientes y su promedio están escritas en `rk4Step` y `rk4_step`. Numpy solo guarda los vectores y calcula el error.
+
 **¿Por qué paso fijo y no deltaTime? (Luis, diapositiva 12)**\
 deltaTime cambia en cada cuadro y arruina la comparación con la exacta. Usamos 1/240 s.
 
 **Si el lerp depende de los cuadros, ¿por qué en la app no cambia con el monitor? (Luis, diapositiva 11)**\
-Lo fijamos a 60 pasos por segundo para comparar. Escrito directamente en cada cuadro sí cambiaría.
+Lo fijamos a 60 pasos por segundo para comparar: en `lab.js` la línea del lerp corre con `FixedStepper(1 / 60)`. Escrito directamente en cada cuadro sí cambiaría.
+
+**¿Dónde está la solución exacta en el programa? (Cristian, diapositiva 6)**\
+En `exactPosition` y `exact_position`, con un caso por régimen. El de ζ = 1 es `u = (u0 + (v0 + omega * u0) * t) * Math.exp(-omega * t)`, o sea C₁ = u₀ y C₂ = v₀ + ωu₀. Con u₀ = −1, v₀ = 0 y ω = 8 da (−1 − 8t)e⁻⁸ᵗ, lo mismo de la diapositiva 6.
 
 **¿Por qué la misma matemática en Python y en JS? (Cristian)**\
 JS anima en el navegador. Python verifica con numpy, como propone la guía.

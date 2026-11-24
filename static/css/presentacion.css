@@ -49,7 +49,8 @@ sub, sup { font-size: .65em; line-height: 0; }
   padding: 14px 16px; background: var(--suave); border-top: 6px solid var(--azul); border-radius: 12px; }
 .panel h3 { color: var(--azul); font-size: 25px; }
 .compact .eq { font-size: 24px; }
-pre { margin: 0; padding: 12px 18px; border-radius: 8px; background: var(--azul); color: #fff; font: 20px/1.5 Consolas, monospace; text-align: left; }
+pre { margin: 0; padding: 12px 18px; border-radius: 8px; background: var(--azul); color: #fff; font: 22px/1.5 Consolas, monospace; text-align: left; }
+code { padding: 2px 10px; border-radius: 6px; background: var(--azul); color: #fff; font: 21px Consolas, monospace; }
 .panel ul { margin: 0; padding-left: 24px; text-align: left; font-size: 24px; line-height: 1.9; }
 .feel { align-self: stretch; padding: 8px; background: #fff; font-size: 22px; font-weight: 600; }
 .panel.z03, .solution.z03 { border-color: var(--z03); }
@@ -74,7 +75,10 @@ td.z1 { color: var(--z1); font-weight: 700; }
 td.z2 { color: var(--z2); font-weight: 700; }
 .bounce { font-size: 22px; }
 .conclusion { font-size: 22px; }
-.conclusion td { height: 100px; }
+.conclusion td { height: 88px; }
+.decision { display: flex; align-items: center; gap: 28px; margin-top: 18px; }
+.decision pre { flex: none; }
+.decision .note { margin: 0; }
 .conclusion td:first-child { color: var(--azul); font-weight: 700; }
 .note { margin-top: 18px; font-size: 19px; color: #4b5563; }
 .causes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 30px; }
