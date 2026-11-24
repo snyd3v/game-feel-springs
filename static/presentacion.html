@@ -220,7 +220,7 @@
   <!-- ============ demo, rebote y lerp ============ -->
   <section class="slide">
     <h2>Demostración: ¿va a rebotar?</h2>
-    <p class="data">Muevan ζ u ω y pulsen <b>Reiniciar</b> &nbsp;·&nbsp; la flecha y el rastro muestran la velocidad</p>
+    <p class="data">La flecha y el rastro muestran la velocidad</p>
     <div class="body demo with-data" data-view="lab"><p>Demostración en vivo: Laboratorio</p></div>
   </section>
 
@@ -276,7 +276,7 @@
   <!-- ============ programa, verificación, aplicaciones y conclusión ============ -->
   <section class="slide">
     <h2>La ecuación en el programa</h2>
-    <div class="body cols">
+    <div class="body cols no-key">
       <div class="panel">
         <h3>De segundo orden a sistema</h3>
         <p class="eq">x′ = v</p>
@@ -300,7 +300,6 @@
         <p class="why">con h = 0.001 s</p>
       </div>
     </div>
-    <p class="key"><b>Primero la matemática, después el programa:</b> el programa la verifica</p>
   </section>
 
   <section class="slide">
@@ -330,7 +329,7 @@
         <pre>camera: { zeta: 1.0, omega: 6 },
 menu:   { zeta: 0.5, omega: 10 },
 health: { zeta: 2.0, omega: 8 },</pre>
-        <p class="note">Son los valores que usa el programa (config.js).<br>ζ se elige por carácter y ω por rapidez. Valores desde el reposo, banda del 2 % (menú: cota por la envolvente).</p>
+        <p class="note">Valores de config.js, desde el reposo, con banda del 2 % (menú: cota por la envolvente).</p>
       </div>
     </div>
     <p class="key">Recomendamos <b>ζ = 1</b> para acompañar, <b>0.5</b> para responder y <b>2</b> para mostrar una pérdida</p>

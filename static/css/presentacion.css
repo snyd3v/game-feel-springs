@@ -24,6 +24,7 @@ h1, h2, h3, p { margin: 0; }
 .data { position: absolute; left: 44px; right: 44px; top: 106px; font-size: 22px; color: var(--azul); }
 .with-data { top: 154px; bottom: 60px; }
 .with-key { bottom: 124px; }
+.no-key { bottom: 60px; }
 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
 .thirds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; top: 208px; bottom: 60px; }
 .derivation { position: absolute; left: 44px; right: 44px; top: 108px; padding: 4px; text-align: center; background: #fff8d9; border-radius: 10px; }

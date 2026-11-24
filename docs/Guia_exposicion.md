@@ -294,7 +294,7 @@ Y estos son exactamente los valores que usa el programa, en config.js. En resume
 
 ### Diapositiva 16. Cierre y preguntas (desde 15:00)
 
-Primero la matemática, después el programa: las raíces de la ecuación característica deciden cómo se siente una animación. Muchas gracias. ¿Tienen preguntas?
+En resumen, las raíces de la ecuación característica deciden cómo se siente una animación. Muchas gracias. ¿Tienen preguntas?
 
 ---
 
