@@ -5,19 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Resortes para animar · Game feel</title>
   <link rel="stylesheet" href="/static/css/styles.css">
+  <script>
+    // Antes de pintar: evita el parpadeo del menú y detecta si la app va dentro de la presentación (iframe).
+    (() => {
+      const c = document.documentElement.classList;
+      if (window.self !== window.top) c.add('embedded');
+      let saved = null;
+      try { saved = localStorage.getItem('sidebar-collapsed'); } catch (e) {}
+      if (saved === '1' || (saved === null && window.innerWidth < 800)) c.add('sb-collapsed');
+    })();
+  </script>
 </head>
 <body>
-  <header class="topbar">
+  <div class="app">
+  <aside class="sidebar" id="sidebar">
     <div class="brand">
-      <h1>Resortes para animar</h1>
-      <p>Ecuaciones diferenciales de segundo orden · Proyecto 4</p>
+      <div class="brand-mark" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3l2-6 4 12 3-9 2 3h4"/></svg></div>
+      <div class="brand-text">
+        <h1>Resortes para animar</h1>
+        <p>Ecuaciones diferenciales de segundo orden · Proyecto 4</p>
+      </div>
     </div>
-    <nav class="tabs" id="main-tabs" role="tablist">
-      <button class="tab active" data-view="lab" role="tab">Laboratorio</button>
-      <button class="tab" data-view="verify" role="tab">Verificación</button>
-      <button class="tab" data-view="cases" role="tab">Aplicaciones</button>
-      <button class="tab" data-view="conclusion" role="tab">Conclusión</button>
+    <p class="menu-title">Menú</p>
+    <nav class="nav-list" id="main-nav" role="tablist" aria-label="Secciones">
+      <button class="nav-item active" data-view="lab" data-tooltip="Laboratorio" role="tab">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v7.5L4.6 18.6A2 2 0 0 0 6.3 21.5h11.4a2 2 0 0 0 1.7-2.9L14 9.5V2"/><path d="M8.5 2h7"/><path d="M7 15h10"/></svg>
+        <span class="label">Laboratorio</span>
+      </button>
+      <button class="nav-item" data-view="verify" data-tooltip="Verificación" role="tab">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg>
+        <span class="label">Verificación</span>
+      </button>
+      <button class="nav-item" data-view="cases" data-tooltip="Aplicaciones" role="tab">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span class="label">Aplicaciones</span>
+      </button>
+      <button class="nav-item" data-view="conclusion" data-tooltip="Conclusión" role="tab">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22V4"/><path d="M5 4h13l-2.5 4L18 12H5"/></svg>
+        <span class="label">Conclusión</span>
+      </button>
     </nav>
+  </aside>
+
+  <div class="content">
+  <header class="navbar">
+    <button class="icon-btn" id="sidebar-toggle" data-tooltip="Colapsar menú" aria-label="Colapsar o expandir el menú" aria-expanded="true">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+    </button>
+    <span class="navbar-sep" aria-hidden="true"></span>
+    <h2 id="page-title">Laboratorio</h2>
   </header>
 
   <main>
@@ -216,6 +252,8 @@
       </div>
     </section>
   </main>
+  </div>
+  </div>
 
   <script src="/static/vendor/chart.umd.min.js"></script>
   <script src="/static/js/config.js"></script>

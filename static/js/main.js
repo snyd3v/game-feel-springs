@@ -1,19 +1,41 @@
-/* Navegación entre secciones, bucle de animación y tabla de conclusión. */
+/* Menú lateral, navegación entre secciones, bucle de animación y tabla de conclusión. */
 (() => {
   const $ = (id) => document.getElementById(id);
   const views = { lab: Lab, verify: Verify, cases: Cases, conclusion: null };
   let current = 'lab';
 
+  const items = document.querySelectorAll('#main-nav .nav-item');
+  const toggle = $('sidebar-toggle');
+  const root = document.documentElement;
+
   function show(name) {
     current = name;
-    document.querySelectorAll('#main-tabs .tab').forEach((b) => b.classList.toggle('active', b.dataset.view === name));
+    items.forEach((b) => {
+      const on = b.dataset.view === name;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on);
+      if (on) $('page-title').textContent = b.dataset.tooltip;
+    });
     document.querySelectorAll('.view').forEach((v) => v.classList.toggle('active', v.id === `view-${name}`));
     views[name]?.onShow?.();
   }
-  document.querySelectorAll('#main-tabs .tab').forEach((b) => b.addEventListener('click', () => {
+  items.forEach((b) => b.addEventListener('click', () => {
     show(b.dataset.view);
     history.replaceState(null, '', `#${b.dataset.view}`);
   }));
+
+  // Sidebar colapsable: solo iconos (con tooltip) o icono + texto. El estado se recuerda entre visitas.
+  function syncToggle() {
+    const collapsed = root.classList.contains('sb-collapsed');
+    toggle.setAttribute('aria-expanded', !collapsed);
+    toggle.dataset.tooltip = collapsed ? 'Expandir menú' : 'Colapsar menú';
+  }
+  toggle.addEventListener('click', () => {
+    const collapsed = root.classList.toggle('sb-collapsed');
+    try { localStorage.setItem('sidebar-collapsed', collapsed ? '1' : '0'); } catch (e) {}
+    syncToggle();
+  });
+  syncToggle();
 
   // Solo se anima la sección visible. La pestaña oculta no consume CPU.
   let last = performance.now();
