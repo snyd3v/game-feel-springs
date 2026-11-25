@@ -6,16 +6,13 @@
   <title>Resortes para animar · Game feel</title>
   <link rel="stylesheet" href="/static/css/styles.css">
   <script>
-    // Antes de pintar: evita el parpadeo del menú y del tema, y detecta si la app va dentro de la
-    // presentación (iframe), donde se muestra siempre en claro y sin menú.
+    // Antes de pintar: evita el parpadeo del menú y del tema.
     (() => {
       const root = document.documentElement;
-      const embedded = window.self !== window.top;
       let sidebar = null, theme = null;
       try { sidebar = localStorage.getItem('sidebar-collapsed'); theme = localStorage.getItem('theme'); } catch (e) {}
-      if (embedded) root.classList.add('embedded');
       if (sidebar === '1' || (sidebar === null && window.innerWidth < 800)) root.classList.add('sb-collapsed');
-      const dark = !embedded && (theme === 'dark' || (theme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches));
+      const dark = theme === 'dark' || (theme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
       if (dark) root.dataset.theme = 'dark';
     })();
   </script>

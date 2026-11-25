@@ -58,7 +58,7 @@
   mq.addEventListener('change', (e) => {   // sigue al sistema solo mientras no haya elección guardada
     let saved = null;
     try { saved = localStorage.getItem('theme'); } catch (err) {}
-    if (!saved && !root.classList.contains('embedded')) applyTheme(e.matches);
+    if (!saved) applyTheme(e.matches);
   });
   applyTheme(root.dataset.theme === 'dark');
 

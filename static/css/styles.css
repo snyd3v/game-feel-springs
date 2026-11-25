@@ -86,9 +86,6 @@ body { min-height: 100vh; }
 .subtab.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
 .subtabs { margin-bottom: 14px; }
 
-/* dentro de la presentación (iframe) la app se muestra sin menú ni barra */
-.embedded .sidebar, .embedded .navbar { display: none; }
-
 /* ---------- estructura ---------- */
 main { width: 100%; max-width: 1400px; margin: 0 auto; padding: 32px 40px 64px; }
 @media (max-width: 800px) { main { padding: 20px 16px 40px; } }
